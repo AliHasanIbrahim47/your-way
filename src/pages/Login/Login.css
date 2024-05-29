@@ -1,0 +1,141 @@
+.login {
+  height: 100vh;
+  background-color: #BA8D38;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.login img {
+  width: 80%;
+  max-width: 250px;
+  border-radius: 50%;
+  margin-bottom: 5%;
+}
+
+.login section {
+  width: 100%;
+  max-width: 420px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 25px;
+}
+
+.login form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  padding-bottom: 1rem;
+}
+
+.login a, .login a:visited {
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid #BA8D38;
+  text-decoration: none;
+  color: #1D1C1C;
+  text-align: center;
+}
+
+.login input[type="text"],
+.login input[type="password"],
+.login button,
+.login textarea {
+  width: 100%;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.login label, .login button {
+  margin-top: 1rem;
+}
+
+.login button {
+  padding: 0.75rem;
+  background-color: #BA8D38;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login button:hover {
+  background-color: #A37A30;
+}
+
+.login .offscreen {
+  position: absolute;
+  left: -9999px;
+}
+
+.login .hide {
+  display: none;
+}
+
+.login .errmsg {
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  text-align: center;
+}
+
+.login .line {
+  display: inline-block;
+}
+
+.login .signedin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .login {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .login img {
+    width: 60%;
+    max-width: 150px;
+  }
+
+  .login section {
+    padding: 0.5rem;
+  }
+
+  .login a, .login a:visited {
+    font-size: 0.875rem;
+    padding: 0.25rem;
+  }
+
+  .login input[type="text"],
+  .login input[type="password"],
+  .login button,
+  .login textarea {
+    font-size: 0.875rem;
+    padding: 0.25rem;
+  }
+
+  .login button {
+    padding: 0.5rem;
+  }
+}
