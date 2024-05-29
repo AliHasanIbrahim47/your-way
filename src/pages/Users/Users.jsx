@@ -13,11 +13,11 @@ const Users = ({data}) => {
 //   }, []);
 
   const show = (id) => {
-    navigate(`/item/${id}`);
+    navigate(`/users/${id}`);
   };
 
   const update = (id) => {
-    navigate(`/${id}/edit`);
+    navigate(`/users/${id}/edit`);
   };
 
   return (
