@@ -2,6 +2,8 @@ import React from "react";
 import Sidebar from '../../components/Sidebar';
 import { Link, useNavigate } from "react-router-dom";
 import "./Users.css";
+import { RiSettings4Fill } from "react-icons/ri";
+import { RiDeleteBin5Fill } from "react-icons/ri";
 
 const Users = ({data}) => {
     const navigate = useNavigate();
@@ -51,8 +53,8 @@ const Users = ({data}) => {
                   <td>{element.number}</td>
                   <td className="actions-style">
                     <button onClick={() => show(element.id)}>show</button>
-                    <button onClick={() => update(element.id)}>edit</button>
-                    <button>delete</button>
+                    <button onClick={() => update(element.id)}><RiSettings4Fill /></button>
+                    <button><RiDeleteBin5Fill /></button>
                   </td>
                 </tr>
               );

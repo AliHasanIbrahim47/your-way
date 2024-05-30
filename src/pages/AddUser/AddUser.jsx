@@ -48,7 +48,7 @@ const AddUser = () => {
           />
           <label htmlFor="number">Number</label>
           <input
-            type="text"
+            type="number"
             id="number"
             placeholder="Number"
             value={number}

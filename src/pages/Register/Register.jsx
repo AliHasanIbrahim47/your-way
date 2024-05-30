@@ -127,17 +127,6 @@ const nameRef = useRef();
               aria-describedby="uidnote"
             />
 
-          <label htmlFor="number">Phone Number:</label>
-            <input
-              type="text"
-              id="number"
-              autoComplete="off"
-              onChange={(e) => setNumber(e.target.value)}
-              value={number}
-              required
-              aria-describedby="uidnote"
-            />
-
             <label htmlFor="username">Username:</label>
             <input
               type="text"
@@ -164,6 +153,17 @@ const nameRef = useRef();
               <br />
               Letters, numbers, underscores, hyphens allowed.
             </p>
+
+            <label htmlFor="number">Phone Number:</label>
+            <input
+              type="number"
+              id="number"
+              autoComplete="off"
+              onChange={(e) => setNumber(e.target.value)}
+              value={number}
+              required
+              aria-describedby="uidnote"
+            />
 
             <label htmlFor="password">Password:</label>
             <input

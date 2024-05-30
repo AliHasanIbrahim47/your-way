@@ -24,7 +24,6 @@ const ShowUser = ({ data }) => {
       <div className="container">
         <h1>User Details</h1>
         <div className="user-details">
-          <p><strong>ID:</strong> {user.id}</p>
           <p><strong>Name:</strong> {user.name}</p>
           <p><strong>Username:</strong> {user.username}</p>
           <p><strong>Number:</strong> {user.number}</p>

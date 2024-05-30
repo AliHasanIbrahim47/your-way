@@ -55,7 +55,7 @@ const EditUser = ({ data, updateUser }) => {
           <label htmlFor="number">Phone Number</label>
           <input
             id="number"
-            type="text"
+            type="number"
             placeholder="Number"
             value={number}
             onChange={(event) => setNumber(event.target.value)}

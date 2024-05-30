@@ -43,47 +43,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 15px 0; 
+  transition: color 0.3s;
+}
+
+.sidebar ul li a:hover {
+  color: #BA8D38;
 }
 
 .sidebar ul li:hover {
   background-color: #1D1C1C;
-  color: #BA8D38;
-}
-
-@media (min-width: 768px) {
-  .sidebar {
-    width: 200px;
-  }
 }
 
 @media (max-width: 768px) {
-/* .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    padding: 10px 0;
-  }
-
-  .sidebar img {
-    width: 60%;
-    margin-bottom: 10px;
-  }
-
-  .sidebar ul {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 100%;
-  }
-
-  .sidebar ul li {
-    padding: 10px;
-  } */
-
   .sidebar,
   .sidebar img {
     display: none;
   }
-
-
 }
