@@ -8,9 +8,13 @@ import AddUser from './pages/AddUser/AddUser';
 import ShowUser from './pages/ShowUser/ShowUser';
 import EditUser from './pages/EditUser/EditUser';
 import { useState } from 'react';
+import Drivers from './pages/Drivers/Drivers';
+import AddDriver from './pages/Drivers/AddDriver';
+import ShowDriver from './pages/Drivers/ShowDriver';
+import EditDriver from './pages/Drivers/EditDriver';
 
 function App() {
-  const [data, setData] = useState([
+  const [usersData, setUsersData] = useState([
     {
       id: 1,
       name: "ali",
@@ -103,7 +107,32 @@ function App() {
   ]);
 
   const updateUser = (updatedUser) => {
-    setData(data.map(user => (user.id === updatedUser.id ? updatedUser : user)));
+    setUsersData(usersData.map(user => (user.id === updatedUser.id ? updatedUser : user)));
+  };
+
+  const [driversData, setDriversData] = useState([
+    {
+      id: 1,
+      name: "ali",
+      number: 5434,
+      carModel: "kia",
+      passengers: 4,
+      year: 2010,
+      office: true
+    },
+    {
+      id: 2,
+      name: "ahmad",
+      number: 546742,
+      carModel: "hunda",
+      passengers: 4,
+      year: 2015,
+      office: false
+    },
+  ]);
+
+  const updateDrivers = (updatedDriver) => {
+    setDriversData(driversData.map(driver => (driver.id === updatedDriver.id ? updatedDriver : driver)));
   };
 
   return (
@@ -112,10 +141,19 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register />} />
-        <Route path="/users" element={<Users data={data} />} />
+
+        {/* Users */}
+        <Route path="/users" element={<Users data={usersData} />} />
         <Route path="/users/add" element={<AddUser />} />
-        <Route path="/users/:id" element={<ShowUser data={data} />} />
-        <Route path="/users/:id/edit" element={<EditUser data={data} updateUser={updateUser} />} /> 
+        <Route path="/users/:id" element={<ShowUser data={usersData} />} />
+        <Route path="/users/:id/edit" element={<EditUser data={usersData} updateUser={updateUser} />} />
+
+        {/* Drivers */}
+        <Route path="/drivers" element={<Drivers data={driversData} />} />
+        <Route path="/drivers/add" element={<AddDriver />} />
+        <Route path="/drivers/:id" element={<ShowDriver data={driversData} />} />
+        <Route path="/drivers/:id/edit" element={<EditDriver data={driversData} updateDrivers={updateDrivers} />} />
+
       </Routes>
     </>
   );

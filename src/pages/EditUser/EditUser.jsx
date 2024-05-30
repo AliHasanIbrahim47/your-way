@@ -16,7 +16,7 @@ const EditUser = ({ data, updateUser }) => {
     event.preventDefault();
     const updatedUser = { id: user.id, name, username, number };
     updateUser(updatedUser);
-    navigate(`/item/${id}`);
+    navigate(`/users/${id}`);
   };
 
   if (!user) {

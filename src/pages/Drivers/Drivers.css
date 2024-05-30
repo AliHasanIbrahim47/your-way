@@ -1,0 +1,154 @@
+.drivers {
+    display: flex;
+    height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+.drivers > .sidebar {
+    width: 250px;
+    flex-shrink: 0;
+  }
+  
+  .drivers .container {
+    flex: 1;
+    padding: 20px;
+    margin-left: 250px;
+  }
+  
+  .drivers .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .drivers .header h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .drivers .header .add-user-btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #BA8D38;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .drivers .header .add-user-btn:hover {
+    background-color: #A37A30;
+  }
+  
+  .drivers table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .drivers table th,
+  .drivers table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .drivers table th {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+  
+  .drivers table tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .drivers table td button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #BA8D38;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .drivers table td button:hover {
+    background-color: #A37A30;
+  }
+
+/* .drivers .container a {
+    background-color: #BA8D38;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+} */
+
+.drivers .actions-style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.drivers .links {
+  display: flex;
+  gap: 10px;
+}
+
+.drivers a {
+    color: #1D1C1C;
+    width: 5vw;
+    height: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #BA8D38;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+.drivers a:hover {
+    color: #BA8D38;
+    background-color: #1D1C1C;
+  }
+
+  @media (max-width: 768px) {
+    .drivers {
+      flex-direction: column;
+    }
+  
+    .drivers .container {
+      margin-left: 0;
+      padding: 10px;
+    }
+  
+    .drivers .header h1 {
+      font-size: 1.5rem;
+    }
+  
+    .drivers table th,
+    .drivers table td {
+      padding: 10px;
+    }
+  
+    .drivers table {
+      font-size: 0.9rem;
+    }
+
+    .drivers a {
+      width: 45px;
+      height: 35px;
+      padding: 5px 8px;
+      font-size: 0.9rem;
+    }
+  }
+  
