@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import './EditDriver.css';
 
-const EditDriver = ({ data, updateUser }) => {
+const EditDriver = ({ data, updateDrivers }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const user = data.find(user => user.id.toString() === id);
@@ -18,7 +18,7 @@ const EditDriver = ({ data, updateUser }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const updatedUser = { id: user.id, name: name, carModel: carModel, number: number, year: year, passengers: passengers, office: office};
-    updateUser(updatedUser);
+    updateDrivers(updatedUser);
     navigate(`/drivers/${id}`);
   };
 

@@ -12,6 +12,9 @@ import Drivers from './pages/Drivers/Drivers';
 import AddDriver from './pages/Drivers/AddDriver';
 import ShowDriver from './pages/Drivers/ShowDriver';
 import EditDriver from './pages/Drivers/EditDriver';
+import DailyTrips from './pages/DailyTrips/DailyTrips';
+import AddDailyTrip from './pages/DailyTrips/AddDailyTrip';
+import EditDailyTrip from './pages/DailyTrips/EditDailyTrip';
 
 function App() {
   const [usersData, setUsersData] = useState([
@@ -135,6 +138,27 @@ function App() {
     setDriversData(driversData.map(driver => (driver.id === updatedDriver.id ? updatedDriver : driver)));
   };
 
+  const [dailyTripsData, setDailyTripsData] = useState([
+    {
+      id: 1,
+      dPlace: "Damascus",
+      dTime: "12:00",
+      aPlace: "Beruit",
+      aTime: "12:00",
+    },
+    {
+      id: 2,
+      dPlace: "Latakia",
+      dTime: "12:00",
+      aPlace: "Beruit",
+      aTime: "12:00",
+    },
+  ]);
+
+  const updateDailyTrips = (updatedDailyTrip) => {
+    setDailyTripsData(dailyTripsData.map(dailyTrip => (dailyTrip.id === updatedDailyTrip.id ? updatedDailyTrip : dailyTrip)));
+  };
+
   return (
     <>
       <Routes>
@@ -153,6 +177,11 @@ function App() {
         <Route path="/drivers/add" element={<AddDriver />} />
         <Route path="/drivers/:id" element={<ShowDriver data={driversData} />} />
         <Route path="/drivers/:id/edit" element={<EditDriver data={driversData} updateDrivers={updateDrivers} />} />
+
+        {/* Daily Trips */}
+        <Route path="/dailytrips" element={<DailyTrips data={dailyTripsData} />} />
+        <Route path="/dailytrips/add" element={<AddDailyTrip />} />
+        <Route path="/dailytrips/:id/edit" element={<EditDailyTrip data={dailyTripsData} updateDailyTrips={updateDailyTrips} />} />
 
       </Routes>
     </>

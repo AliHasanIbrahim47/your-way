@@ -105,8 +105,8 @@
 
 .users a {
     color: #1D1C1C;
-    width: 5vw;
-    height: 5vh;
+    width: 75px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -114,6 +114,7 @@
     border-radius: 5px;
     text-decoration: none;
     transition: background-color 0.3s ease;
+
   }
   
 .users a:hover {
@@ -145,9 +146,9 @@
     }
 
     .users a {
-      width: 45px;
+      width: 55px;
       height: 35px;
-      padding: 5px 8px;
+      padding: 20px;
       font-size: 0.9rem;
     }
   }

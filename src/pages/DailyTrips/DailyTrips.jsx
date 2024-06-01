@@ -1,11 +1,11 @@
 import React from "react";
 import Sidebar from '../../components/Sidebar';
 import { Link, useNavigate } from "react-router-dom";
-import "./Drivers.css";
+import "./DailyTrips.css";
 import { RiEdit2Fill } from "react-icons/ri";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 
-const Drivers = ({data}) => {
+const DailyTrips = ({data}) => {
     const navigate = useNavigate();
 //   useEffect(() => {
 //     localStorage.setItem("token", "test");
@@ -14,23 +14,19 @@ const Drivers = ({data}) => {
 //     }
 //   }, []);
 
-  const show = (id) => {
-    navigate(`/drivers/${id}`);
-  };
 
   const update = (id) => {
-    navigate(`/drivers/${id}/edit`);
+    navigate(`/dailytrips/${id}/edit`);
   };
-
 
   return (
     <div className="drivers">
       <Sidebar />
       <div className="container">
         <div className="header">
-          <h1>All Drivers</h1>
+          <h1>All Daily Trips</h1>
           <div className="links">
-            <Link to="/drivers/add">ADD</Link>
+            <Link to="/dailytrips/add">ADD</Link>
             <Link to="/login">Logout</Link>
           </div>
         </div>
@@ -38,12 +34,10 @@ const Drivers = ({data}) => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Name</th>
-              <th>Number</th>
-              <th>CarModel</th>
-              <th>Year</th>
-              <th>Passengers</th>
-              <th>Role</th>
+              <th>Departure Place</th>
+              <th>Departure Time</th>
+              <th>Arrival Place</th>
+              <th>Arrival Time</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -52,14 +46,11 @@ const Drivers = ({data}) => {
               return (
                 <tr key={index}>
                   <td>{element.id}</td>
-                  <td>{element.name}</td>
-                  <td>{element.number}</td>
-                  <td>{element.carModel}</td>
-                  <td>{element.year}</td>
-                  <td>{element.passengers}</td>
-                  <td>{element.office ? "Office" : "Regular"}</td>
+                  <td>{element.dPlace}</td>
+                  <td>{element.dTime}</td>
+                  <td>{element.aPlace}</td>
+                  <td>{element.aTime}</td>
                   <td className="actions-style">
-                    <button onClick={() => show(element.id)}>show</button>
                     <button onClick={() => update(element.id)}><RiEdit2Fill /></button>
                     <button><RiDeleteBin5Fill /></button>
                   </td>
@@ -73,4 +64,4 @@ const Drivers = ({data}) => {
   );
 };
 
-export default Drivers;
+export default DailyTrips;

@@ -15,6 +15,9 @@ const Sidebar = () => {
           <Link to="/drivers">Drivers</Link>
         </li>
         <li>
+          <Link to='/dailytrips'>Daily Trips</Link>
+        </li>
+        <li>
           <Link to='/login'>Logout</Link>
         </li>
       </ul>
