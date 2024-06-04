@@ -115,9 +115,9 @@
     text-decoration: none;
     transition: background-color 0.3s ease;
   }
-  
-.drivers a:hover {
-    color: #BA8D38;
+
+.drivers .links a:hover {
+    color: white;
     background-color: #1D1C1C;
   }
 

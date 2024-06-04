@@ -1,53 +1,105 @@
 .showuser {
-    display: flex;
-    height: 100vh;
-    background-color: #f4f4f4;
-  }
+  display: flex;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
 
-  .showuser > .sidebar {
-    width: 250px;
-    flex-shrink: 0;
+.showuser > .sidebar {
+  width: 250px;
+  flex-shrink: 0;
+}
+
+.showuser .container {
+  flex: 1;
+  padding: 20px;
+  margin-left: 250px;
+}
+
+.showuser h1 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.showuser .user-details {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.showuser .user-details p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.showuser .trips-section {
+  margin-top: 40px;
+}
+
+.showuser .trips-section h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.showuser .trips-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.showuser .trips-section li {
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  margin-bottom: 10px;
+}
+
+.showuser .trips-section li p {
+  margin: 5px 0;
+}
+
+.showuser .add-trip-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 20px;
+  background-color: #BA8D38;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 20px;
+}
+
+.showuser .add-trip-btn:hover {
+  background-color: #a77a30;
+}
+
+@media (max-width: 768px) {
+  .showuser {
+    flex-direction: column;
   }
 
   .showuser .container {
-    flex: 1;
-    padding: 20px;
-    margin-left: 250px;
-  }
-  
-  .showuser h1 {
-    font-size: 2rem;
-    color: #333;
-  }
-  
-  .showuser .user-details {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  }
-  
-  .showuser .user-details p {
-    font-size: 1.2rem;
-    margin: 10px 0;
+    margin-left: 0;
+    padding: 10px;
   }
 
-  @media (max-width: 768px) {
-    .showuser {
-      flex-direction: column;
-    }
-  
-    .showuser .container {
-      margin-left: 0;
-      padding: 10px;
-    }
-  
-    .showuser h1 {
-      font-size: 1.5rem;
-    }
-  
-    .showuser .user-details {
-      font-size: 1rem;
-    }
+  .showuser h1 {
+    font-size: 1.5rem;
+  }
+
+  .showuser .user-details {
+    font-size: 1rem;
+  }
+
+  .showuser .trips-section h2 {
+    font-size: 1.2rem;
+  }
+
+  .showuser .trips-section li {
+    font-size: 0.9rem;
+  }
 }

@@ -15,6 +15,7 @@ import EditDriver from './pages/Drivers/EditDriver';
 import DailyTrips from './pages/DailyTrips/DailyTrips';
 import AddDailyTrip from './pages/DailyTrips/AddDailyTrip';
 import EditDailyTrip from './pages/DailyTrips/EditDailyTrip';
+import AddTrip from './pages/ShowUser/AddTrip';
 
 function App() {
   const [usersData, setUsersData] = useState([
@@ -171,6 +172,7 @@ function App() {
         <Route path="/users/add" element={<AddUser />} />
         <Route path="/users/:id" element={<ShowUser data={usersData} />} />
         <Route path="/users/:id/edit" element={<EditUser data={usersData} updateUser={updateUser} />} />
+        <Route path="/users/:id/addtrip" element={<AddTrip />}/>
 
         {/* Drivers */}
         <Route path="/drivers" element={<Drivers data={driversData} />} />
