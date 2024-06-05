@@ -1,0 +1,111 @@
+.addtrip {
+    display: flex;
+    height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .addtrip > .sidebar {
+    width: 250px;
+    flex-shrink: 0;
+  }
+  
+  .addtrip .container {
+    flex: 1;
+    padding: 20px;
+    margin-left: 250px;
+  }
+  
+  .addtrip h1 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .addtrip .trip-form {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  
+  .addtrip .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .addtrip .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+  }
+  
+  .addtrip .form-group input[type="text"],
+  .addtrip .form-group input[type="date"],
+  .addtrip .form-group input[type="time"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .addtrip .services {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .addtrip .services label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+  
+  .addtrip .submit-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #BA8D38;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .addtrip .submit-btn:hover {
+    background-color: #a77a30;
+  }
+  
+  @media (max-width: 768px) {
+    .addtrip {
+      flex-direction: column;
+    }
+  
+    .addtrip .container {
+      margin-left: 0;
+      padding: 10px;
+    }
+  
+    .addtrip h1 {
+      font-size: 1.5rem;
+    }
+  
+    .addtrip .trip-form {
+      padding: 10px;
+    }
+  
+    .addtrip .form-group label {
+      font-size: 1rem;
+    }
+  
+    .addtrip .form-group input[type="text"],
+    .addtrip .form-group input[type="date"],
+    .addtrip .form-group input[type="time"] {
+      font-size: 0.9rem;
+    }
+  
+    .addtrip .services label {
+      font-size: 0.9rem;
+    }
+  }
+  
+  .addtrip .form-group input[type="checkbox"] {
+    margin-right: 20px;
+  }

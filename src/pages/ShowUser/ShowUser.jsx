@@ -1,11 +1,12 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import './ShowUser.css';
 
 const ShowUser = ({ data }) => {
   const { id } = useParams();
   const user = data.find(user => user.id.toString() === id);
+  const navigate = useNavigate();
 
   const trips = [
     { id: 1, type: 'previous', departure: 'New York', arrival: 'Los Angeles', date: '2024-05-01', time: '10:00 AM', services: ['WiFi', 'Meal'] },
@@ -18,8 +19,7 @@ const ShowUser = ({ data }) => {
   const pendingTrips = trips.filter(trip => trip.type === 'pending');
 
   const handleAddTrip = () => {
-    // Logic for adding a new trip (you can add a form or a modal for this)
-    console.log("Add Trip clicked");
+    navigate(`/users/${id}/addtrip`);
   };
 
   if (!user) {
