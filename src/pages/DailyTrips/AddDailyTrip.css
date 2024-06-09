@@ -1,0 +1,19 @@
+.adduser .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .adduser .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1rem;
+  }
+  
+  .adduser .form-group input[type="text"],
+  .adduser .form-group input[type="date"],
+  .adduser .form-group input[type="time"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }

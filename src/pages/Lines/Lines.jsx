@@ -1,57 +1,53 @@
 import React, { useState } from "react";
-import Sidebar from "../../components/Sidebar";
+import Sidebar from '../../components/Sidebar';
 import { Link, useNavigate } from "react-router-dom";
-import "./Users.css";
+import "./Lines.css";
 import { RiEdit2Fill } from "react-icons/ri";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
 
-const Users = ({ data }) => {
+const Lines = ({ data }) => {
   const navigate = useNavigate();
-  const [selectedUsers, setSelectedUsers] = useState([]);
-  const [isPopupVisible, setIsPopuoVisble] = useState(false);
+
+  const [selectedLines, setSelectedLines] = useState([]);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const handleSelectAll = (event) => {
     if (event.target.checked) {
-      setSelectedUsers(data.map((user) => user.id));
+      setSelectedLines(data.map((line) => line.id));
     } else {
-      setSelectedUsers([]);
+      setSelectedLines([]);
     }
   };
 
-  const handleSelectUser = (id) => {
-    setSelectedUsers((prevSelected) =>
+  const handleSelectLine = (id) => {
+    setSelectedLines((prevSelected) =>
       prevSelected.includes(id)
-        ? prevSelected.filter((userId) => userId !== id)
+        ? prevSelected.filter((lineId) => lineId !== id)
         : [...prevSelected, id]
     );
   };
 
   const handleDeleteSelected = () => {
-    setIsPopuoVisble(true);
-    // Implement the logic to delete selected users
-    console.log("Deleting users with IDs:", selectedUsers);
+    setIsPopupVisible(true);
+    console.log("Deleting lines with IDs:", selectedLines);
   };
 
   const confirmDelete = () => {
-    setIsPopuoVisble(false);
-    setSelectedUsers([]);
-  }
+    setIsPopupVisible(false);
+    setSelectedLines([]);
+  };
 
   const cancelDelete = () => {
-    setIsPopuoVisble(false);
-  }
-
-  const show = (id) => {
-    navigate(`/users/${id}`);
+    setIsPopupVisible(false);
   };
 
   const update = (id) => {
-    navigate(`/users/${id}/edit`);
+    navigate(`/lines/${id}/edit`);
   };
 
-  const deleteUser = (id) => {
-    setIsPopuoVisble(true);
+  const deleteLine = (id) => {
+    setIsPopupVisible(true);
   };
 
   return (
@@ -59,26 +55,24 @@ const Users = ({ data }) => {
       <Sidebar />
       <div className="container">
         <div className="header">
-          <h1>All Users</h1>
+          <h1>All Lines</h1>
           <div className="links">
-            <Link to="/users/add">ADD</Link>
+            <Link to="/lines/add">ADD</Link>
             <button onClick={handleDeleteSelected}>Delete Selected</button>
           </div>
         </div>
-
         <table>
           <thead>
             <tr>
               <th>ID</th>
-              <th>Name</th>
-              <th>Username</th>
-              <th>Phone Number</th>
+              <th>Departure Place</th>
+              <th>Arrival Place</th>
               <th>Actions</th>
               <th>
                 <input
                   type="checkbox"
                   onChange={handleSelectAll}
-                  checked={selectedUsers.length === data.length}
+                  checked={selectedLines.length === data.length}
                 />
               </th>
             </tr>
@@ -88,23 +82,17 @@ const Users = ({ data }) => {
               return (
                 <tr key={index}>
                   <td>{element.id}</td>
-                  <td>{element.name}</td>
-                  <td>{element.username}</td>
-                  <td>{element.number}</td>
+                  <td>{element.DeparturePlace}</td>
+                  <td>{element.ArrivalPlace}</td>
                   <td className="actions-style">
-                    <button onClick={() => show(element.id)}>show</button>
-                    <button onClick={() => update(element.id)}>
-                      <RiEdit2Fill />
-                    </button>
-                    <button onClick={() => deleteUser(element.id)}>
-                      <RiDeleteBin5Fill />
-                    </button>
+                    <button onClick={() => update(element.id)}><RiEdit2Fill /></button>
+                    <button onClick={() => deleteLine(element.id)}><RiDeleteBin5Fill /></button>
                   </td>
                   <td>
                     <input
                       type="checkbox"
-                      checked={selectedUsers.includes(element.id)}
-                      onChange={() => handleSelectUser(element.id)}
+                      checked={selectedLines.includes(element.id)}
+                      onChange={() => handleSelectLine(element.id)}
                     />
                   </td>
                 </tr>
@@ -115,7 +103,7 @@ const Users = ({ data }) => {
       </div>
       {isPopupVisible && (
         <Popup 
-          message="Are you sure you want to delete the selected users?"
+          message="Are you sure you want to delete the selected lines?"
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />
@@ -124,4 +112,4 @@ const Users = ({ data }) => {
   );
 };
 
-export default Users;
+export default Lines;

@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import "./AddUser.css";
 import Sidebar from "../../components/Sidebar";
+import Popup from '../../components/Popup';
 
 const AddUser = () => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [number, setNumber] = useState("");
+  const [isPopupVisible, setIsPopuoVisble] = useState(false);
 
   const sendData = (event) => {
     event.preventDefault();
+    setIsPopuoVisble(true);
+  };
+
+  const confirmDelete = () => {
+    setIsPopuoVisble(false);
     if (!name || !username || !number) {
       alert("All fields are required!");
       return;
@@ -20,7 +27,12 @@ const AddUser = () => {
     setName("");
     setUsername("");
     setNumber("");
-  };
+  }
+  
+  const cancelDelete = () => {
+    setIsPopuoVisble(false);
+    console.log('cancel');
+  }
 
   return (
     <div className="adduser">
@@ -58,6 +70,13 @@ const AddUser = () => {
           <input type="submit" value="Add User" />
         </form>
       </div>
+      {isPopupVisible && (
+        <Popup 
+          message="Are you sure you want to edit this trip?"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />
+      )}
     </div>
   );
 };

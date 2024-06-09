@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./AddDriver.css";
 import Sidebar from "../../components/Sidebar";
+import Popup from '../../components/Popup';
 
 const AddDriver = () => {
   const [name, setName] = useState("");
@@ -8,10 +9,16 @@ const AddDriver = () => {
   const [carModel, setCarModel] = useState("");
   const [year, setYear] = useState();
   const [passengers, setPassengers] = useState();
-  const [office, setOffice] = useState();
+  const [office, setOffice] = useState("");
+  const [isPopupVisible, setIsPopuoVisble] = useState(false);
 
   const sendData = (event) => {
     event.preventDefault();
+    setIsPopuoVisble(true);
+  };
+
+  const confirmDelete = () => {
+    setIsPopuoVisble(false);
     if (!name || !carModel || !number || !year || !passengers || !office) {
       alert("All fields are required!");
       return;
@@ -22,11 +29,16 @@ const AddDriver = () => {
 
     setName("");
     setCarModel("");
-    setNumber("");
+    setNumber();
     setYear();
     setPassengers();
     setOffice();
-  };
+  }  
+
+  const cancelDelete = () => {
+    setIsPopuoVisble(false);
+    console.log('cancel');
+  }
 
   return (
     <div className="adduser">
@@ -90,13 +102,20 @@ const AddDriver = () => {
             id="office"
             placeholder="Office or Regular"
             value={office}
-            onChange={(event) => setOffice(event.target.value === "Office" || event.target.value === "office")}
+            onChange={(event) => setOffice(event.target.value)}
             required
           />
 
           <input type="submit" value="Add Driver" />
         </form>
       </div>
+      {isPopupVisible && (
+        <Popup 
+          message="Are you sure you want to add this driver?"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />
+      )}
     </div>
   );
 };

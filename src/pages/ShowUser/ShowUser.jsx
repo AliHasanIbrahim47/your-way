@@ -2,6 +2,8 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import './ShowUser.css';
+import { RiEdit2Fill } from "react-icons/ri";
+import { RiDeleteBin5Fill } from "react-icons/ri";
 
 const ShowUser = ({ data }) => {
   const { id } = useParams();
@@ -18,9 +20,13 @@ const ShowUser = ({ data }) => {
   const previousTrips = trips.filter(trip => trip.type === 'previous');
   const pendingTrips = trips.filter(trip => trip.type === 'pending');
 
-  const handleAddTrip = () => {
+  const handleAddTrip = (id) => {
     navigate(`/users/${id}/addtrip`);
   };
+
+  // const update = (id) => {
+  //   navigate(`/users/${id}/trip/edit`);
+  // };
 
   if (!user) {
     return (
@@ -70,6 +76,10 @@ const ShowUser = ({ data }) => {
                   <p><strong>Date:</strong> {trip.date}</p>
                   <p><strong>Time:</strong> {trip.time}</p>
                   <p><strong>Services:</strong> {trip.services.join(', ') || 'None'}</p>
+                  {/* <td className="actions-style">
+                    <button onClick={() => update(id)}><RiEdit2Fill /></button>
+                    <button><RiDeleteBin5Fill /></button>
+                  </td> */}
                 </li>
               ))}
             </ul>

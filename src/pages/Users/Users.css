@@ -1,95 +1,86 @@
 .users {
-    display: flex;
-    height: 100vh;
-    background-color: #f4f4f4;
-  }
-  
-.users > .sidebar {
-    width: 250px;
-    flex-shrink: 0;
-  }
-  
-  .users .container {
-    flex: 1;
-    padding: 20px;
-    margin-left: 250px;
-  }
-  
-  .users .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .users .header h1 {
-    margin: 0;
-    font-size: 2rem;
-    color: #333;
-  }
-  
-  .users .header .add-user-btn {
-    font-size: 1rem;
-    padding: 10px 20px;
-    border-radius: 5px;
-    background-color: #BA8D38;
-    color: white;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-  }
-  
-  .users .header .add-user-btn:hover {
-    background-color: #A37A30;
-  }
-  
-  .users table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-    border-radius: 5px;
-    overflow: hidden;
-  }
-  
-  .users table th,
-  .users table td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    text-align: center;
-  }
-  
-  .users table th {
-    background-color: #f2f2f2;
-    color: #333;
-  }
-  
-  .users table tr:hover {
-    background-color: #f9f9f9;
-  }
-  
-  .users table td button {
-    margin-right: 5px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 3px;
-    background-color: #BA8D38;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .users table td button:hover {
-    background-color: #A37A30;
-  }
+  display: flex;
+  height: 100vh;
+}
 
-/* .users .container a {
-    background-color: #BA8D38;
-    color: white;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-} */
+.users > .sidebar {
+  width: 250px;
+  flex-shrink: 0;
+}
+
+.users .container {
+  flex: 1;
+  padding: 20px;
+  margin-left: 250px;
+  background-color: #f4f4f4;
+}
+
+.users .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.users .header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #333;
+}
+
+.users .header .add-user-btn {
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #BA8D38;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.users .header .add-user-btn:hover {
+  background-color: #A37A30;
+}
+
+.users table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white; 
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.users table th,
+.users table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.users table th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.users table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.users table td button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  background-color: #BA8D38;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.users table td button:hover {
+  background-color: #A37A30;
+}
 
 .users .actions-style {
   display: flex;
@@ -103,53 +94,53 @@
   gap: 10px;
 }
 
-.users a {
-    color: #1D1C1C;
-    width: 75px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #BA8D38;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
+.users a, .users .header button {
+  color: #1D1C1C;
+  width: 75px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #BA8D38;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
 
-  }
-  
-.users a:hover {
-    color: white;
-    background-color: #1D1C1C;
-  }
+.users a:hover, .users .header button:hover {
+  color: white;
+  background-color: #1D1C1C;
+}
 
-  @media (max-width: 768px) {
-    .users {
+@media (max-width: 768px) {
+  .users {
       flex-direction: column;
-    }
-  
-    .users .container {
+  }
+
+  .users .container {
       margin-left: 0;
       padding: 10px;
-    }
-  
-    .users .header h1 {
-      font-size: 1.5rem;
-    }
-  
-    .users table th,
-    .users table td {
-      padding: 10px;
-    }
-  
-    .users table {
-      font-size: 0.9rem;
-    }
+  }
 
-    .users a {
+  .users .header h1 {
+      font-size: 1.5rem;
+  }
+
+  .users table th,
+  .users table td {
+      padding: 10px;
+  }
+
+  .users table {
+      font-size: 0.9rem;
+  }
+
+  .users a, .users .header button {
       width: 55px;
       height: 35px;
       padding: 20px;
       font-size: 0.9rem;
-    }
   }
-  
+}

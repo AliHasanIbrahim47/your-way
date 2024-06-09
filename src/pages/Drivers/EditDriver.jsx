@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import './EditDriver.css';
+import Popup from '../../components/Popup';
 
 const EditDriver = ({ data, updateDrivers }) => {
   const { id } = useParams();
@@ -14,13 +15,24 @@ const EditDriver = ({ data, updateDrivers }) => {
   const [year, setYear] = useState(user ? user.year : '');
   const [passengers, setPassengers] = useState(user ? user.passengers : '');
   const [office, setOffice] = useState();
+  const [isPopupVisible, setIsPopuoVisble] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsPopuoVisble(true);
+  };
+
+  const confirmDelete = () => {
     const updatedUser = { id: user.id, name: name, carModel: carModel, number: number, year: year, passengers: passengers, office: office};
     updateDrivers(updatedUser);
+    console.log(updatedUser);
     navigate(`/drivers/${id}`);
-  };
+  }
+
+  const cancelDelete = () => {
+    setIsPopuoVisble(false);
+    console.log('cancel');
+  }
 
   if (!user) {
     return (
@@ -93,13 +105,20 @@ const EditDriver = ({ data, updateDrivers }) => {
             id="office"
             placeholder="Office or Regular"
             value={office}
-            onChange={(event) => setOffice(event.target.value === "Office" || event.target.value === "office")}
+            onChange={(event) => setOffice(event.target.value)}
             required
           />
 
           <input type="submit" value="Save Changes" />
         </form>
       </div>
+      {isPopupVisible && (
+        <Popup 
+          message="Are you sure you want to edit this driver?"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />
+      )}
     </div>
   );
 };

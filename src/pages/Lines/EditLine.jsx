@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
-import './EditUser.css';
+import './EditLine.css';
 import Popup from '../../components/Popup';
 
-const EditUser = ({ data, updateUser }) => {
+const EditLine = ({ data, updateLines }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const user = data.find(user => user.id.toString() === id);
 
-  const [name, setName] = useState(user ? user.name : '');
-  const [username, setUsername] = useState(user ? user.username : '');
-  const [number, setNumber] = useState(user ? user.number : '');
+  const [dPlace, setDPlace] = useState(user ? user.DeparturePlace : '');
+  const [aPlace, setAPlace] = useState(user ? user.ArrivalPlace : '');
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
 
   const handleSubmit = (event) => {
@@ -20,12 +19,12 @@ const EditUser = ({ data, updateUser }) => {
   };
 
   const confirmDelete = () => {
-    setIsPopuoVisble(false);
-    const updatedUser = { id: user.id, name, username, number };
-    updateUser(updatedUser);
-    navigate(`/users/${id}`);
-}
-  
+    const updatedUser = { id: user.id, DeparturePlace: dPlace, ArrivalPlace: aPlace};
+    updateLines(updatedUser);
+    console.log(updatedUser);
+    navigate("/lines");
+  }
+
   const cancelDelete = () => {
     setIsPopuoVisble(false);
     console.log('cancel');
@@ -36,7 +35,7 @@ const EditUser = ({ data, updateUser }) => {
       <div className="edituser">
         <Sidebar />
         <div className="container">
-          <h1>User not found</h1>
+          <h1>Line not found</h1>
         </div>
       </div>
     );
@@ -46,38 +45,32 @@ const EditUser = ({ data, updateUser }) => {
     <div className="edituser">
       <Sidebar />
       <div className="container">
-        <h1>Edit User</h1>
+        <h1>Edit Line</h1>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="name">Name</label>
+          <label htmlFor="dPlace">Departure Place</label>
           <input
-            id="name"
+            id="dPlace"
             type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
+            placeholder="Departure Place"
+            value={dPlace}
+            onChange={(event) => setDPlace(event.target.value)}
           />
-          <label htmlFor="username">Username</label>
+
+          <label htmlFor="aPlace">Arrival Place</label>
           <input
-            id="username"
+            id="aPlace"
             type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
+            placeholder="Arrival Place"
+            value={aPlace}
+            onChange={(event) => setAPlace(event.target.value)}
           />
-          <label htmlFor="number">Phone Number</label>
-          <input
-            id="number"
-            type="number"
-            placeholder="Number"
-            value={number}
-            onChange={(event) => setNumber(event.target.value)}
-          />
+
           <input type="submit" value="Save Changes" />
         </form>
       </div>
       {isPopupVisible && (
         <Popup 
-          message="Are you sure you want to edit this user?"
+          message="Are you sure you want to edit this line?"
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />
@@ -86,4 +79,4 @@ const EditUser = ({ data, updateUser }) => {
   );
 };
 
-export default EditUser;
+export default EditLine;

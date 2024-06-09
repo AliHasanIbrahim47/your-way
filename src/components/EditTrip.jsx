@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
-import './AddTrip.css';
+import './EditTrip.css';
 import Popup from './Popup';
 
-const AddTrip = () => {
+const EditTrip = () => {
   const [departure, setDeparture] = useState('');
   const [arrival, setArrival] = useState('');
   const [date, setDate] = useState('');
@@ -45,7 +45,7 @@ const AddTrip = () => {
     <div className="addtrip">
       <Sidebar />
       <div className="container">
-        <h1>Add New Trip</h1>
+        <h1>Edit Trip</h1>
         <form onSubmit={handleSubmit} className="trip-form">
           <div className="form-group">
             <label htmlFor="departure">Departure Place:</label>
@@ -116,12 +116,12 @@ const AddTrip = () => {
               </label>
             </div>
           </div>
-          <button type="submit" className="submit-btn">Add Trip</button>
+          <button type="submit" className="submit-btn">Edit Trip</button>
         </form>
       </div>
       {isPopupVisible && (
         <Popup 
-          message="Are you sure you want to add this trip?"
+          message="Are you sure you want to edit this trip?"
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />
@@ -130,4 +130,4 @@ const AddTrip = () => {
   );
 };
 
-export default AddTrip;
+export default EditTrip;

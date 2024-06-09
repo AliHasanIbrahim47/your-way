@@ -1,29 +1,44 @@
 import React, { useState } from "react";
 import "./AddDailyTrip.css";
 import Sidebar from "../../components/Sidebar";
+import Popup from '../../components/Popup';
 
 const AddDailyTrip = () => {
   const [dPlace, setdPlace] = useState("");
-  const [dTime, setdTime] = useState("");
+  const [dTime, setDTime] = useState();
+  const [dDate, setDDate] = useState();
   const [aPlace, setaPlace] = useState("");
-  const [aTime, setaTime] = useState("");
+  const [aTime, setATime] = useState();
+  const [aDate, setADate] = useState();
+  const [isPopupVisible, setIsPopuoVisble] = useState(false);
 
   const sendData = (event) => {
     event.preventDefault();
-    if (!dPlace || !dTime || !aPlace || !aTime) {
+    setIsPopuoVisble(true);
+  };
+
+  const confirmDelete = () => {
+    setIsPopuoVisble(false);
+    if (!dPlace || !dTime || !dDate || !aPlace || !aTime || ! aDate) {
       alert("All fields are required!");
       return;
     }
-    let data = { dPlace: dPlace, dTime: dTime, aPlace: aPlace, aTime: aTime };
+    let data = { dPlace: dPlace, dTime: dTime, dDate:dDate, aPlace: aPlace, aTime: aTime, aDate: aDate };
     console.log(data);
     // send data to database with axios
 
     setdPlace("");
-    setdTime("");
+    setDTime();
+    setDDate();
     setaPlace("");
-    setaTime("");
-
-  };
+    setATime();
+    setADate();
+  }
+  
+  const cancelDelete = () => {
+    setIsPopuoVisble(false);
+    console.log('cancel');
+  }
 
   return (
     <div className="adduser">
@@ -41,15 +56,26 @@ const AddDailyTrip = () => {
             required
           />
 
-          <label htmlFor="dtime">Departure Time</label>
-          <input
-            type="text"
-            id="dtime"
-            placeholder="10:00"
-            value={dTime}
-            onChange={(event) => setdTime(event.target.value)}
-            required
-          />
+          <div className="form-group">
+            <label htmlFor="dDate">Departure Date</label>
+            <input
+              type="date"
+              id="dDate"
+              value={dDate}
+              onChange={(e) => setDDate(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="dTime">Departure Time</label>
+            <input
+              type="time"
+              id="dTime"
+              value={dTime}
+              onChange={(e) => setDTime(e.target.value)}
+              required
+            />
+          </div>
 
           <label htmlFor="aplace">Arrival Place</label>
           <input
@@ -61,19 +87,37 @@ const AddDailyTrip = () => {
             required
           />
 
-          <label htmlFor="atime">Arrival Time</label>
-          <input
-            type="text"
-            id="atime"
-            placeholder="10:00"
-            value={aTime}
-            onChange={(event) => setaTime(event.target.value)}
-            required
-          />
+          <div className="form-group">
+            <label htmlFor="aDate">Arrival Date</label>
+            <input
+              type="date"
+              id="aDate"
+              value={aDate}
+              onChange={(e) => setADate(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="aTime">Arrival Time</label>
+            <input
+              type="time"
+              id="aTime"
+              value={aTime}
+              onChange={(e) => setATime(e.target.value)}
+              required
+            />
+          </div>
 
           <input type="submit" value="Add Daily Trip" />
         </form>
       </div>
+      {isPopupVisible && (
+        <Popup 
+          message="Are you sure you want to add this trip?"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />
+      )}
     </div>
   );
 };
