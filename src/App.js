@@ -7,7 +7,7 @@ import Users from './pages/Users/Users';
 import AddUser from './pages/AddUser/AddUser';
 import ShowUser from './pages/ShowUser/ShowUser';
 import EditUser from './pages/EditUser/EditUser';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Drivers from './pages/Drivers/Drivers';
 import AddDriver from './pages/Drivers/AddDriver';
 import ShowDriver from './pages/Drivers/ShowDriver';
@@ -24,98 +24,24 @@ import AddLine from './pages/Lines/AddLine';
 import AddBrand from './pages/Brands/AddBrand';
 import EditBrand from './pages/Brands/EditBrand';
 
+import axios from 'axios';
+
 function App() {
-  const [usersData, setUsersData] = useState([
-    {
-      id: 1,
-      name: "ali",
-      username: "a",
-      number: 15000,
-    },
-    {
-      id: 2,
-      name: "ahmad",
-      username: "ah",
-      number: 20000,
-    },{
-      id: 1,
-      name: "ali",
-      username: "a",
-      number: 15000,
-    },
-    {
-      id: 2,
-      name: "ahmad",
-      username: "ah",
-      number: 20000,
-    },{
-      id: 1,
-      name: "ali",
-      username: "a",
-      number: 15000,
-    },
-    {
-      id: 2,
-      name: "ahmad",
-      username: "ah",
-      number: 20000,
-    },{
-      id: 1,
-      name: "ali",
-      username: "a",
-      number: 15000,
-    },
-    {
-      id: 2,
-      name: "ahmad",
-      username: "ah",
-      number: 20000,
-    },{
-      id: 1,
-      name: "ali",
-      username: "a",
-      number: 15000,
-    },
-    {
-      id: 2,
-      name: "ahmad",
-      username: "ah",
-      number: 20000,
-    },{
-      id: 1,
-      name: "ali",
-      username: "a",
-      number: 15000,
-    },
-    {
-      id: 2,
-      name: "ahmad",
-      username: "ah",
-      number: 20000,
-    },{
-      id: 1,
-      name: "ali",
-      username: "a",
-      number: 15000,
-    },
-    {
-      id: 2,
-      name: "ahmad",
-      username: "ah",
-      number: 20000,
-    },{
-      id: 1,
-      name: "ali",
-      username: "a",
-      number: 15000,
-    },
-    {
-      id: 2,
-      name: "ahmad",
-      username: "ah",
-      number: 20000,
-    },
-  ]);
+  // const [usersData, setUsersData] = useState([
+  //   {
+  //     id: 1,
+  //     name: "ali",
+  //     username: "a",
+  //     number: 15000,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "ahmad",
+  //     username: "ah",
+  //     number: 20000,
+  //   }
+  // ]);
+  const [usersData, setUsersData] = useState();
 
   const updateUser = (updatedUser) => {
     setUsersData(usersData.map(user => (user.id === updatedUser.id ? updatedUser : user)));
@@ -200,6 +126,22 @@ function App() {
   const updateBrands = (updatedLine) => {
     setBrandsData(linesData.map(line => (line.id === updatedLine.id ? updatedLine : line)));
   };
+
+  async function getUsers() {
+    try {
+      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/');
+      console.log(response);
+      const d = await response.json();
+      setUsersData(d);
+      console.log(usersData);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   return (
     <>

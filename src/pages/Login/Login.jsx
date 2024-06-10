@@ -45,7 +45,7 @@ import axios from "axios";
 import './Login.css';
 import { Link } from 'react-router-dom';
 
-const LOGIN_URL = '/auth';
+const LOGIN_URL = 'https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/login';
 
 const Login = () => {
     const { setAuth } = useContext(AuthContext);
@@ -79,9 +79,10 @@ const Login = () => {
                 }
             );
             console.log(JSON.stringify(response?.data));
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            setAuth({ user, pwd, roles, accessToken });
+            const accessToken = response?.data?.token;
+            // const roles = response?.data?.roles;
+            // setAuth({ user, pwd, roles, accessToken });
+            setAuth({ user, pwd, accessToken });
             setUser('');
             setPwd('');
             setSuccess(true);
