@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Sidebar";
 import { Link, useNavigate } from "react-router-dom";
 import "./Users.css";
 import { RiEdit2Fill } from "react-icons/ri";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
+import useAuth from "../../hooks/useAuth";
+import axios from "axios"; 
 
-const Users = ({ data }) => {
+const Users = () => {
   const navigate = useNavigate();
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
 
+  const { auth } = useAuth();
+
   const handleSelectAll = (event) => {
     if (event.target.checked) {
-      setSelectedUsers(data.map((user) => user.id));
+      setSelectedUsers(users.map((user) => user.id));
     } else {
       setSelectedUsers([]);
     }
@@ -54,6 +58,32 @@ const Users = ({ data }) => {
     setIsPopuoVisble(true);
   };
 
+  const [users, setUsers] = useState([]); // Initial state as an empty array
+  const token = localStorage.getItem('token');
+  console.log('Token retrieved:', token); // Debug: Check the token
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log('Users response:', response.data); // Debug: Check the response data
+        if (Array.isArray(response.data.data)) {
+          setUsers(response.data.data);
+        } else {
+          console.error('Response data is not an array');
+        }
+      } catch (error) {
+        console.error('Error fetching users', error);
+      }
+    };
+
+    fetchUsers();
+  }, [token]);
+
   return (
     <div className="users">
       <Sidebar />
@@ -71,26 +101,24 @@ const Users = ({ data }) => {
             <tr>
               <th>ID</th>
               <th>Name</th>
-              <th>Username</th>
               <th>Phone Number</th>
               <th>Actions</th>
               <th>
                 <input
                   type="checkbox"
                   onChange={handleSelectAll}
-                  checked={selectedUsers.length === data.length}
+                  checked={selectedUsers.length === users.length}
                 />
               </th>
             </tr>
           </thead>
           <tbody>
-            {data.map((element, index) => {
+            {users.map((element, index) => {
               return (
                 <tr key={index}>
                   <td>{element.id}</td>
-                  <td>{element.name}</td>
-                  <td>{element.username}</td>
-                  <td>{element.number}</td>
+                  <td>{element.full_name}</td>
+                  <td>{element.phone}</td>
                   <td className="actions-style">
                     <button onClick={() => show(element.id)}>show</button>
                     <button onClick={() => update(element.id)}>

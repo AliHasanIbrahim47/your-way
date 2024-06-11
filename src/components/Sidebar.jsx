@@ -25,37 +25,37 @@ const Sidebar = () => {
             <li>
               <Link to="/users">
                 <FaUser className="icons-margin" />
-                Users
+                <span className="lll"> Users</span>
               </Link>
             </li>
             <li>
               <Link to="/drivers">
                 <FaCar className="icons-margin" />
-                Drivers
+                <span className="lll"> Drivers</span>
               </Link>
             </li>
             <li>
               <Link to="/dailytrips">
                 <FaMap className="icons-margin" />
-                Daily Trips
+                <span className="lll"> Daily Trips</span>
               </Link>
             </li>
             <li>
               <Link to="/lines">
                 <FaGripLinesVertical className="icons-margin" />
-                Lines
+                <span className="lll"> Lines</span>
               </Link>
             </li>
             <li>
               <Link to="/brands">
                 <PiFlagBannerFill className="icons-margin" />
-                Brands
+                <span className="lll"> Brands</span>
               </Link>
             </li>
             <li>
               <Link to="/login">
                 <IoLogOut className="icons-margin" />
-                Logout
+                <span className="lll"> Logout</span>
               </Link>
             </li>
           </ul>

@@ -1,14 +1,12 @@
 import { useRef, useState, useEffect } from 'react';
-import useAuth from '../../hooks/useAuth';
 import logo from "../../logo/pngAsset 6@4x.png";
 import './Login.css';
 import { Link } from 'react-router-dom';
 import axios from "../../api/axios";
 
-const LOGIN_URL = '/jawak-wa-tareekak/manager/login';
+const LOGIN_URL = '/jawak-wa-tareekak/user/login';
 
 const Login = () => {
-    const { setAuth } = useAuth(); 
     const phoneRef = useRef();
     const errRef = useRef();
 
