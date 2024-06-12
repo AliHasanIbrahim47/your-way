@@ -4,34 +4,34 @@ const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
     const [token, setToken] = useState();
-    const [role, setRole] = useState();
+    // const [role, setRole] = useState();
 
     useEffect(() => {
         const savedToken = localStorage.getItem('token');
-        const savedRole = localStorage.getItem('role');
+        // const savedRole = localStorage.getItem('role');
     
         if(savedToken) setToken(savedToken);
-        if(savedRole) setRole(savedRole);
+        // if(savedRole) setRole(savedRole);
     }, []);
 
-    const login = (newToken, newRole) => {
+    const login = (newToken) => {
         setToken(newToken);
-        setRole(newRole);
+        // setRole(newRole);
 
         localStorage.setItem('token', newToken);
-        localStorage.setItem('role', newRole);
+        // localStorage.setItem('role', newRole);
     }
 
     const logout = () => {
         setToken(null);
-        setRole(null);
+        // setRole(null);
 
         localStorage.removeItem('token');
-        localStorage.removeItem('role');
+        // localStorage.removeItem('role');
     }
 
     return (
-        <AuthContext.Provider value={{token, role ,login, logout}}>
+        <AuthContext.Provider value={{token ,login, logout}}>
             {children}
         </AuthContext.Provider>
     );

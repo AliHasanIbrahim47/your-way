@@ -82,17 +82,27 @@ const Login = () => {
             console.log('Token:', token); // Debug: Check the token
       
             if (token) {
-              login(token, 'manager');
+              login(token);
               console.log('Token stored:', token); // Debug: Confirm the token is stored
               alert('Login successful!');
               navigate('/');
             } else {
               alert('Login failed. Token not found in the response.');
             }
-          } catch (error) {
-            console.error('Error logging in', error);
-            alert('Login failed. Please check your phone and password.');
-          }
+          } catch (err) {
+                if (!err?.response) {
+                    setErrMsg('No Server Response');
+                } else if (err.response?.status === 400) {
+                    setErrMsg('Missing Phone or Password');
+                } else if (err.response?.status === 401) {
+                    setErrMsg('Unauthorized');
+                } else {
+                    setErrMsg('Login Failed');
+                }
+                if (errRef.current) {
+                    errRef.current.focus();
+                }
+            }
     }
 
     return (
@@ -124,7 +134,7 @@ const Login = () => {
                         />
                         <button>Sign In</button>
                     </form>
-                    <button onClick={() => {navigate('/user/login')}}>Go to User Login</button>
+                    {/* <button onClick={() => {navigate('/user/login')}}>Go to User Login</button> */}
                 </section>
             
         </div>

@@ -22,11 +22,11 @@ import EditLine from './pages/Lines/EditLine';
 import AddLine from './pages/Lines/AddLine';
 import AddBrand from './pages/Brands/AddBrand';
 import EditBrand from './pages/Brands/EditBrand';
-import Unauthorized from './pages/Login/Unauthorized';
+// import Unauthorized from './pages/Login/Unauthorized';
 import ProtectedRoute from './pages/Login/ProtectedRoute';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import UserLogin from './pages/Login/UserLogin';
+// import UserLogin from './pages/Login/UserLogin';
 
 function App() {
 
@@ -114,17 +114,17 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/user/login" element={<UserLogin />} />
+          {/* <Route path="/user/login" element={<UserLogin />} /> */}
           <Route path="/" element={<Dashboard />} /> 
           <Route path="/manager/login" element={<Login/>} />
-          <Route path="/unauthorized" element={<Unauthorized />} />
+          {/* <Route path="/unauthorized" element={<Unauthorized />} /> */}
           {/* <Route path="/register" element={<Register />} />  */}
 
           {/* Users */}
           <Route path="/users" element={<ProtectedRoute allowedRoles={['manager']}><Users/></ProtectedRoute> } />
-          <Route path="/users/add" element={<ProtectedRoute allowedRoles={['manager', 'user']}><AddUser /></ProtectedRoute>} />
-          <Route path="/users/:id" element={<ProtectedRoute allowedRoles={['manager', 'user']}><ShowUser /></ProtectedRoute>} />
-          <Route path="/users/:id/edit" element={<EditUser allowedRoles={['manager', 'user']} />} />
+          <Route path="/users/add" element={<ProtectedRoute allowedRoles={['manager']}><AddUser /></ProtectedRoute>} />
+          <Route path="/users/:id" element={<ProtectedRoute allowedRoles={['manager']}><ShowUser /></ProtectedRoute>} />
+          <Route path="/users/:id/edit" element={<EditUser allowedRoles={['manager']}/>} />
           <Route path="/users/:id/addtrip" element={<AddTrip />}/>
           <Route path="/users/:id/trip/edit" element={<EditTrip />}/>
 
