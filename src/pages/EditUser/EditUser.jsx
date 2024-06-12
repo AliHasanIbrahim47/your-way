@@ -6,6 +6,7 @@ import Popup from '../../components/Popup';
 import axios from "axios";
 
 const EditUser = () => {
+  const [loader, setLoader] = useState(true);
   const [users, setUsers] = useState([]); // Initial state as an empty array
   const token = localStorage.getItem('token');
   console.log('Token retrieved:', token); // Debug: Check the token
@@ -24,6 +25,7 @@ const EditUser = () => {
         } else {
           console.error('Response data is not an array');
         }
+        setLoader(false);
       } catch (error) {
         console.error('Error fetching users', error);
       }
@@ -61,12 +63,23 @@ const EditUser = () => {
     console.log('cancel');
   }
 
-  if (!user) {
+  if (!user && !loader) {
     return (
-      <div className="edituser">
+      <div className="showuser">
         <Sidebar />
         <div className="container">
-          <h1>User not found</h1>
+          <h1>User Not Found</h1>
+        </div>
+      </div>
+    );
+  }
+
+  if (loader) {
+    return (
+      <div className="showuser">
+        <Sidebar />
+        <div className="container">
+          <h1>Loading...</h1>
         </div>
       </div>
     );

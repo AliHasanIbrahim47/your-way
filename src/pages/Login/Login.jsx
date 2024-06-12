@@ -124,6 +124,7 @@ const Login = () => {
                         />
                         <button>Sign In</button>
                     </form>
+                    <button onClick={() => {navigate('/user/login')}}>Go to User Login</button>
                 </section>
             
         </div>

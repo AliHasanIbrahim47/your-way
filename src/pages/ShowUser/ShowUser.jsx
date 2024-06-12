@@ -7,6 +7,7 @@ import { RiEdit2Fill } from "react-icons/ri";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 
 const ShowUser = () => {
+  const [loader, setLoader] = useState(true);
   const [users, setUsers] = useState([]); // Initial state as an empty array
   const token = localStorage.getItem('token');
   console.log('Token retrieved:', token); // Debug: Check the token
@@ -25,6 +26,7 @@ const ShowUser = () => {
         } else {
           console.error('Response data is not an array');
         }
+        setLoader(false);
       } catch (error) {
         console.error('Error fetching users', error);
       }
@@ -55,12 +57,23 @@ const ShowUser = () => {
   //   navigate(`/users/${id}/trip/edit`);
   // };
 
-  if (!user) {
+  if (!user && !loader) {
     return (
       <div className="showuser">
         <Sidebar />
         <div className="container">
-          <h1>User not found</h1>
+          <h1>User Not Found</h1>
+        </div>
+      </div>
+    );
+  }
+
+  if (loader) {
+    return (
+      <div className="showuser">
+        <Sidebar />
+        <div className="container">
+          <h1>Loading...</h1>
         </div>
       </div>
     );
