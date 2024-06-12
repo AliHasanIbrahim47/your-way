@@ -1,13 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import './ShowUser.css';
+import axios from 'axios';
 import { RiEdit2Fill } from "react-icons/ri";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 
-const ShowUser = ({ data }) => {
+const ShowUser = () => {
+  const [users, setUsers] = useState([]); // Initial state as an empty array
+  const token = localStorage.getItem('token');
+  console.log('Token retrieved:', token); // Debug: Check the token
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log('Users response:', response.data); // Debug: Check the response data
+        if (Array.isArray(response.data.data)) {
+          setUsers(response.data.data);
+        } else {
+          console.error('Response data is not an array');
+        }
+      } catch (error) {
+        console.error('Error fetching users', error);
+      }
+    };
+
+    fetchUsers();
+  }, [token]);
+
   const { id } = useParams();
-  const user = data.find(user => user.id.toString() === id);
+  const user = users.find(user => user.id.toString() === id);
   const navigate = useNavigate();
 
   const trips = [
@@ -45,9 +72,8 @@ const ShowUser = ({ data }) => {
       <div className="container">
         <h1>User Details</h1>
         <div className="user-details">
-          <p><strong>Name:</strong> {user.name}</p>
-          <p><strong>Username:</strong> {user.username}</p>
-          <p><strong>Number:</strong> {user.number}</p>
+          <p><strong>Name:</strong> {user.full_name}</p>
+          <p><strong>Phone:</strong> {user.phone}</p>
         </div>
         <div className="trips-section">
           <h2>Previous Trips</h2>

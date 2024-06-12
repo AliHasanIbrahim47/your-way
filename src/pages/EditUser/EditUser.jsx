@@ -1,13 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import './EditUser.css';
 import Popup from '../../components/Popup';
+import axios from "axios";
 
-const EditUser = ({ data, updateUser }) => {
+const EditUser = () => {
+  const [users, setUsers] = useState([]); // Initial state as an empty array
+  const token = localStorage.getItem('token');
+  console.log('Token retrieved:', token); // Debug: Check the token
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log('Users response:', response.data); // Debug: Check the response data
+        if (Array.isArray(response.data.data)) {
+          setUsers(response.data.data);
+        } else {
+          console.error('Response data is not an array');
+        }
+      } catch (error) {
+        console.error('Error fetching users', error);
+      }
+    };
+
+    fetchUsers();
+  }, [token]);
+
   const { id } = useParams();
+  const user = users.find(user => user.id.toString() === id);
   const navigate = useNavigate();
-  const user = data.find(user => user.id.toString() === id);
+
 
   const [name, setName] = useState(user ? user.name : '');
   const [username, setUsername] = useState(user ? user.username : '');
@@ -21,8 +49,10 @@ const EditUser = ({ data, updateUser }) => {
 
   const confirmDelete = () => {
     setIsPopuoVisble(false);
-    const updatedUser = { id: user.id, name, username, number };
-    updateUser(updatedUser);
+    const updatedUser = { id: user.id, full_name: name, phone: number };
+    // updateUser(updatedUser);
+    setUsers(users.map(u => (u.id === updatedUser.id ? updatedUser : u)));
+
     navigate(`/users/${id}`);
 }
   

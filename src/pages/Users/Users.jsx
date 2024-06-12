@@ -5,7 +5,6 @@ import "./Users.css";
 import { RiEdit2Fill } from "react-icons/ri";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
-import useAuth from "../../hooks/useAuth";
 import axios from "axios"; 
 
 const Users = () => {
@@ -13,7 +12,31 @@ const Users = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
 
-  const { auth } = useAuth();
+  const [users, setUsers] = useState([]); // Initial state as an empty array
+  const token = localStorage.getItem('token');
+  console.log('Token retrieved:', token); // Debug: Check the token
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log('Users response:', response.data); // Debug: Check the response data
+        if (Array.isArray(response.data.data)) {
+          setUsers(response.data.data);
+        } else {
+          console.error('Response data is not an array');
+        }
+      } catch (error) {
+        console.error('Error fetching users', error);
+      }
+    };
+
+    fetchUsers();
+  }, [token]);
 
   const handleSelectAll = (event) => {
     if (event.target.checked) {
@@ -58,31 +81,31 @@ const Users = () => {
     setIsPopuoVisble(true);
   };
 
-  const [users, setUsers] = useState([]); // Initial state as an empty array
-  const token = localStorage.getItem('token');
-  console.log('Token retrieved:', token); // Debug: Check the token
+  // const [users, setUsers] = useState([]); // Initial state as an empty array
+  // const token = localStorage.getItem('token');
+  // console.log('Token retrieved:', token); // Debug: Check the token
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        console.log('Users response:', response.data); // Debug: Check the response data
-        if (Array.isArray(response.data.data)) {
-          setUsers(response.data.data);
-        } else {
-          console.error('Response data is not an array');
-        }
-      } catch (error) {
-        console.error('Error fetching users', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     try {
+  //       const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       });
+  //       console.log('Users response:', response.data); // Debug: Check the response data
+  //       if (Array.isArray(response.data.data)) {
+  //         setUsers(response.data.data);
+  //       } else {
+  //         console.error('Response data is not an array');
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching users', error);
+  //     }
+  //   };
 
-    fetchUsers();
-  }, [token]);
+  //   fetchUsers();
+  // }, [token]);
 
   return (
     <div className="users">

@@ -1,6 +1,30 @@
 .flexGrow {
     flex-grow: 1;
+    margin-top: 40px;
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
   }
+
+.unauth {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.unauth button {
+  padding: 0.75rem;
+  width: 100%;
+  background-color: #BA8D38;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.unauth button:hover {
+  background-color: #A37A30;
+}

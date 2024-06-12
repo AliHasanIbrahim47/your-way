@@ -1,4 +1,3 @@
-import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
@@ -25,28 +24,11 @@ import AddBrand from './pages/Brands/AddBrand';
 import EditBrand from './pages/Brands/EditBrand';
 import Unauthorized from './pages/Login/Unauthorized';
 import ProtectedRoute from './pages/Login/ProtectedRoute';
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 import UserLogin from './pages/Login/UserLogin';
 
 function App() {
-  const [usersData, setUsersData] = useState([
-    {
-      id: 1,
-      name: "ali",
-      username: "a",
-      number: 15000,
-    },
-    {
-      id: 2,
-      name: "ahmad",
-      username: "ah",
-      number: 20000,
-    }
-  ]);
-
-  const updateUser = (updatedUser) => {
-    setUsersData(usersData.map(user => (user.id === updatedUser.id ? updatedUser : user)));
-  };
 
   const [driversData, setDriversData] = useState([
     {
@@ -129,26 +111,26 @@ function App() {
   };
 
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Dashboard />} /> 
-        <Route path="/manager/login" element={<Login/>} />
-        <Route path="/user/login" element={<UserLogin/>} />
-        <Route path="" element={<Unauthorized />} />
-        {/* <Route path="/register" element={<Register />} />  */}
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Dashboard />} /> 
+          <Route path="/manager/login" element={<Login/>} />
+          <Route path="/user/login" element={<UserLogin />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
+          {/* <Route path="/register" element={<Register />} />  */}
 
-        
           {/* Users */}
-          <Route path="/users" element={<ProtectedRoute><Users/></ProtectedRoute> } />
-          <Route path="/users/add" element={<AddUser />} />
-          <Route path="/users/:id" element={<ShowUser data={usersData} />} />
-          <Route path="/users/:id/edit" element={<EditUser data={usersData} updateUser={updateUser} />} />
+          <Route path="/users" element={<ProtectedRoute allowedRoles={['manager']}><Users/></ProtectedRoute> } />
+          <Route path="/users/add" element={<ProtectedRoute allowedRoles={['manager', 'user']}><AddUser /></ProtectedRoute>} />
+          <Route path="/users/:id" element={<ProtectedRoute allowedRoles={['manager', 'user']}><ShowUser /></ProtectedRoute>} />
+          <Route path="/users/:id/edit" element={<EditUser allowedRoles={['manager', 'user']} />} />
           <Route path="/users/:id/addtrip" element={<AddTrip />}/>
           <Route path="/users/:id/trip/edit" element={<EditTrip />}/>
 
           {/* Drivers */}
-          <Route path="/drivers" element={<Drivers data={driversData} />} />
-          <Route path="/drivers/add" element={<AddDriver />} />
+          <Route path="/drivers" element={<ProtectedRoute allowedRoles={['manager']}><Drivers data={driversData} /></ProtectedRoute>} />
+          <Route path="/drivers/add" element={<ProtectedRoute allowedRoles={['manager']}><AddDriver /></ProtectedRoute>} />
           <Route path="/drivers/:id" element={<ShowDriver data={driversData} />} />
           <Route path="/drivers/:id/edit" element={<EditDriver data={driversData} updateDrivers={updateDrivers} />} />
           <Route path="/drivers/:id/addtrip" element={<AddTrip />}/>
@@ -170,9 +152,9 @@ function App() {
           <Route path="/brands/add" element={<AddBrand />} />
           <Route path="/brands/:id/edit" element={<EditBrand data={brandsData} updateBrands={updateBrands} />} />
 
-        
-      </Routes>
-    </>
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
