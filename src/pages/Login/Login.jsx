@@ -29,61 +29,17 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // try {
-        //     const response = await axios.post(LOGIN_URL,
-        //         JSON.stringify({ phone: phone, password: pwd }),
-        //         {
-        //             headers: { 'Content-Type': 'application/json' }
-        //         }
-        //     );
-        //     // console.log(JSON.stringify(response?.data));
-        //     // const accessToken = response?.data?.token;
-            
-        //     // setAuth({ phone, token: accessToken });
-        //     // setPhone('');
-        //     // setPwd('');
-        //     // setSuccess(true);
-
-
-        //     console.log('Response:', response); // Debug: Check the response object
-        //     const token = response.data.data.token;
-        //     console.log('Token:', token); // Debug: Check the token
-        //     if (token) {
-        //         localStorage.setItem('token', token); // Store the token
-        //         console.log('Token stored:', token); // Debug: Confirm the token is stored
-        //         alert('Login successful!');
-        //     } else {
-        //         alert('Login failed. Token not found in the response.');
-        //     }
-        //     setSuccess(true);
-        // } catch (err) {
-        //     if (!err?.response) {
-        //         setErrMsg('No Server Response');
-        //     } else if (err.response?.status === 400) {
-        //         setErrMsg('Missing Phone or Password');
-        //     } else if (err.response?.status === 401) {
-        //         setErrMsg('Unauthorized');
-        //     } else {
-        //         setErrMsg('Login Failed');
-        //     }
-        //     if (errRef.current) {
-        //         errRef.current.focus();
-        //     }
-        // }
-
         try {
             const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/login', {
               phone,
               password,
             });
-            console.log('Response:', response); // Debug: Check the response object
       
             const token = response.data.data.token;
-            console.log('Token:', token); // Debug: Check the token
       
             if (token) {
               login(token);
-              console.log('Token stored:', token); // Debug: Confirm the token is stored
+              console.log('Token stored:', token); 
               alert('Login successful!');
               navigate('/');
             } else {

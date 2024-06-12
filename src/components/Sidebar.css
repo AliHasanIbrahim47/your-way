@@ -39,7 +39,7 @@
   margin-right: 10px;
 }
 
-.sidebar ul li a {
+.sidebar ul li a, .sidebar ul li button {
   color: #1D1C1C;
   text-decoration: none;
   display: block;
@@ -52,16 +52,16 @@
 }
 
 .sidebar ul li a:hover {
-  color: #BA8D38;
+  color: white;
 }
 
-.btn:hover {
+/* .btn:hover {
   color: #BA8D38;
-}
+} */
 
-.sidebar ul li:hover {
+/* .sidebar ul li:hover {
   background-color: #1D1C1C;
-}
+} */
 
 /* .toggle-button {
   position: fixed;

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import "./AddBrand.css";
+import "./AddExtra.css";
 import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const AddBrand = () => {
+const AddExtra = () => {
   const [title_en, settitle_en] = useState("");
-  const [image, setimage] = useState(null);
+  const [price, setprice] = useState(null);
   const [title_ar, settitle_ar] = useState("");
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
 
@@ -21,36 +21,28 @@ const AddBrand = () => {
   const confirmDelete = async () => {
     const token = localStorage.getItem('token');
     setIsPopuoVisble(false);
-    if (!title_en || !image || !title_ar) {
+    if (!title_en || !price || !title_ar) {
       alert("All fields are required!");
       return;
     }
-    const formData = new FormData();
-    formData.append('title_en', title_en);
-    formData.append('image', image);
-    formData.append('title_ar', title_ar);
-    // let data = { title_en: title_en, image: image, title_ar: title_ar };
-    for(let [key, value] of formData.entries()) {
-      console.log(`${key}`, value);
-    }
-
+    let data = { title_en: title_en, price: price, title_ar: title_ar };
+    console.log(data);
     try {
-      const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/banners', {
-        formData
+      const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/extra', {
+        title_en: title_en , title_ar: title_ar, price: price
       }, {
         headers: {
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'application/json'
         }
       });
 
-      console.log('Users response:', response.data);
       settitle_en("");
-      setimage(null);
+      setprice("");
       settitle_ar("");
-      navigate('/banners');
+      navigate('/extra');
       } catch (error) {
-      console.error('Error adding banner', error);
+      console.error('Error adding extra', error);
     }
 
   }
@@ -64,7 +56,7 @@ const AddBrand = () => {
     <div className="adduser">
       <Sidebar />
       <div className="container">
-        <h1>Add Banner</h1>
+        <h1>Add Extra</h1>
         <form onSubmit={sendData}>
           <label htmlFor="title_en">Title English</label>
           <input
@@ -84,22 +76,21 @@ const AddBrand = () => {
             onChange={(event) => settitle_ar(event.target.value)}
             required
           />
-          <label htmlFor="image">Image</label>
+          <label htmlFor="price">Price</label>
           <input
-            type="file"
-            id="image"
-            placeholder="Image src"
-            accept="image/*"
-            // value={image}
-            onChange={(event) => setimage(event.target.files[0])}
+            type="number"
+            id="price"
+            placeholder="Price"
+            value={price}
+            onChange={(event) => setprice(event.target.value)}
             required
           />
-          <input type="submit" value="Add Banner" />
+          <input type="submit" value="Add Extra" />
         </form>
       </div>
       {isPopupVisible && (
         <Popup 
-          message="Are you sure you want to add this banner?"
+          message="Are you sure you want to add this extra?"
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />
@@ -108,4 +99,4 @@ const AddBrand = () => {
   );
 };
 
-export default AddBrand;
+export default AddExtra;

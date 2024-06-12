@@ -1,0 +1,167 @@
+import React, { useState, useEffect } from "react";
+import Sidebar from "../../components/Sidebar";
+import { Link, useNavigate } from "react-router-dom";
+import "./Extra.css";
+import { RiEdit2Fill } from "react-icons/ri";
+import { RiDeleteBin5Fill } from "react-icons/ri";
+import Popup from '../../components/Popup';
+import axios from "axios";
+
+const Extra = () => {
+  const navigate = useNavigate();
+  const [selectedUsers, setSelectedUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+  const [users, setUsers] = useState([]); // Initial state as an empty array
+  const token = localStorage.getItem('token');
+
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/extra', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      if (Array.isArray(response.data.data)) {
+        setUsers(response.data.data);
+      } else {
+        console.error('Response data is not an array');
+      }
+    } catch (error) {
+      console.error('Error fetching users', error);
+    }
+  };
+
+  const handleSelectAll = (event) => {
+    if (event.target.checked) {
+      setSelectedUsers(users.map((user) => user.id));
+    } else {
+      setSelectedUsers([]);
+    }
+  };
+
+  const handleSelectUser = (id) => {
+    setSelectedUsers((prevSelected) =>
+      prevSelected.includes(id)
+        ? prevSelected.filter((userId) => userId !== id)
+        : [...prevSelected, id]
+    );
+  };
+
+  const handleDeleteSelected = () => {
+    setIsPopupVisible(true);
+    // Implement the logic to delete selected users
+    console.log("Deleting users with IDs:", selectedUsers);
+  };
+
+  const confirmDelete = async () => {
+    setIsPopupVisible(false);
+    console.log('delete');
+    try {
+      const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
+      const response = await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/extra/', {
+        data: { ids: idsToDelete },
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log('delete finished', response.data);
+      fetchUsers();
+    } catch (error) {
+      console.error('Error deleting extra', error);
+    }
+    setSelectedUsers([]);
+    setSelectedUser(null);
+  }
+
+  const cancelDelete = () => {
+    setIsPopupVisible(false);
+  }
+
+  const show = (id) => {
+    navigate(`/extra/${id}`);
+  };
+
+  const update = (id) => {
+    navigate(`/extra/${id}/edit`);
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, [token]);
+
+  const deleteUser = (item) => {
+    setSelectedUser(item);
+    setIsPopupVisible(true);
+  };
+
+  return (
+    <div className="users">
+      <Sidebar />
+      <div className="container">
+        <div className="header">
+          <h1>All Extra</h1>
+          <div className="links">
+            <Link to="/extra/add">ADD</Link>
+            <button onClick={handleDeleteSelected}>Delete Selected</button>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title_EN</th>
+              <th>Title_AR</th>
+              <th>Price</th>
+              <th>Actions</th>
+              <th>
+                <input
+                  type="checkbox"
+                  onChange={handleSelectAll}
+                  checked={selectedUsers.length === users.length}
+                />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((element, index) => (
+              <tr key={index}>
+                <td>{element.id}</td>
+                <td>{element.title_en}</td>
+                <td>{element.title_ar}</td>
+                <td>{element.price}</td>
+                <td className="actions-style">
+                  <button onClick={() => show(element.id)}>show</button>
+                  <button onClick={() => update(element.id)}>
+                    <RiEdit2Fill />
+                  </button>
+                  <button onClick={() => deleteUser(element)}>
+                    <RiDeleteBin5Fill />
+                  </button>
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    checked={selectedUsers.includes(element.id)}
+                    onChange={() => handleSelectUser(element.id)}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {isPopupVisible && (
+        <Popup
+          message="Are you sure you want to delete the selected extras?"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />
+      )}
+    </div>
+  );
+};
+
+export default Extra;

@@ -7,7 +7,7 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
 import axios from "axios"; 
 
-const Users = () => {
+const Brands = () => {
   const navigate = useNavigate();
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
@@ -87,16 +87,19 @@ const Users = () => {
       <div className="container">
         <div className="header">
           <h1>All Banners</h1>
-          {/* <div className="links">
-            <Link to="/users/add">ADD</Link>
+          <div className="links">
+            <Link to="/brands/add">ADD</Link>
             <button onClick={handleDeleteSelected}>Delete Selected</button>
-          </div> */}
+          </div>
         </div>
 
         <table>
           <thead>
             <tr>
               <th>ID</th>
+              <th>Title_EN</th>
+              <th>Image</th>
+              <th>Title_AR</th>
               <th>Actions</th>
               <th>
                 <input
@@ -112,6 +115,9 @@ const Users = () => {
               return (
                 <tr key={index}>
                   <td>{element.id}</td>
+                  <td>{element.title_en}</td>
+                  <td>{element.image}</td>
+                  <td>{element.title_ar}</td>
                   <td className="actions-style">
                     <button onClick={() => show(element.id)}>show</button>
                     <button onClick={() => update(element.id)}>
@@ -145,4 +151,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Brands;

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../logo/pngAsset 6@4x.png";
 import "./Sidebar.css";
 import { FaUser, FaCar, FaMap, FaGripLinesVertical } from "react-icons/fa";
 import { PiFlagBannerFill } from "react-icons/pi";
 import { IoLogOut } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 const Sidebar = () => {
   // const [isVisible, setIsVisible] = useState(true);
@@ -12,6 +14,13 @@ const Sidebar = () => {
   // const toggleSidebar = () => {
   //   setIsVisible(!isVisible);
   // };
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const logutHandle = () => {
+    logout();
+    navigate('/manager/login');
+  }
 
   return (
     <div>
@@ -53,10 +62,16 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/login">
+              <Link to="/extra">
+                <PiFlagBannerFill className="icons-margin" />
+                <span className="lll"> Extra</span>
+              </Link>
+            </li>
+            <li>
+              <button onClick={logutHandle}>
                 <IoLogOut className="icons-margin" />
                 <span className="lll"> Logout</span>
-              </Link>
+              </button>
             </li>
           </ul>
         </div>
