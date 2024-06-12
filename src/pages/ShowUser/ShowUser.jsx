@@ -10,7 +10,6 @@ const ShowUser = () => {
   const [loader, setLoader] = useState(true);
   const [users, setUsers] = useState([]); // Initial state as an empty array
   const token = localStorage.getItem('token');
-  console.log('Token retrieved:', token); // Debug: Check the token
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -20,7 +19,6 @@ const ShowUser = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log('Users response:', response.data); // Debug: Check the response data
         if (Array.isArray(response.data.data)) {
           setUsers(response.data.data);
         } else {

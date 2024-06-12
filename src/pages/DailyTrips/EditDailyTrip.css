@@ -1,112 +1,74 @@
-.edituser {
-    display: flex;
-    height: 100vh;
-    background-color: #f4f4f4;
-  }
-  
-  .edituser > .sidebar {
-    width: 250px;
-    flex-shrink: 0;
+.adddailytrip {
+  display: flex;
+  flex-direction: row;
 }
 
-  .edituser .container {
-    flex: 1;
-    display: flex;
+.adddailytrip .container {
+  padding: 20px;
+  margin-left: 250px;
+  width: calc(100% - 250px); 
+}
+
+.adddailytrip h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.adddailytrip form {
+  display: flex;
+  flex-direction: column;
+}
+
+.adddailytrip label {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.adddailytrip input[type="text"],
+.adddailytrip input[type="date"],
+.adddailytrip input[type="number"],
+.adddailytrip input[type="time"] {
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.adddailytrip input[type="submit"] {
+  background-color: #BA8D38;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.adddailytrip input[type="submit"]:hover {
+  background-color: #A37A30;
+}
+
+.adddailytrip input[type="submit"]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+
+@media (max-width: 768px) {
+  .adddailytrip {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    margin-left: 250px;
   }
 
-  .edituser form label {
-    font-size: 1rem;
-    color: #333;
-  }
-
-  .edituser h1 {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .edituser form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  .edituser form input[type="text"] {
-    font-family: 'Nunito', sans-serif;
-    font-size: 1rem;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .edituser form input[type="number"] {
-    width: 100%;
-    max-width: 400px; 
-    padding: 0.5rem; 
-    font-size: 1rem; 
-    border: 1px solid #ccc; 
-    border-radius: 0.5rem; 
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
-    transition: border-color 0.3s, box-shadow 0.3s; 
-    outline: none;
-  }
-
-  .edituser form input[type="submit"] {
-    font-size: 1rem;
-    padding: 10px;
-    background-color: #ba8d38;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  .adddailytrip .container {
+    margin-left: 0;
     width: 100%;
   }
 
-  .edituser form input[type="submit"]:hover {
-    background-color: #a0752e;
-  }
-  
-  .edituser .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .edituser .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 1rem;
-  }
-  
-  .edituser .form-group input[type="text"],
-  .edituser .form-group input[type="date"],
-  .edituser .form-group input[type="time"] {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-
-  @media (max-width: 768px) {
-    .edituser {
-      flex-direction: column;
-    }
-  
-    .edituser .container {
-      margin-left: 0;
-      padding: 10px;
-    }
-  
-    .edituser h1 {
-      font-size: 1.5rem;
-    }
 }

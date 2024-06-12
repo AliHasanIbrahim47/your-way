@@ -1,35 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import "./AddLine.css";
 import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AddLine = () => {
-  const [aPlace, setAPlace] = useState("");
-  const [dPlace, setDPlace] = useState("");
-  
+  const [point_a, setpoint_a] = useState("");
+  const [point_b, setpoint_b] = useState("");
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
+
+  const navigate = useNavigate();
 
   const sendData = (event) => {
     event.preventDefault();
     setIsPopuoVisble(true);
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
+    const token = localStorage.getItem('token');
     setIsPopuoVisble(false);
-    if (!aPlace || !dPlace) {
+    if (!point_a || !point_b) {
       alert("All fields are required!");
       return;
     }
-    let data = { DeparturePlace: dPlace, ArrivalPlace: aPlace  };
-    console.log(data);
-    // send data to database with axios
+    let data = { point_a: point_a, point_b: point_b };
+    try {
+      const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/lines', {
+        point_a: point_a, point_b: point_b
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
 
-    setAPlace("");
-    setDPlace("");
-  }  
+      setpoint_a("");
+      setpoint_b("");
+      navigate('/lines');
+      } catch (error) {
+      console.error('Error adding line', error);
+    }
 
+  }
+  
   const cancelDelete = () => {
     setIsPopuoVisble(false);
-    console.log('cancel');
   }
 
   return (
@@ -38,27 +54,27 @@ const AddLine = () => {
       <div className="container">
         <h1>Add Line</h1>
         <form onSubmit={sendData}>
-          <label htmlFor="dPlace">Departure Place</label>
+          <label htmlFor="point_a">Deprature Place</label>
           <input
             type="text"
-            id="dPlace"
-            placeholder="Departure Place"
-            value={dPlace}
-            onChange={(event) => setDPlace(event.target.value)}
+            id="point_a"
+            placeholder="Point A"
+            value={point_a}
+            onChange={(event) => setpoint_a(event.target.value)}
             required
           />
 
-          <label htmlFor="aPlace">Arrival Place</label>
+          <label htmlFor="point_b">Arival Place</label>
           <input
             type="text"
-            id="aPlace"
-            placeholder="Arrival Place"
-            value={aPlace}
-            onChange={(event) => setAPlace(event.target.value)}
+            id="point_b"
+            placeholder="Point B"
+            value={point_b}
+            onChange={(event) => setpoint_b(event.target.value)}
             required
           />
 
-          <input type="submit" value="Add Line" />
+          <input type="submit" value="Add Extra" />
         </form>
       </div>
       {isPopupVisible && (

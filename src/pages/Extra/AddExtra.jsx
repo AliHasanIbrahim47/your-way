@@ -26,7 +26,6 @@ const AddExtra = () => {
       return;
     }
     let data = { title_en: title_en, price: price, title_ar: title_ar };
-    console.log(data);
     try {
       const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/extra', {
         title_en: title_en , title_ar: title_ar, price: price
@@ -49,7 +48,6 @@ const AddExtra = () => {
   
   const cancelDelete = () => {
     setIsPopuoVisble(false);
-    console.log('cancel');
   }
 
   return (

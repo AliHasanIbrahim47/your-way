@@ -110,10 +110,10 @@
   cursor: pointer;
 }
 
-/* .users a:hover, .users .header button:hover {
+.users a:hover, .users .header button:hover {
   color: white;
   background-color: #1D1C1C;
-} */
+}
 
 @media (max-width: 768px) {
   .users {

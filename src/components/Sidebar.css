@@ -53,6 +53,7 @@
 
 .sidebar ul li a:hover {
   color: white;
+  background-color: #1D1C1C;
 }
 
 /* .btn:hover {

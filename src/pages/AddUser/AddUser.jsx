@@ -21,7 +21,6 @@ const AddUser = () => {
       return;
     }
     let data = { name: name, username: username, number: number };
-    console.log(data);
     // send data to database with axios
 
     setName("");
@@ -31,7 +30,6 @@ const AddUser = () => {
   
   const cancelDelete = () => {
     setIsPopuoVisble(false);
-    console.log('cancel');
   }
 
   return (

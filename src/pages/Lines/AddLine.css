@@ -1,0 +1,82 @@
+.adduser {
+    display: flex;
+    height: 100vh;
+    background-color: #f4f4f4;
+  }
+  
+  .adduser > .sidebar {
+    width: 250px;
+    flex-shrink: 0;
+  } 
+  
+  .adduser .container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin-left: 250px; 
+  }
+  
+  .adduser h1 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .adduser form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .adduser form input[type="text"],
+  .adduser form input[type="submit"] {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .adduser form input[type="submit"] {
+    background-color: #BA8D38;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .adduser form input[type="submit"]:hover {
+    background-color: #A37A30;
+  }
+  
+  @media (max-width: 768px) {
+    .adduser {
+      flex-direction: column;
+    }
+  
+    .adduser .container {
+      margin-left: 0;
+      padding: 10px;
+    }
+  
+    .adduser h1 {
+      font-size: 1.5rem;
+    }
+  
+    .adduser form {
+      width: 90%;
+    }
+  
+    .adduser .sidebar {
+      width: 100%;
+      height: 200px;
+    }
+  }
+  

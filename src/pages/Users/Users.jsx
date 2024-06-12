@@ -12,10 +12,8 @@ const Users = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
 
-  const [users, setUsers] = useState([]); // Initial state as an empty array
+  const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
-  console.log('Token retrieved:', token); // Debug: Check the token
-
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -24,7 +22,6 @@ const Users = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log('Users response:', response.data); // Debug: Check the response data
         if (Array.isArray(response.data.data)) {
           setUsers(response.data.data);
         } else {
@@ -56,8 +53,6 @@ const Users = () => {
 
   const handleDeleteSelected = () => {
     setIsPopuoVisble(true);
-    // Implement the logic to delete selected users
-    console.log("Deleting users with IDs:", selectedUsers);
   };
 
   const confirmDelete = () => {
@@ -80,32 +75,6 @@ const Users = () => {
   const deleteUser = (id) => {
     setIsPopuoVisble(true);
   };
-
-  // const [users, setUsers] = useState([]); // Initial state as an empty array
-  // const token = localStorage.getItem('token');
-  // console.log('Token retrieved:', token); // Debug: Check the token
-
-  // useEffect(() => {
-  //   const fetchUsers = async () => {
-  //     try {
-  //       const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-  //       console.log('Users response:', response.data); // Debug: Check the response data
-  //       if (Array.isArray(response.data.data)) {
-  //         setUsers(response.data.data);
-  //       } else {
-  //         console.error('Response data is not an array');
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching users', error);
-  //     }
-  //   };
-
-  //   fetchUsers();
-  // }, [token]);
 
   return (
     <div className="users">

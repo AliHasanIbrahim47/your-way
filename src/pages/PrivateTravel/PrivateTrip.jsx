@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../components/Sidebar";
 import { Link, useNavigate } from "react-router-dom";
-import "./Lines.css";
+import "./PrivateTrip.css";
 import { RiEdit2Fill } from "react-icons/ri";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
 import axios from "axios";
+import Moment from 'react-moment';
 
-const Lines = () => {
+const PrivateTrip = () => {
   const navigate = useNavigate();
   const [selectedUsers, setSelectedUsers] = useState([]);
+  const [acceptedUsers, setAcceptedUser] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/lines', {
+      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/private?status=pending', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -29,7 +31,7 @@ const Lines = () => {
         console.error('Response data is not an array');
       }
     } catch (error) {
-      console.error('Error fetching lines', error);
+      console.error('Error fetching private travels', error);
     }
   };
 
@@ -49,6 +51,22 @@ const Lines = () => {
     );
   };
 
+  const handleAcceptAll = (event) => {
+    if (event.target.checked) {
+      setAcceptedUser(users.map((user) => user.id));
+    } else {
+      setAcceptedUser([]);
+    }
+  };
+
+  const handleAcceptedUser = (id) => {
+    setAcceptedUser((prevSelected) =>
+      prevSelected.includes(id)
+        ? prevSelected.filter((userId) => userId !== id)
+        : [...prevSelected, id]
+    );
+  };
+
   const handleDeleteSelected = () => {
     setIsPopupVisible(true);
   };
@@ -57,7 +75,7 @@ const Lines = () => {
     setIsPopupVisible(false);
     try {
       const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
-      const response = await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/lines/', {
+      const response = await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/private', {
         data: { ids: idsToDelete },
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -77,11 +95,11 @@ const Lines = () => {
   }
 
   // const show = (id) => {
-  //   navigate(`/lines/${id}`);
+  //   navigate(`/travels/private/${id}`);
   // };
 
   const update = (id) => {
-    navigate(`/lines/${id}/edit`);
+    navigate(`/travels/private/${id}/edit`);
   };
 
   useEffect(() => {
@@ -98,24 +116,36 @@ const Lines = () => {
       <Sidebar />
       <div className="container">
         <div className="header">
-          <h1>All Lines</h1>
+          <h1>All Private Travels</h1>
           <div className="links">
-            <Link to="/lines/add">ADD</Link>
+            <Link to="/travels/private/add">ADD</Link>
             <button onClick={handleDeleteSelected}>Delete Selected</button>
           </div>
         </div>
         <table>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Deprature Place</th>
-              <th>Arrival Pace</th>
+              <th>Goint Date</th>
+              <th>Going From</th>
+              <th>Going To</th>
+              <th>Bus ID</th>
+              <th>User ID</th>
+              <th>Seats</th>
               <th>Actions</th>
               <th>
+                <label>Delet All</label>
                 <input
                   type="checkbox"
                   onChange={handleSelectAll}
                   checked={selectedUsers.length === users.length}
+                />
+              </th>
+              <th>
+                <label>Accept All</label>
+                <input
+                  type="checkbox"
+                  onChange={handleAcceptAll}
+                  checked={acceptedUsers.length === users.length}
                 />
               </th>
             </tr>
@@ -123,9 +153,12 @@ const Lines = () => {
           <tbody>
             {users.map((element, index) => (
               <tr key={index}>
-                <td>{element.id}</td>
-                <td>{element.point_a}</td>
-                <td>{element.point_b}</td>
+                <td><Moment format="YYYY/MM/DD">{element.going_date}</Moment></td>       
+                <td>{element.going_from}</td>                
+                <td>{element.going_to}</td>
+                <td>{element.bus_id}</td>
+                <td>{element.user_id}</td>
+                <td>{element.seats}</td>
                 <td className="actions-style">
                   {/* <button onClick={() => show(element.id)}>show</button> */}
                   <button onClick={() => update(element.id)}>
@@ -142,6 +175,13 @@ const Lines = () => {
                     onChange={() => handleSelectUser(element.id)}
                   />
                 </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    checked={acceptedUsers.includes(element.id)}
+                    onChange={() => handleAcceptedUser(element.id)}
+                  />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -149,7 +189,7 @@ const Lines = () => {
       </div>
       {isPopupVisible && (
         <Popup
-          message="Are you sure you want to delete the selected lines?"
+          message="Are you sure you want to delete the selected private travel?"
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />
@@ -158,4 +198,4 @@ const Lines = () => {
   );
 };
 
-export default Lines;
+export default PrivateTrip;

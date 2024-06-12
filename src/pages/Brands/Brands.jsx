@@ -30,8 +30,7 @@ const Brands = () => {
 
   const handleDeleteSelected = () => {
     setIsPopuoVisble(true);
-    // Implement the logic to delete selected users
-    console.log("Deleting users with IDs:", selectedUsers);
+
   };
 
   const confirmDelete = () => {
@@ -43,9 +42,9 @@ const Brands = () => {
     setIsPopuoVisble(false);
   }
 
-  const show = (id) => {
-    navigate(`/users/${id}`);
-  };
+  // const show = (id) => {
+  //   navigate(`/users/${id}`);
+  // };
 
   const update = (id) => {
     navigate(`/users/${id}/edit`);
@@ -55,10 +54,8 @@ const Brands = () => {
     setIsPopuoVisble(true);
   };
 
-  const [users, setUsers] = useState([]); // Initial state as an empty array
+  const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
-  console.log('Token retrieved:', token); // Debug: Check the token
-
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -67,7 +64,6 @@ const Brands = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log('Users response:', response.data); // Debug: Check the response data
         if (Array.isArray(response.data.data)) {
           setUsers(response.data.data);
         } else {
@@ -119,7 +115,7 @@ const Brands = () => {
                   <td>{element.image}</td>
                   <td>{element.title_ar}</td>
                   <td className="actions-style">
-                    <button onClick={() => show(element.id)}>show</button>
+                    {/* <button onClick={() => show(element.id)}>show</button> */}
                     <button onClick={() => update(element.id)}>
                       <RiEdit2Fill />
                     </button>

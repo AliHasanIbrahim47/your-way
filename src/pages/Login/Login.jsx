@@ -39,9 +39,8 @@ const Login = () => {
       
             if (token) {
               login(token);
-              console.log('Token stored:', token); 
               alert('Login successful!');
-              navigate('/');
+              navigate('/dashboard');
             } else {
               alert('Login failed. Token not found in the response.');
             }
@@ -90,7 +89,6 @@ const Login = () => {
                         />
                         <button>Sign In</button>
                     </form>
-                    {/* <button onClick={() => {navigate('/user/login')}}>Go to User Login</button> */}
                 </section>
             
         </div>

@@ -13,7 +13,7 @@ const Extra = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
-  const [users, setUsers] = useState([]); // Initial state as an empty array
+  const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
 
   const fetchUsers = async () => {
@@ -29,7 +29,7 @@ const Extra = () => {
         console.error('Response data is not an array');
       }
     } catch (error) {
-      console.error('Error fetching users', error);
+      console.error('Error fetching extra', error);
     }
   };
 
@@ -51,13 +51,10 @@ const Extra = () => {
 
   const handleDeleteSelected = () => {
     setIsPopupVisible(true);
-    // Implement the logic to delete selected users
-    console.log("Deleting users with IDs:", selectedUsers);
   };
 
   const confirmDelete = async () => {
     setIsPopupVisible(false);
-    console.log('delete');
     try {
       const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
       const response = await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/extra/', {
@@ -67,7 +64,6 @@ const Extra = () => {
           'Content-Type': 'application/json'
         }
       });
-      console.log('delete finished', response.data);
       fetchUsers();
     } catch (error) {
       console.error('Error deleting extra', error);
@@ -80,9 +76,9 @@ const Extra = () => {
     setIsPopupVisible(false);
   }
 
-  const show = (id) => {
-    navigate(`/extra/${id}`);
-  };
+  // const show = (id) => {
+  //   navigate(`/extra/${id}`);
+  // };
 
   const update = (id) => {
     navigate(`/extra/${id}/edit`);
@@ -133,7 +129,7 @@ const Extra = () => {
                 <td>{element.title_ar}</td>
                 <td>{element.price}</td>
                 <td className="actions-style">
-                  <button onClick={() => show(element.id)}>show</button>
+                  {/* <button onClick={() => show(element.id)}>show</button> */}
                   <button onClick={() => update(element.id)}>
                     <RiEdit2Fill />
                   </button>

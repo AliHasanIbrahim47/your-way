@@ -4,7 +4,7 @@ import './Unauthorized.css';
 const Unauthorized = () => {
     const navigate = useNavigate();
 
-    const goToManagerLogin = () => navigate('/manager/login');
+    const goToManagerLogin = () => navigate('/');
     const goToUserLogin = () => navigate('/user/login');
 
     const role = localStorage.getItem('role');

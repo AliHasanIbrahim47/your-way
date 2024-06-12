@@ -1,12 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../logo/pngAsset 6@4x.png";
 import "./Sidebar.css";
-import { FaUser, FaCar, FaMap, FaGripLinesVertical } from "react-icons/fa";
+import { FaUser, FaMap, FaGripLinesVertical } from "react-icons/fa";
 import { PiFlagBannerFill } from "react-icons/pi";
 import { IoLogOut } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
+
 import { AuthContext } from '../context/AuthContext';
+import { MdHomeRepairService } from "react-icons/md";
 
 const Sidebar = () => {
   // const [isVisible, setIsVisible] = useState(true);
@@ -19,7 +21,7 @@ const Sidebar = () => {
 
   const logutHandle = () => {
     logout();
-    navigate('/manager/login');
+    navigate('/');
   }
 
   return (
@@ -38,13 +40,7 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/drivers">
-                <FaCar className="icons-margin" />
-                <span className="lll"> Drivers</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/dailytrips">
+              <Link to="/travels">
                 <FaMap className="icons-margin" />
                 <span className="lll"> Daily Trips</span>
               </Link>
@@ -63,7 +59,7 @@ const Sidebar = () => {
             </li>
             <li>
               <Link to="/extra">
-                <PiFlagBannerFill className="icons-margin" />
+                <MdHomeRepairService  className="icons-margin" />
                 <span className="lll"> Extra</span>
               </Link>
             </li>

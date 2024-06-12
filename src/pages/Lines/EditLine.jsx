@@ -1,71 +1,80 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import Sidebar from '../../components/Sidebar';
-import './EditLine.css';
+import React, { useState } from "react";
+import "./AddLine.css";
+import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
-const EditLine = ({ data, updateLines }) => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const user = data.find(user => user.id.toString() === id);
-
-  const [dPlace, setDPlace] = useState(user ? user.DeparturePlace : '');
-  const [aPlace, setAPlace] = useState(user ? user.ArrivalPlace : '');
+const AddLine = () => {
+  const [point_a, setpoint_a] = useState("");
+  const [point_b, setpoint_b] = useState("");
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
 
-  const handleSubmit = (event) => {
+  const { id } = useParams();
+
+  const navigate = useNavigate();
+
+  const sendData = (event) => {
     event.preventDefault();
     setIsPopuoVisble(true);
   };
 
-  const confirmDelete = () => {
-    const updatedUser = { id: user.id, DeparturePlace: dPlace, ArrivalPlace: aPlace};
-    updateLines(updatedUser);
-    console.log(updatedUser);
-    navigate("/lines");
-  }
+  const confirmDelete = async () => {
+    const token = localStorage.getItem('token');
+    setIsPopuoVisble(false);
+    if (!point_a || !point_b) {
+      alert("All fields are required!");
+      return;
+    }
+    let data = { point_a: point_a, point_b: point_b };
+    try {
+      const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/lines/${id}`, {
+        point_a: point_a, point_b: point_b
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
 
+      setpoint_a("");
+      setpoint_b("");
+      navigate('/lines');
+      } catch (error) {
+      console.error('Error adding line', error);
+    }
+
+  }
+  
   const cancelDelete = () => {
     setIsPopuoVisble(false);
-    console.log('cancel');
-  }
-
-  if (!user) {
-    return (
-      <div className="edituser">
-        <Sidebar />
-        <div className="container">
-          <h1>Line not found</h1>
-        </div>
-      </div>
-    );
   }
 
   return (
-    <div className="edituser">
+    <div className="adduser">
       <Sidebar />
       <div className="container">
         <h1>Edit Line</h1>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="dPlace">Departure Place</label>
+        <form onSubmit={sendData}>
+          <label htmlFor="point_a">Deprature Place</label>
           <input
-            id="dPlace"
             type="text"
-            placeholder="Departure Place"
-            value={dPlace}
-            onChange={(event) => setDPlace(event.target.value)}
+            id="point_a"
+            placeholder="Point A"
+            value={point_a}
+            onChange={(event) => setpoint_a(event.target.value)}
+            required
           />
-
-          <label htmlFor="aPlace">Arrival Place</label>
+          <label htmlFor="point_b">Arrival Place</label>
           <input
-            id="aPlace"
             type="text"
-            placeholder="Arrival Place"
-            value={aPlace}
-            onChange={(event) => setAPlace(event.target.value)}
+            id="point_b"
+            placeholder="Point B"
+            value={point_b}
+            onChange={(event) => setpoint_b(event.target.value)}
+            required
           />
-
-          <input type="submit" value="Save Changes" />
+          <input type="submit" value="Edit Extra" />
         </form>
       </div>
       {isPopupVisible && (
@@ -79,4 +88,4 @@ const EditLine = ({ data, updateLines }) => {
   );
 };
 
-export default EditLine;
+export default AddLine;

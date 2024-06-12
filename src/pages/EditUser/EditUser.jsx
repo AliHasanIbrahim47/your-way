@@ -7,9 +7,8 @@ import axios from "axios";
 
 const EditUser = () => {
   const [loader, setLoader] = useState(true);
-  const [users, setUsers] = useState([]); // Initial state as an empty array
+  const [users, setUsers] = useState([]);
   const token = localStorage.getItem('token');
-  console.log('Token retrieved:', token); // Debug: Check the token
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -19,7 +18,6 @@ const EditUser = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log('Users response:', response.data); // Debug: Check the response data
         if (Array.isArray(response.data.data)) {
           setUsers(response.data.data);
         } else {
@@ -60,7 +58,6 @@ const EditUser = () => {
   
   const cancelDelete = () => {
     setIsPopuoVisble(false);
-    console.log('cancel');
   }
 
   if (!user && !loader) {

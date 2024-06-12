@@ -20,16 +20,21 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  background-color: #f4f4f4;
 }
 
 .users .header h1 {
   margin: 0;
-  font-size: 2rem;
+  font-size: rem;
   color: #333;
 }
 
+.users table label {
+  margin-right: 5px;
+}
+
 .users .header .add-user-btn {
-  font-size: 1rem;
+  font-size: 0.75rem;
   padding: 10px 20px;
   border-radius: 5px;
   background-color: #BA8D38;
@@ -109,10 +114,10 @@
   cursor: pointer;
 }
 
-.users a:hover, .users .header button:hover {
+/* .users a:hover, .users .header button:hover {
   color: white;
   background-color: #1D1C1C;
-}
+} */
 
 @media (max-width: 768px) {
   .users {
@@ -125,7 +130,7 @@
   }
 
   .users .header h1 {
-      font-size: 1.5rem;
+      font-size: 1rem;
   }
 
   .users table th,
