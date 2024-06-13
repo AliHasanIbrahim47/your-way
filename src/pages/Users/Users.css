@@ -28,7 +28,7 @@
   color: #333;
 }
 
-.users .header .add-user-btn {
+/* .users .header .add-user-btn {
   font-size: 1rem;
   padding: 10px 20px;
   border-radius: 5px;
@@ -40,7 +40,7 @@
 
 .users .header .add-user-btn:hover {
   background-color: #A37A30;
-}
+} */
 
 .users table {
   width: 100%;
@@ -94,9 +94,9 @@
   gap: 10px;
 }
 
-.users a, .users .header button {
+.users .links a, .users .header button {
   color: #1D1C1C;
-  width: 75px;
+  width: 100px;
   height: 45px;
   display: flex;
   align-items: center;
@@ -109,7 +109,7 @@
   cursor: pointer;
 }
 
-.users a:hover, .users .header button:hover {
+.users .links a:hover, .users .header button:hover {
   color: white;
   background-color: #1D1C1C;
 }
@@ -137,7 +137,7 @@
       font-size: 0.9rem;
   }
 
-  .users a, .users .header button {
+  .users .links a, .users .header button {
       width: 55px;
       height: 35px;
       padding: 20px;

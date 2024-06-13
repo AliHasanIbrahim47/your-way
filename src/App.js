@@ -1,13 +1,12 @@
 import './App.css';
 import Login from './pages/Login/Login';
 import Dashboard from './pages/Dashboard/Dashboard';
+
 import Users from './pages/Users/Users';
-import AddUser from './pages/AddUser/AddUser';
 import ShowUser from './pages/ShowUser/ShowUser';
 import EditUser from './pages/EditUser/EditUser';
-
-import AddTrip from './components/AddTrip';
-import EditTrip from './components/EditTrip';
+import AddUser from './pages/AddUser/AddUser';
+import AddDriver from './pages/AddUser/AddDriver';
 
 import DailyTrips from './pages/DailyTrips/DailyTrips';
 import AddDailyTrip from './pages/DailyTrips/AddDailyTrip';
@@ -17,6 +16,10 @@ import ShowDailyTrip from './pages/DailyTrips/ShowDailyTrip';
 import PrivateTrip from './pages/PrivateTravel/PrivateTrip';
 import AddPrivateTrip from './pages/PrivateTravel/AddPrivateTrip';
 import EditPrivateTrip from './pages/PrivateTravel/EditPrivateTrip';
+
+import Reservation from './pages/Reservation/Reservation';
+import AddReservation from './pages/Reservation/AddReservation';
+import EditReservation from './pages/Reservation/EditReservation';
 
 import Brands from './pages/Brands/Brands';
 import AddBrand from './pages/Brands/AddBrand';
@@ -47,10 +50,9 @@ function App() {
           {/* Users */}
           <Route path="/users" element={<ProtectedRoute><Users/></ProtectedRoute> } />
           <Route path="/users/add" element={<ProtectedRoute><AddUser /></ProtectedRoute>} />
+          <Route path="/drivers/add" element={<ProtectedRoute><AddDriver /></ProtectedRoute>} />
           <Route path="/users/:id" element={<ProtectedRoute ><ShowUser /></ProtectedRoute>} />
-          <Route path="/users/:id/edit" element={<EditUser />} />
-          <Route path="/users/:id/addtrip" element={<AddTrip />}/>
-          <Route path="/users/:id/trip/edit" element={<EditTrip />}/>
+          <Route path="/users/:id/edit" element={<ProtectedRoute ><EditUser /></ProtectedRoute>} />
 
           {/* Travels */}
           <Route path="/travels" element={<ProtectedRoute><DailyTrips /></ProtectedRoute>} />
@@ -62,6 +64,11 @@ function App() {
           <Route path="/travels/private" element={<ProtectedRoute><PrivateTrip /></ProtectedRoute>} />
           <Route path="/travels/private/add" element={<ProtectedRoute><AddPrivateTrip /></ProtectedRoute>} />
           <Route path="/travels/private/:id/edit" element={<ProtectedRoute><EditPrivateTrip /></ProtectedRoute>} />
+
+          {/* Reservations */}
+          <Route path="/travels/reservations" element={<ProtectedRoute><Reservation /></ProtectedRoute>} />
+          <Route path="/travels/reservations/add" element={<ProtectedRoute><AddReservation /></ProtectedRoute>} />
+          <Route path="/travels/reservations/:id/edit" element={<ProtectedRoute><EditReservation /></ProtectedRoute>} />
 
           {/* lines */}
           <Route path="/lines" element={<ProtectedRoute><Lines /></ProtectedRoute>} />

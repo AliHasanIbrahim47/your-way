@@ -25,14 +25,11 @@ const AddBrand = () => {
       alert("All fields are required!");
       return;
     }
-    const formData = new FormData();
-    formData.append('title_en', title_en);
-    formData.append('image', image);
-    formData.append('title_ar', title_ar);
+    let data = { title_en: title_en, image: image, title_ar: title_ar}
 
     try {
       const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/banners', {
-        formData
+        data
       }, {
         headers: {
           'Authorization': `Bearer ${token}`,

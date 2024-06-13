@@ -74,7 +74,7 @@ const AddLine = () => {
             required
           />
 
-          <input type="submit" value="Add Extra" />
+          <input type="submit" value="Add Line" />
         </form>
       </div>
       {isPopupVisible && (

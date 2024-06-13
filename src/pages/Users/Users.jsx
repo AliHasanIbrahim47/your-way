@@ -9,31 +9,29 @@ import axios from "axios";
 
 const Users = () => {
   const navigate = useNavigate();
-  const [selectedUsers, setSelectedUsers] = useState([]);
-  const [isPopupVisible, setIsPopuoVisble] = useState(false);
+  const [selectedUsers, setSelectedUsers] = useState([]);;
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (Array.isArray(response.data.data)) {
-          setUsers(response.data.data);
-        } else {
-          console.error('Response data is not an array');
-        }
-      } catch (error) {
-        console.error('Error fetching users', error);
-      }
-    };
 
-    fetchUsers();
-  }, [token]);
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      if (Array.isArray(response.data.data)) {
+        setUsers(response.data.data);
+      } else {
+        console.error('Response data is not an array');
+      }
+    } catch (error) {
+      console.error('Error fetching private travels', error);
+    }
+  };
 
   const handleSelectAll = (event) => {
     if (event.target.checked) {
@@ -51,17 +49,32 @@ const Users = () => {
     );
   };
 
+
   const handleDeleteSelected = () => {
-    setIsPopuoVisble(true);
+    setIsPopupVisible(true);
   };
 
-  const confirmDelete = () => {
-    setIsPopuoVisble(false);
+  const confirmDelete = async () => {
+    setIsPopupVisible(false);
+    try {
+      const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
+      const response = await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
+        data: { ids: idsToDelete },
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      fetchUsers();
+    } catch (error) {
+      console.error('Error deleting user', error);
+    }
     setSelectedUsers([]);
+    setSelectedUser(null);
   }
 
   const cancelDelete = () => {
-    setIsPopuoVisble(false);
+    setIsPopupVisible(false);
   }
 
   const show = (id) => {
@@ -72,8 +85,13 @@ const Users = () => {
     navigate(`/users/${id}/edit`);
   };
 
-  const deleteUser = (id) => {
-    setIsPopuoVisble(true);
+  useEffect(() => {
+    fetchUsers();
+  }, [token]);
+
+  const deleteUser = (item) => {
+    setSelectedUser(item);
+    setIsPopupVisible(true);
   };
 
   return (
@@ -82,8 +100,14 @@ const Users = () => {
       <div className="container">
         <div className="header">
           <h1>All Users</h1>
+          <Link to="users-only">Users</Link>
+          <Link to="drivers-only">Drivers</Link>
+          <div className="travel-links">
+          <Link to="drivers-unactive">UnActive Drivers</Link>
+          </div>
           <div className="links">
-            <Link to="/users/add">ADD</Link>
+            <Link to="/users/add">ADD User</Link>
+            <Link to="/drivers/add">ADD Driver</Link>
             <button onClick={handleDeleteSelected}>Delete Selected</button>
           </div>
         </div>
@@ -116,7 +140,7 @@ const Users = () => {
                     <button onClick={() => update(element.id)}>
                       <RiEdit2Fill />
                     </button>
-                    <button onClick={() => deleteUser(element.id)}>
+                    <button onClick={() => deleteUser(element)}>
                       <RiDeleteBin5Fill />
                     </button>
                   </td>

@@ -74,7 +74,7 @@ const AddLine = () => {
             onChange={(event) => setpoint_b(event.target.value)}
             required
           />
-          <input type="submit" value="Edit Extra" />
+          <input type="submit" value="Edit Line" />
         </form>
       </div>
       {isPopupVisible && (

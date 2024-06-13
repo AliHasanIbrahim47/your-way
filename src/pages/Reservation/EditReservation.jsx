@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "./EditPrivateTrip.css";
+import "./EditReservation.css";
 import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
-const EditPrivateTrip= () => {
+const EditReservation= () => {
   const { id } = useParams();
 
   const [status, setstatus] = useState("");
@@ -29,7 +29,7 @@ const EditPrivateTrip= () => {
     }
     let data = { status: status, note: note };
     try {
-      const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/private/${id}`,
+      const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations/${id}`,
         data, {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -39,9 +39,9 @@ const EditPrivateTrip= () => {
 
       setstatus("");
       setnote("");
-      navigate('/travels/private');
+      navigate('/travels/reservations');
       } catch (error) {
-        console.error('Error adding travel', error.response?.data || error.message);
+        console.error('Error adding reservation', error.response?.data || error.message);
         alert(`Error: ${error.response?.data.message || error.message}`);
     }
   }
@@ -54,7 +54,7 @@ const EditPrivateTrip= () => {
     <div className="edituser">
       <Sidebar />
       <div className="container">
-        <h1>Edit Travel {id}</h1>
+        <h1>Edit Reservation {id}</h1>
         <form onSubmit={sendData}>
           <label htmlFor="status">Status</label>
           <input
@@ -74,12 +74,12 @@ const EditPrivateTrip= () => {
             onChange={(event) => setnote(event.target.value)}
             required
           />
-          <input type="submit" value="Edit Private Travel" />
+          <input type="submit" value="Add Reservation" />
         </form>
       </div>
       {isPopupVisible && (
         <Popup 
-          message="Are you sure you want to edit this private travel?"
+          message="Are you sure you want to edit this reservation?"
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />
@@ -88,4 +88,4 @@ const EditPrivateTrip= () => {
   );
 };
 
-export default EditPrivateTrip;
+export default EditReservation;

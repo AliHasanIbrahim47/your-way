@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
-import "./EditPrivateTrip.css";
+import "./AddReservation.css";
 import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const EditPrivateTrip= () => {
-  const { id } = useParams();
-
-  const [status, setstatus] = useState("");
-  const [note, setnote] = useState("");
+const AddReservation = () => {
+  const [travel_id, settravel_id] = useState("");
+  const [user_id, setuser_id] = useState("");
 
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
 
@@ -23,23 +21,23 @@ const EditPrivateTrip= () => {
   const confirmDelete = async () => {
     const token = localStorage.getItem('token');
     setIsPopuoVisble(false);
-    if (!status || !note) {
+    if (!travel_id || !user_id) {
       alert("All fields are required!");
       return;
     }
-    let data = { status: status, note: note };
+    let data = { travel_id: travel_id, user_id: user_id};
     try {
-      const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/private/${id}`,
+      const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations', 
         data, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
-
-      setstatus("");
-      setnote("");
-      navigate('/travels/private');
+      
+      settravel_id("");
+      setuser_id("");
+      navigate('/travels/reservations');
       } catch (error) {
         console.error('Error adding travel', error.response?.data || error.message);
         alert(`Error: ${error.response?.data.message || error.message}`);
@@ -51,35 +49,35 @@ const EditPrivateTrip= () => {
   }
 
   return (
-    <div className="edituser">
+    <div className="adduser">
       <Sidebar />
       <div className="container">
-        <h1>Edit Travel {id}</h1>
+        <h1>Add Reservation</h1>
         <form onSubmit={sendData}>
-          <label htmlFor="status">Status</label>
+          <label htmlFor="travel_id">Travel ID</label>
           <input
-            type="text"
-            id="status"
+            type="number"
+            id="travel_id"
             placeholder=""
-            value={status}
-            onChange={(event) => setstatus(event.target.value)}
+            value={travel_id}
+            onChange={(event) => settravel_id(event.target.value)}
             required
           />
-          <label htmlFor="note">Note</label>
+          <label htmlFor="user_id">User ID</label>
           <input
-            type="text"
-            id="note"
+            type="number"
+            id="user_id"
             placeholder=""
-            value={note}
-            onChange={(event) => setnote(event.target.value)}
+            value={user_id}
+            onChange={(event) => setuser_id(event.target.value)}
             required
           />
-          <input type="submit" value="Edit Private Travel" />
+          <input type="submit" value="Add Reservation" />
         </form>
       </div>
       {isPopupVisible && (
         <Popup 
-          message="Are you sure you want to edit this private travel?"
+          message="Are you sure you want to add this Reservation?"
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />
@@ -88,4 +86,4 @@ const EditPrivateTrip= () => {
   );
 };
 
-export default EditPrivateTrip;
+export default AddReservation;

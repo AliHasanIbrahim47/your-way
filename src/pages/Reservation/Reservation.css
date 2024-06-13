@@ -25,8 +25,12 @@
 
 .users .header h1 {
   margin: 0;
-  font-size: 2rem;
+  font-size: rem;
   color: #333;
+}
+
+.users table label {
+  margin-right: 5px;
 }
 
 .users .header .add-user-btn {
@@ -93,10 +97,6 @@
 .users .links {
   display: flex;
   gap: 10px;
-}
-
-.users .travel-links a {
-  width: 125px;
 }
 
 .users a, .users .header button {
