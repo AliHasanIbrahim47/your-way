@@ -2,6 +2,7 @@
   display: flex;
   height: 100vh;
   background-color: #f4f4f4;
+  flex-direction: column; /* default to column for smaller screens */
 }
 
 .users > .sidebar {
@@ -12,14 +13,15 @@
 .users .container {
   flex: 1;
   padding: 20px;
-  margin-left: 250px;
   background-color: #f4f4f4;
+  overflow-x: auto; /* Enable horizontal scrolling */
 }
 
 .users .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap; /* Ensure header items wrap on small screens */
   margin-bottom: 20px;
 }
 
@@ -46,7 +48,7 @@
 .users table {
   width: 100%;
   border-collapse: collapse;
-  background-color: white; 
+  background-color: white;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -121,31 +123,31 @@
 
 @media (max-width: 768px) {
   .users {
-      flex-direction: column;
+    flex-direction: column;
   }
 
   .users .container {
-      margin-left: 0;
-      padding: 10px;
+    padding: 10px;
+    margin-left: 0;
   }
 
   .users .header h1 {
-      font-size: 1rem;
+    font-size: 1rem;
   }
 
   .users table th,
   .users table td {
-      padding: 10px;
+    padding: 10px;
   }
 
   .users table {
-      font-size: 0.9rem;
+    font-size: 0.9rem;
   }
 
   .users a, .users .header button {
-      width: 55px;
-      height: 35px;
-      padding: 20px;
-      font-size: 0.9rem;
+    width: 55px;
+    height: 35px;
+    padding: 20px;
+    font-size: 0.9rem;
   }
 }

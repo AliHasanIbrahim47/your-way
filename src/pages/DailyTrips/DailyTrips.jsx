@@ -98,18 +98,19 @@ const DailyTrips = () => {
   return (
     <div className="users">
       <Sidebar />
-      <div className="container">
-        <div className="header">
-          <h1>All Travels</h1>
-          <Link to="/travels/private">Private</Link>
-          <div className="travel-links">
-            <Link to="/travels/reservations">Reservations</Link>
-          </div>
-          <div className="links">
-            <Link to="/travels/add">ADD</Link>
-            <button onClick={handleDeleteSelected}>Delete Selected</button>
-          </div>
+    <div className="container">
+      <div className="header">
+        <h1>All Travels</h1>
+        <Link to="/travels/private">Private</Link>
+        <div className="travel-links">
+          <Link to="/travels/reservations">Reservations</Link>
         </div>
+        <div className="links">
+          <Link to="/travels/add">ADD</Link>
+          <button onClick={handleDeleteSelected}>Delete Selected</button>
+        </div>
+      </div>
+      <div className="table-container">
         <table>
           <thead>
             <tr>
@@ -119,7 +120,7 @@ const DailyTrips = () => {
               <th>Ending Date</th>
               <th>Returning Time</th>
               <th>Returning From</th>
-              <th>Satus</th>
+              <th>Status</th>
               <th>Actions</th>
               <th>
                 <input
@@ -133,8 +134,8 @@ const DailyTrips = () => {
           <tbody>
             {users.map((element, index) => (
               <tr key={index}>
-                <td><Moment format="YYYY/MM/DD">{element.starting_date}</Moment></td>       
-                <td>{element.going_time}</td>                
+                <td><Moment format="YYYY/MM/DD">{element.starting_date}</Moment></td>
+                <td>{element.going_time}</td>
                 <td>{element.going_from}</td>
                 <td><Moment format="YYYY/MM/DD">{element.ending}</Moment></td>
                 <td>{element.returning_time}</td>
@@ -161,6 +162,7 @@ const DailyTrips = () => {
           </tbody>
         </table>
       </div>
+    </div>
       {isPopupVisible && (
         <Popup
           message="Are you sure you want to delete the selected travels?"

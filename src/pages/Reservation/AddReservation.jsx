@@ -49,7 +49,7 @@ const AddReservation = () => {
   }
 
   return (
-    <div className="adduser">
+    <div className="addextra">
       <Sidebar />
       <div className="container">
         <h1>Add Reservation</h1>

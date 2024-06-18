@@ -1,11 +1,11 @@
-.edituser {
+.editextra {
   display: flex;
   min-height: 100vh;
   background-color: #f4f4f4;
   font-family: 'Nunito', sans-serif;
 }
 
-.edituser > .sidebar {
+.editextra > .sidebar {
   width: 250px;
   flex-shrink: 0;
   background-color: #333;
@@ -13,7 +13,7 @@
   padding: 20px;
 }
 
-.edituser .container {
+.editextra .container {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -23,13 +23,13 @@
   background-color: #f4f4f4;
 }
 
-.edituser h1 {
+.editextra h1 {
   margin-bottom: 20px;
   font-size: 2.5rem;
   color: #333;
 }
 
-.edituser form {
+.editextra form {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -41,13 +41,13 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.edituser form label {
+.editextra form label {
   font-size: 1rem;
   color: #666;
 }
 
-.edituser form input[type="text"],
-.edituser form input[type="number"] {
+.editextra form input[type="text"],
+.editextra form input[type="number"] {
   font-size: 1rem;
   padding: 10px;
   border-radius: 5px;
@@ -58,13 +58,13 @@
   transition: border-color 0.3s ease;
 }
 
-.edituser form input[type="text"]:focus,
-.edituser form input[type="number"]:focus {
+.editextra form input[type="text"]:focus,
+.editextra form input[type="number"]:focus {
   border-color: #BA8D38;
   outline: none;
 }
 
-.edituser form input[type="submit"] {
+.editextra form input[type="submit"] {
   font-size: 1rem;
   padding: 10px;
   border-radius: 5px;
@@ -75,42 +75,42 @@
   transition: background-color 0.3s ease;
 }
 
-.edituser form input[type="submit"]:hover {
+.editextra form input[type="submit"]:hover {
   background-color: #A37A30;
 }
 
 @media (max-width: 768px) {
-  .edituser {
+  .editextra {
     flex-direction: column;
   }
 
-  .edituser .container {
+  .editextra .container {
     margin-left: 0;
     padding: 20px;
   }
 
-  .edituser h1 {
+  .editextra h1 {
     font-size: 2rem;
     text-align: center;
   }
 
-  .edituser form {
+  .editextra form {
     width: 100%;
     max-width: 90%;
   }
 
-  .edituser > .sidebar {
+  .editextra > .sidebar {
     width: 100%;
     height: auto;
   }
 }
 
 @media (max-width: 480px) {
-  .edituser h1 {
+  .editextra h1 {
     font-size: 1.5rem;
   }
 
-  .edituser form {
+  .editextra form {
     padding: 15px;
   }
 }

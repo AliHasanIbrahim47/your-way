@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import "./AddExtra.css";
+import "./EditExtra.css";
 import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
-const AddExtra = () => {
+const EditExtra = () => {
   const [title_en, settitle_en] = useState("");
   const [price, setprice] = useState(null);
   const [title_ar, settitle_ar] = useState("");
@@ -53,7 +53,7 @@ const AddExtra = () => {
   }
 
   return (
-    <div className="adduser">
+    <div className="editextra">
       <Sidebar />
       <div className="container">
         <h1>Edit Extra</h1>
@@ -99,4 +99,4 @@ const AddExtra = () => {
   );
 };
 
-export default AddExtra;
+export default EditExtra;

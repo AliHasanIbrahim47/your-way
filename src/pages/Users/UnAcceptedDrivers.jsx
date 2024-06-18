@@ -7,7 +7,7 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
 import axios from "axios"; 
 
-const Users = () => {
+const UnAcceptedDrivers = () => {
   const navigate = useNavigate();
   const [selectedUsers, setSelectedUsers] = useState([]);;
   const [selectedUser, setSelectedUser] = useState(null);
@@ -18,7 +18,7 @@ const Users = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
+      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/drivers/un-accepted', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -99,35 +99,25 @@ const Users = () => {
       <Sidebar />
       <div className="container">
         <div className="header">
-          <h1>All Users</h1>
+          <h1>Unactive Drivers</h1>
           <div className="links">
-            <Link to="users-only">Users</Link>
-            <Link to="drivers-only">Drivers</Link>
-            <div className="travel-links">
-              <Link to="drivers-unactive">UnActive Drivers</Link>
-            </div>
-          </div>
-          {/* <div className="links">
-            <Link to="/users/add">ADD User</Link>
-            <Link to="/drivers/add">ADD Driver</Link>
             <button onClick={handleDeleteSelected}>Delete Selected</button>
-          </div> */}
+          </div>
         </div>
-
         <table>
           <thead>
             <tr>
               <th>ID</th>
               <th>Name</th>
               <th>Phone Number</th>
-              {/* <th>Actions</th>
+              <th>Actions</th>
               <th>
                 <input
                   type="checkbox"
                   onChange={handleSelectAll}
                   checked={selectedUsers.length === users.length}
                 />
-              </th> */}
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -137,7 +127,7 @@ const Users = () => {
                   <td>{element.id}</td>
                   <td>{element.full_name}</td>
                   <td>{element.phone}</td>
-                  {/* <td className="actions-style">
+                  <td className="actions-style">
                     <button onClick={() => show(element.id)}>show</button>
                     <button onClick={() => update(element.id)}>
                       <RiEdit2Fill />
@@ -151,8 +141,8 @@ const Users = () => {
                       type="checkbox"
                       checked={selectedUsers.includes(element.id)}
                       onChange={() => handleSelectUser(element.id)}
-                    /> 
-                  </td> */}
+                    />
+                  </td>
                 </tr>
               );
             })}
@@ -170,4 +160,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default UnAcceptedDrivers;

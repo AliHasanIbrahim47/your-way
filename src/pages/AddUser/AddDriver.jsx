@@ -60,7 +60,7 @@ const AddDriver = () => {
   }
 
   return (
-    <div className="adddriver">
+    <div className="addextra">
       <Sidebar />
       <div className="container">
         <h1>Add Driver</h1>

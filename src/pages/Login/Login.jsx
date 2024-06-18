@@ -53,7 +53,7 @@ const Login = () => {
                 } else if (err.response?.status === 401) {
                     setErrMsg('Unauthorized');
                 } else {
-                    setErrMsg('Login Failed');
+                    setErrMsg('Not Correct Phone or Password');
                 }
                 if (errRef.current) {
                     errRef.current.focus();

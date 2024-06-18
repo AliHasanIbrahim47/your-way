@@ -3,13 +3,26 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import './ShowUser.css';
 import axios from 'axios';
-import { RiEdit2Fill } from "react-icons/ri";
-import { RiDeleteBin5Fill } from "react-icons/ri";
 
 const ShowUser = () => {
   const [loader, setLoader] = useState(true);
-  const [users, setUsers] = useState([]); // Initial state as an empty array
+  const [users, setUsers] = useState([]);
   const token = localStorage.getItem('token');
+
+
+  const { id } = useParams();
+  const user = users.find(user => user.id.toString() === id);
+  const navigate = useNavigate();
+
+  // const trips = [
+  //   { id: 1, type: 'previous', departure: 'New York', arrival: 'Los Angeles', date: '2024-05-01', time: '10:00 AM', services: ['WiFi', 'Meal'] },
+  //   { id: 2, type: 'pending', departure: 'Los Angeles', arrival: 'New York', date: '2024-06-15', time: '12:00 PM', services: ['WiFi'] },
+  //   { id: 3, type: 'previous', departure: 'Chicago', arrival: 'Miami', date: '2024-04-20', time: '03:00 PM', services: ['Meal'] },
+  //   { id: 4, type: 'pending', departure: 'Miami', arrival: 'Los Angeles', date: '2024-07-10', time: '09:00 AM', services: [] }
+  // ];
+
+  // const previousTrips = trips.filter(trip => trip.type === 'previous');
+  // const pendingTrips = trips.filter(trip => trip.type === 'pending');
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -33,22 +46,8 @@ const ShowUser = () => {
     fetchUsers();
   }, [token]);
 
-  const { id } = useParams();
-  const user = users.find(user => user.id.toString() === id);
-  const navigate = useNavigate();
-
-  const trips = [
-    { id: 1, type: 'previous', departure: 'New York', arrival: 'Los Angeles', date: '2024-05-01', time: '10:00 AM', services: ['WiFi', 'Meal'] },
-    { id: 2, type: 'pending', departure: 'Los Angeles', arrival: 'New York', date: '2024-06-15', time: '12:00 PM', services: ['WiFi'] },
-    { id: 3, type: 'previous', departure: 'Chicago', arrival: 'Miami', date: '2024-04-20', time: '03:00 PM', services: ['Meal'] },
-    { id: 4, type: 'pending', departure: 'Miami', arrival: 'Los Angeles', date: '2024-07-10', time: '09:00 AM', services: [] }
-  ];
-
-  const previousTrips = trips.filter(trip => trip.type === 'previous');
-  const pendingTrips = trips.filter(trip => trip.type === 'pending');
-
-  const handleAddTrip = (id) => {
-    navigate(`/users/${id}/addtrip`);
+  const handleAddTrip = () => {
+    navigate(`/travels/add`);
   };
 
   // const update = (id) => {
@@ -81,12 +80,12 @@ const ShowUser = () => {
     <div className="showuser">
       <Sidebar />
       <div className="container">
-        <h1>User Details</h1>
+        <h1>User {id} Details</h1>
         <div className="user-details">
           <p><strong>Name:</strong> {user.full_name}</p>
           <p><strong>Phone:</strong> {user.phone}</p>
         </div>
-        <div className="trips-section">
+        {/* <div className="trips-section">
           <h2>Previous Trips</h2>
           {previousTrips.length > 0 ? (
             <ul>
@@ -113,10 +112,6 @@ const ShowUser = () => {
                   <p><strong>Date:</strong> {trip.date}</p>
                   <p><strong>Time:</strong> {trip.time}</p>
                   <p><strong>Services:</strong> {trip.services.join(', ') || 'None'}</p>
-                  {/* <td className="actions-style">
-                    <button onClick={() => update(id)}><RiEdit2Fill /></button>
-                    <button><RiDeleteBin5Fill /></button>
-                  </td> */}
                 </li>
               ))}
             </ul>
@@ -124,7 +119,7 @@ const ShowUser = () => {
             <p>No pending trips</p>
           )}
           <button className="add-trip-btn" onClick={handleAddTrip}>Add Trip</button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

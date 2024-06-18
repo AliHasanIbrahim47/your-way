@@ -1,11 +1,11 @@
-.adduser {
+.addextra {
   display: flex;
   min-height: 100vh;
   background-color: #f4f4f4;
   font-family: 'Nunito', sans-serif;
 }
 
-.adduser > .sidebar {
+.addextra > .sidebar {
   width: 250px;
   flex-shrink: 0;
   background-color: #333;
@@ -13,7 +13,7 @@
   padding: 20px;
 }
 
-.adduser .container {
+.addextra .container {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -23,13 +23,13 @@
   background-color: #f4f4f4;
 }
 
-.adduser h1 {
+.addextra h1 {
   margin-bottom: 20px;
   font-size: 2.5rem;
   color: #333;
 }
 
-.adduser form {
+.addextra form {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -41,13 +41,13 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.adduser form label {
+.addextra form label {
   font-size: 1rem;
   color: #666;
 }
 
-.adduser form input[type="text"],
-.adduser form input[type="number"] {
+.addextra form input[type="text"],
+.addextra form input[type="number"] {
   font-size: 1rem;
   padding: 10px;
   border-radius: 5px;
@@ -58,13 +58,13 @@
   transition: border-color 0.3s ease;
 }
 
-.adduser form input[type="text"]:focus,
-.adduser form input[type="number"]:focus {
+.addextra form input[type="text"]:focus,
+.addextra form input[type="number"]:focus {
   border-color: #BA8D38;
   outline: none;
 }
 
-.adduser form input[type="submit"] {
+.addextra form input[type="submit"] {
   font-size: 1rem;
   padding: 10px;
   border-radius: 5px;
@@ -75,42 +75,42 @@
   transition: background-color 0.3s ease;
 }
 
-.adduser form input[type="submit"]:hover {
+.addextra form input[type="submit"]:hover {
   background-color: #A37A30;
 }
 
 @media (max-width: 768px) {
-  .adduser {
+  .addextra {
     flex-direction: column;
   }
 
-  .adduser .container {
+  .addextra .container {
     margin-left: 0;
     padding: 20px;
   }
 
-  .adduser h1 {
+  .addextra h1 {
     font-size: 2rem;
     text-align: center;
   }
 
-  .adduser form {
+  .addextra form {
     width: 100%;
     max-width: 90%;
   }
 
-  .adduser > .sidebar {
+  .addextra > .sidebar {
     width: 100%;
     height: auto;
   }
 }
 
 @media (max-width: 480px) {
-  .adduser h1 {
+  .addextra h1 {
     font-size: 1.5rem;
   }
 
-  .adduser form {
+  .addextra form {
     padding: 15px;
   }
 }

@@ -49,7 +49,7 @@ const AddLine = () => {
   }
 
   return (
-    <div className="adduser">
+    <div className="addextra">
       <Sidebar />
       <div className="container">
         <h1>Add Line</h1>

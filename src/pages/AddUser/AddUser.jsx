@@ -49,7 +49,7 @@ const AddUser = () => {
   }
 
   return (
-    <div className="adduser">
+    <div className="addextra">
       <Sidebar />
       <div className="container">
         <h1>Add User</h1>

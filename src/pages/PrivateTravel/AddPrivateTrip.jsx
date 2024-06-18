@@ -6,12 +6,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddPrivateTrip = () => {
-  // "going_date": "2024-06-11",
-  // "going_from": "damascus",
-  // "going_to": "10:30:00",
-  // "bus_id": 1,
-  // "user_id": 2,
-  // "seats": 5,
   const [going_date, setgoing_date] = useState("");
   const [going_from, setgoing_from] = useState("");
   const [going_to, setgoing_to] = useState("");
@@ -65,7 +59,7 @@ const AddPrivateTrip = () => {
   }
 
   return (
-    <div className="adduser">
+    <div className="addextra">
       <Sidebar />
       <div className="container">
         <h1>Add Private Travel</h1>

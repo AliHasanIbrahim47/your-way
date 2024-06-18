@@ -3,6 +3,9 @@ import Login from './pages/Login/Login';
 import Dashboard from './pages/Dashboard/Dashboard';
 
 import Users from './pages/Users/Users';
+import UsersOnly from './pages/Users/UsersOnly';
+import DriversOnly from './pages/Users/DriversOnly';
+import UnAcceptedDrivers from './pages/Users/UnAcceptedDrivers';
 import ShowUser from './pages/ShowUser/ShowUser';
 import EditUser from './pages/EditUser/EditUser';
 import AddUser from './pages/AddUser/AddUser';
@@ -53,6 +56,9 @@ function App() {
           <Route path="/drivers/add" element={<ProtectedRoute><AddDriver /></ProtectedRoute>} />
           <Route path="/users/:id" element={<ProtectedRoute ><ShowUser /></ProtectedRoute>} />
           <Route path="/users/:id/edit" element={<ProtectedRoute ><EditUser /></ProtectedRoute>} />
+          <Route path="/users/users-only" element={<ProtectedRoute><UsersOnly /></ProtectedRoute>} />
+          <Route path="/users/drivers-only" element={<ProtectedRoute><DriversOnly /></ProtectedRoute>} />
+          <Route path="/users/drivers-unactive" element={<ProtectedRoute><UnAcceptedDrivers /></ProtectedRoute>} />
 
           {/* Travels */}
           <Route path="/travels" element={<ProtectedRoute><DailyTrips /></ProtectedRoute>} />

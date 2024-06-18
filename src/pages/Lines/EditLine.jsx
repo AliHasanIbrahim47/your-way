@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import "./AddLine.css";
+import "./EditLine.css";
 import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
-const AddLine = () => {
+const EditLine = () => {
   const [point_a, setpoint_a] = useState("");
   const [point_b, setpoint_b] = useState("");
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
@@ -51,7 +51,7 @@ const AddLine = () => {
   }
 
   return (
-    <div className="adduser">
+    <div className="editextra">
       <Sidebar />
       <div className="container">
         <h1>Edit Line</h1>
@@ -88,4 +88,4 @@ const AddLine = () => {
   );
 };
 
-export default AddLine;
+export default EditLine;
