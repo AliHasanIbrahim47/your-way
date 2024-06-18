@@ -6,10 +6,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddDriver = () => {
-    // "brand": "kia",
-    // "model": 2019,
-    // "capacity": 25,
-    // "line_id": 1
   const [full_name, setfull_name] = useState("");
   const [phone, setphone] = useState();
   const [password, setpassword] = useState("");
@@ -64,7 +60,7 @@ const AddDriver = () => {
   }
 
   return (
-    <div className="adduser">
+    <div className="adddriver">
       <Sidebar />
       <div className="container">
         <h1>Add Driver</h1>
@@ -115,7 +111,7 @@ const AddDriver = () => {
             onChange={(event) => setmodel(event.target.value)}
             required
           />
-                    <label htmlFor="capacity">Capacity</label>
+          <label htmlFor="capacity">Capacity</label>
           <input
             type="number"
             id="capacity"
@@ -124,7 +120,7 @@ const AddDriver = () => {
             onChange={(event) => setcapacity(event.target.value)}
             required
           />
-                    <label htmlFor="line_id">Line ID</label>
+          <label htmlFor="line_id">Line ID</label>
           <input
             type="number"
             id="line_id"
@@ -133,7 +129,7 @@ const AddDriver = () => {
             onChange={(event) => setline_id(event.target.value)}
             required
           />
-          <input type="submit" value="Add User" />
+          <input type="submit" value="Add Driver" />
         </form>
       </div>
       {isPopupVisible && (

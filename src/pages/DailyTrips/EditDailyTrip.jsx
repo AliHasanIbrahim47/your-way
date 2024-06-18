@@ -165,7 +165,7 @@ const EditDailyTrip = () => {
             onChange={(event) => setstatus(event.target.value)}
             required
           />
-          <input type="submit" value="Add Travel" />
+          <input type="submit" value="Edit Travel" />
         </form>
       </div>
       {isPopupVisible && (

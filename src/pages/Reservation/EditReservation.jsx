@@ -74,7 +74,7 @@ const EditReservation= () => {
             onChange={(event) => setnote(event.target.value)}
             required
           />
-          <input type="submit" value="Add Reservation" />
+          <input type="submit" value="Edit Reservation" />
         </form>
       </div>
       {isPopupVisible && (

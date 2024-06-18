@@ -8,6 +8,10 @@
   flex-shrink: 0;
 }
 
+.users .travel-links a {
+  width: 125px;
+}
+
 .users .container {
   flex: 1;
   padding: 20px;
@@ -122,6 +126,10 @@
   .users .container {
       margin-left: 0;
       padding: 10px;
+  }
+
+  .users , .links {
+    flex-direction: column;
   }
 
   .users .header h1 {

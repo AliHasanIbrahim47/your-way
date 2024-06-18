@@ -14,6 +14,7 @@ const Reservation = () => {
   const [acceptedUsers, setAcceptedUser] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [deleteORaccept, setdeleteORaccept] = useState(false);
 
   const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
@@ -68,26 +69,51 @@ const Reservation = () => {
   };
 
   const handleDeleteSelected = () => {
+    setdeleteORaccept(false);
+    setIsPopupVisible(true);
+  };
+
+  const handleAcceptedSelected = () => {
+    setdeleteORaccept(true);
     setIsPopupVisible(true);
   };
 
   const confirmDelete = async () => {
     setIsPopupVisible(false);
-    try {
-      const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
-      const response = await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations', {
-        data: { ids: idsToDelete },
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      fetchUsers();
-    } catch (error) {
-      console.error('Error deleting reservation', error);
+    if(!deleteORaccept) {
+      try {
+        const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
+        const response = await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations', {
+          data: { ids: idsToDelete },
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        fetchUsers();
+      } catch (error) {
+        console.error('Error deleting reservation', error);
+      }
+      setSelectedUsers([]);
+      setSelectedUser(null);
     }
-    setSelectedUsers([]);
-    setSelectedUser(null);
+
+    if(deleteORaccept) {
+      try {
+        const idsToAccept = acceptedUsers;
+        const response = await axios.put('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations/update-many', {
+          data: { ids: idsToAccept, status: 'accepted' },
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        fetchUsers();
+      } catch (error) {
+        console.error('Error accepting private travels', error);
+      }
+      setAcceptedUser([]);
+    }
   }
 
   const cancelDelete = () => {
@@ -108,6 +134,7 @@ const Reservation = () => {
 
   const deleteUser = (item) => {
     setSelectedUser(item);
+    setdeleteORaccept(false);
     setIsPopupVisible(true);
   };
 
@@ -120,6 +147,7 @@ const Reservation = () => {
           <div className="links">
             <Link to="/travels/reservations/add">ADD</Link>
             <button onClick={handleDeleteSelected}>Delete Selected</button>
+            <button onClick={handleAcceptedSelected}>Accept Selected</button>
           </div>
         </div>
         <table>
@@ -185,7 +213,9 @@ const Reservation = () => {
       </div>
       {isPopupVisible && (
         <Popup
-          message="Are you sure you want to delete the selected Reservations?"
+        message={ deleteORaccept ? "Are you sure you want to accept the selected Reservatios?" : 
+          "Are you sure you want to delete the selected Reservatios?"
+          }
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />

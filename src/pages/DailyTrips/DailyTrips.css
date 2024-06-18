@@ -1,6 +1,7 @@
 .users {
   display: flex;
   height: 100vh;
+  background-color: #f4f4f4;
 }
 
 .users > .sidebar {
@@ -20,7 +21,6 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  background-color: #f4f4f4;
 }
 
 .users .header h1 {

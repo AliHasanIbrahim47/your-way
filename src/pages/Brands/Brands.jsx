@@ -43,11 +43,11 @@ const Brands = () => {
   }
 
   // const show = (id) => {
-  //   navigate(`/users/${id}`);
+  //   navigate(`/brands/${id}`);
   // };
 
   const update = (id) => {
-    navigate(`/users/${id}/edit`);
+    navigate(`/brands/${id}/edit`);
   };
 
   const deleteUser = (id) => {
@@ -61,7 +61,7 @@ const Brands = () => {
       try {
         const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/banners', {
           headers: {
-            Authorization: `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`,
           },
         });
         if (Array.isArray(response.data.data)) {

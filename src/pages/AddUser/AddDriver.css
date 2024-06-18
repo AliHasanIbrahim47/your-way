@@ -1,40 +1,43 @@
-.adduser {
+.adddriver {
     display: flex;
     height: 100vh;
     background-color: #f4f4f4;
   }
   
-  .adduser > .sidebar {
+  .adddriver > .sidebar {
     width: 250px;
     flex-shrink: 0;
   } 
   
-  .adduser .container {
+  .adddriver .container {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
     margin-left: 250px; 
+    background-color: #f4f4f4;
   }
   
-  .adduser h1 {
+  .adddriver h1 {
     margin-bottom: 20px;
     font-size: 2rem;
     color: #333;
   }
   
-  .adduser form {
+  .adddriver form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     width: 100%;
     max-width: 400px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
   }
   
-  .adduser form input[type="text"],
-  .adduser form input[type="submit"] {
+  .adddriver form input[type="text"],
+  .adddriver form input[type="submit"] {
     font-family: 'Nunito', sans-serif;
     font-size: 1rem;
     padding: 10px;
@@ -44,7 +47,7 @@
     box-sizing: border-box;
   }
   
-  .adduser form input[type="submit"] {
+  .adddriver form input[type="submit"] {
     background-color: #BA8D38;
     color: white;
     border: none;
@@ -52,29 +55,29 @@
     transition: background-color 0.3s ease;
   }
   
-  .adduser form input[type="submit"]:hover {
+  .adddriver form input[type="submit"]:hover {
     background-color: #A37A30;
   }
   
   @media (max-width: 768px) {
-    .adduser {
+    .adddriver {
       flex-direction: column;
     }
   
-    .adduser .container {
+    .adddriver .container {
       margin-left: 0;
       padding: 10px;
     }
   
-    .adduser h1 {
+    .adddriver h1 {
       font-size: 1.5rem;
     }
   
-    .adduser form {
+    .adddriver form {
       width: 90%;
     }
   
-    .adduser .sidebar {
+    .adddriver .sidebar {
       width: 100%;
       height: 200px;
     }

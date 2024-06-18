@@ -7,7 +7,7 @@
 .adduser > .sidebar {
   width: 250px;
   flex-shrink: 0;
-} 
+}
 
 .adduser .container {
   flex: 1;
@@ -16,13 +16,18 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  margin-left: 250px; 
+  margin-left: 250px;
+}
+
+.adduser form label {
+  font-size: 1rem;
+  color: #333;
 }
 
 .adduser h1 {
-  margin-bottom: 20px;
   font-size: 2rem;
   color: #333;
+  margin-bottom: 20px;
 }
 
 .adduser form {
@@ -33,8 +38,7 @@
   max-width: 400px;
 }
 
-.adduser form input[type="text"],
-.adduser form input[type="submit"] {
+.adduser form input[type="text"] {
   font-family: 'Nunito', sans-serif;
   font-size: 1rem;
   padding: 10px;
@@ -44,16 +48,32 @@
   box-sizing: border-box;
 }
 
+.adduser form input[type="number"] {
+  width: 100%;
+  max-width: 400px; 
+  padding: 0.5rem; 
+  font-size: 1rem; 
+  border: 1px solid #ccc; 
+  border-radius: 0.5rem; 
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
+  transition: border-color 0.3s, box-shadow 0.3s; 
+  outline: none;
+}
+
 .adduser form input[type="submit"] {
-  background-color: #BA8D38;
+  font-size: 1rem;
+  padding: 10px;
+  background-color: #ba8d38;
   color: white;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%;
 }
 
 .adduser form input[type="submit"]:hover {
-  background-color: #A37A30;
+  background-color: #a0752e;
 }
 
 @media (max-width: 768px) {
@@ -68,14 +88,5 @@
 
   .adduser h1 {
     font-size: 1.5rem;
-  }
-
-  .adduser form {
-    width: 90%;
-  }
-
-  .adduser .sidebar {
-    width: 100%;
-    height: 200px;
   }
 }

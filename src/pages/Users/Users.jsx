@@ -100,10 +100,12 @@ const Users = () => {
       <div className="container">
         <div className="header">
           <h1>All Users</h1>
-          <Link to="users-only">Users</Link>
-          <Link to="drivers-only">Drivers</Link>
-          <div className="travel-links">
-          <Link to="drivers-unactive">UnActive Drivers</Link>
+          <div className="links">
+            <Link to="users-only">Users</Link>
+            <Link to="drivers-only">Drivers</Link>
+            <div className="travel-links">
+              <Link to="drivers-unactive">UnActive Drivers</Link>
+            </div>
           </div>
           <div className="links">
             <Link to="/users/add">ADD User</Link>

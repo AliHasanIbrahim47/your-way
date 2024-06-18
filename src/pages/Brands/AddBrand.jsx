@@ -52,7 +52,7 @@ const AddBrand = () => {
   }
 
   return (
-    <div className="adduser">
+    <div className="addbanner">
       <Sidebar />
       <div className="container">
         <h1>Add Banner</h1>
