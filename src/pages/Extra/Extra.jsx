@@ -35,6 +35,7 @@ const Extra = () => {
       console.error('Error fetching extra', error);alert("Error loading data");
     } finally {
       setLoader(false);
+      setLoading(false);
     }
   };
 
@@ -79,6 +80,7 @@ const Extra = () => {
     setSelectedUsers([]);
     setSelectedUser(null);
     setLoading(false);
+    setLoader(false);
   }
 
   const cancelDelete = () => {
@@ -102,7 +104,7 @@ const Extra = () => {
     setIsPopupVisible(true);
   };
 
-  if (loader) {
+  if (loader && !loading) {
     return (
       <div className="users">
         <Sidebar />
@@ -118,7 +120,7 @@ const Extra = () => {
     <div className="users">
       <Sidebar />
       <div className="container">
-      {loading ? (
+      {loading && !loader ? (
           <div className="loader">Deleting Extra ...</div> 
         ) : (
           <>

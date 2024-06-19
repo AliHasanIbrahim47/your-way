@@ -38,6 +38,7 @@ const Users = () => {
       alert("Error loading data");
     } finally {
       setLoader(false);
+      setLoading(false);
     }
   };
 
@@ -82,6 +83,7 @@ const Users = () => {
     setSelectedUsers([]);
     setSelectedUser(null);
     setLoading(false);
+    setLoader(false);
   }
 
   const cancelDelete = () => {
@@ -131,7 +133,7 @@ const Users = () => {
     );
   }
 
-  if (loader) {
+  if (loader && !loading) {
     return (
       <div className="users">
         <Sidebar />
@@ -147,7 +149,7 @@ const Users = () => {
     <div className="users">
       <Sidebar />
       <div className="container">
-      {loading ? (
+      {loading && !loader ? (
           <div className="loader">Deleting Users ...</div> 
         ) : (
           <>

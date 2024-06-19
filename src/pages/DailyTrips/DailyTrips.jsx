@@ -37,6 +37,7 @@ const DailyTrips = () => {
       console.error('Error fetching private travels', error);
     } finally {
       setLoader(false);
+      setLoading(false);
     }
   };
 
@@ -81,6 +82,7 @@ const DailyTrips = () => {
     setSelectedUsers([]);
     setSelectedUser(null);
     setLoading(false);
+    setLoader(false);
   }
 
   const cancelDelete = () => {
@@ -112,7 +114,7 @@ const DailyTrips = () => {
   //   ? users 
   //   : users.filter(user => user.type === selectedType);
 
-  if (loader) {
+  if (loader && !loading) {
     return (
       <div className="users">
         <Sidebar />
@@ -128,7 +130,7 @@ const DailyTrips = () => {
     <div className="users">
       <Sidebar />
       <div className="container">
-      {loading ? (
+      {loading && !loader ? (
           <div className="loader">Deleting Travels ...</div> 
         ) : (
           <>

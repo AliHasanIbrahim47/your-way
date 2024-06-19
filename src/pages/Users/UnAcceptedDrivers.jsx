@@ -35,6 +35,7 @@ const UnAcceptedDrivers = () => {
       console.error('Error fetching private travels', error);
     } finally {
       setLoader(false);
+      setLoading(false);
     } 
   };
 
@@ -80,6 +81,7 @@ const UnAcceptedDrivers = () => {
     setSelectedUsers([]);
     setSelectedUser(null);
     setLoading(false); 
+    setLoader(false);
   }
 
   const cancelDelete = () => {
@@ -104,7 +106,7 @@ const UnAcceptedDrivers = () => {
   };
 
   
-  if (loader) {
+  if (loader && !loading) {
     return (
       <div className="users">
         <Sidebar />
@@ -119,7 +121,7 @@ const UnAcceptedDrivers = () => {
     <div className="users">
       <Sidebar />
       <div className="container">
-      {loading ? (
+      {loading && !loader ? (
           <div className="loader">Deleting Users ...</div> 
         ) : (
           <>

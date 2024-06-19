@@ -37,6 +37,7 @@ const Reservation = () => {
       console.error('Error fetching reservtaions', error);alert("Error loading data");
     } finally {
       setLoader(false);
+      setLoading(false);
     }
   };
 
@@ -125,6 +126,7 @@ const Reservation = () => {
       }
       setAcceptedUser([]);
       setLoading(false);
+      setLoader(false);
     }
   }
 
@@ -150,13 +152,12 @@ const Reservation = () => {
     setIsPopupVisible(true);
   };
 
-  if (loader) {
+  if (loader && !loading) {
     return (
       <div className="users">
         <Sidebar />
         <div className="container">
           <h1>Loading data ...</h1>
-          
         </div>
       </div>
     );
@@ -166,7 +167,7 @@ const Reservation = () => {
     <div className="users">
       <Sidebar />
       <div className="container">
-      {loading ? (
+      {loading && !loader ? (
           <div className="loader">Deleting Reservations ...</div> 
         ) : (
           <>

@@ -38,6 +38,7 @@ const PrivateTrip = () => {
       console.error('Error fetching private travels', error);alert("Error loading data");
     } finally {
       setLoader(false);
+      setLoading(false);
     }
   };
 
@@ -126,6 +127,7 @@ const PrivateTrip = () => {
       }
       setAcceptedUser([]);
       setLoading(false);
+      setLoader(false);
     }
   }
 
@@ -151,7 +153,7 @@ const PrivateTrip = () => {
     setIsPopupVisible(true);
   };
 
-  if (loader) {
+  if (loader && !loading) {
     return (
       <div className="users">
         <Sidebar />
@@ -167,7 +169,7 @@ const PrivateTrip = () => {
     <div className="users">
       <Sidebar />
       <div className="container">
-      {loading ? (
+      {loading && !loader ? (
           <div className="loader">Deleting Private Travel ...</div> 
         ) : (
           <>
@@ -188,7 +190,7 @@ const PrivateTrip = () => {
               <th>Seats</th>
               <th>Actions</th>
               <th>
-                <label>Delet All</label>
+                <label>Delete All</label>
                 <input
                   type="checkbox"
                   onChange={handleSelectAll}
@@ -226,7 +228,9 @@ const PrivateTrip = () => {
                     type="checkbox"
                     checked={selectedUsers.includes(element.id)}
                     onChange={() => handleSelectUser(element.id)}
-                  />
+                  >
+                    
+                  </input>
                 </td>
                 <td>
                   <input
