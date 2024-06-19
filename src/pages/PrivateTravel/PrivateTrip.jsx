@@ -7,6 +7,8 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import Moment from 'react-moment';
+import { FaCheckCircle } from "react-icons/fa";
+import { IoMdCloseCircle } from "react-icons/io";
 
 const PrivateTrip = () => {
   const navigate = useNavigate();
@@ -228,16 +230,14 @@ const PrivateTrip = () => {
                     type="checkbox"
                     checked={selectedUsers.includes(element.id)}
                     onChange={() => handleSelectUser(element.id)}
-                  >
-                    
-                  </input>
+                  /><IoMdCloseCircle  id="c" />
                 </td>
                 <td>
                   <input
                     type="checkbox"
                     checked={acceptedUsers.includes(element.id)}
                     onChange={() => handleAcceptedUser(element.id)}
-                  />
+                  /><FaCheckCircle  id="c" />
                 </td>
               </tr>
             ))}

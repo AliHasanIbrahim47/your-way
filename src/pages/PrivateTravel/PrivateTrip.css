@@ -33,6 +33,10 @@
   margin-right: 5px;
 }
 
+#c {
+  margin-left: 5px;
+}
+
 .users .header .add-user-btn {
   font-size: 0.75rem;
   padding: 10px 20px;

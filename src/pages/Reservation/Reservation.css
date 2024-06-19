@@ -15,6 +15,10 @@
   background-color: #f4f4f4;
 }
 
+#c {
+  margin-left: 5px;
+}
+
 .users .header {
   display: flex;
   justify-content: space-between;

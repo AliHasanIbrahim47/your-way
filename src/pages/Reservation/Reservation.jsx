@@ -6,6 +6,8 @@ import { RiEdit2Fill } from "react-icons/ri";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
 import axios from "axios";
+import { FaCheckCircle } from "react-icons/fa";
+import { IoMdCloseCircle } from "react-icons/io";
 
 const Reservation = () => {
   const navigate = useNavigate();
@@ -188,7 +190,7 @@ const Reservation = () => {
               <th>Status</th>
               <th>Actions</th>
               <th>
-                <label>Delet All</label>
+                <label>Delete All</label>
                 <input
                   type="checkbox"
                   onChange={handleSelectAll}
@@ -226,14 +228,14 @@ const Reservation = () => {
                     type="checkbox"
                     checked={selectedUsers.includes(element.id)}
                     onChange={() => handleSelectUser(element.id)}
-                  />
+                  /><IoMdCloseCircle  id="c" />
                 </td>
                 <td>
                   <input
                     type="checkbox"
                     checked={acceptedUsers.includes(element.id)}
                     onChange={() => handleAcceptedUser(element.id)}
-                  />
+                  /><FaCheckCircle  id="c" />
                 </td>
               </tr>
             ))}
