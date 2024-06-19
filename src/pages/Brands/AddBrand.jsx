@@ -48,7 +48,7 @@ const AddBrand = () => {
       setTitleAr("");
       navigate('/brands');
     } catch (error) {
-      alert("Error adding banner, please try again");
+      alert("Error adding banner please try again");
     } finally {
       setLoading(false);
     }

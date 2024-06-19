@@ -55,7 +55,7 @@ const EditLine = () => {
       setpoint_b("");
       navigate('/lines');
       } catch (error) {
-      console.error('Error adding line', error);
+        alert("Error editing extra please try again");
     } finally {
       setLoading(false);
     }

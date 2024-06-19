@@ -86,8 +86,8 @@ const UnAcceptedDrivers = () => {
     navigate(`/users/${id}`);
   };
 
-  const update = (id) => {
-    navigate(`/users/${id}/edit`);
+  const update = (element) => {
+    navigate(`/users/${element.id}/edit`, { state: { user: JSON.stringify(element) } });
   };
 
   useEffect(() => {
@@ -138,7 +138,7 @@ const UnAcceptedDrivers = () => {
                   <td>{element.phone}</td>
                   <td className="actions-style">
                     {/* <button onClick={() => show(element.id)}>show</button> */}
-                    <button onClick={() => update(element.id)}>
+                    <button onClick={() => update(element)}>
                       <RiEdit2Fill />
                     </button>
                     <button onClick={() => deleteUser(element)}>

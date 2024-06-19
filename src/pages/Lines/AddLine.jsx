@@ -41,7 +41,7 @@ const AddLine = () => {
       setpoint_b("");
       navigate('/lines');
       } catch (error) {
-      console.error('Error adding line', error);
+        alert("Error adding line please try again");
     }  finally {
       setLoading(false);
     }

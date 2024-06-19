@@ -84,8 +84,8 @@ const DriversOnly = () => {
     navigate(`/users/${id}`);
   };
 
-  const update = (id) => {
-    navigate(`/users/${id}/edit`);
+  const update = (element) => {
+    navigate(`/users/${element.id}/edit`, { state: { user: JSON.stringify(element) } });
   };
 
   useEffect(() => {
@@ -137,7 +137,7 @@ const DriversOnly = () => {
                   <td>{element.phone}</td>
                   <td className="actions-style">
                     <button onClick={() => show(element.id)}>show</button>
-                    <button onClick={() => update(element.id)}>
+                    <button onClick={() => update(element)}>
                       <RiEdit2Fill />
                     </button>
                     <button onClick={() => deleteUser(element)}>
@@ -158,7 +158,7 @@ const DriversOnly = () => {
         </table>
       {isPopupVisible && (
         <Popup 
-          message="Are you sure you want to delete the selected users?"
+          message="Are you sure you want to delete the selected drivers?"
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />

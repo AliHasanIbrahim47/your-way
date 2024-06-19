@@ -62,7 +62,7 @@ const EditBrand = () => {
       settitle_ar("");
       navigate('/brands');
     } catch (error) {
-      alert("Error editing banner, please try again");
+      alert("Error editing banner please try again");
     } finally {
       setLoading(false);
     }
