@@ -5,20 +5,24 @@ import "./Users.css";
 import { RiEdit2Fill } from "react-icons/ri";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
-import axios from "axios"; 
+import axios from "axios";
+import { FaUser } from "react-icons/fa";
+import { FaCar } from "react-icons/fa";
 
 const Users = () => {
   const navigate = useNavigate();
-  const [selectedUsers, setSelectedUsers] = useState([]);;
+  const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [selectedType, setSelectedType] = useState('user');
+  const [loading, setLoading] = useState(false);
 
-  const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
+      const response = await axios.get(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/type?type=${selectedType}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -49,16 +53,18 @@ const Users = () => {
     );
   };
 
-
   const handleDeleteSelected = () => {
-    setIsPopupVisible(true);
+    if (selectedUsers.length > 0) {
+      setIsPopupVisible(true);
+    }
   };
 
   const confirmDelete = async () => {
     setIsPopupVisible(false);
+    setLoading(true);
     try {
       const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
-      const response = await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
+      await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
         data: { ids: idsToDelete },
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -71,6 +77,7 @@ const Users = () => {
     }
     setSelectedUsers([]);
     setSelectedUser(null);
+    setLoading(false);
   }
 
   const cancelDelete = () => {
@@ -81,37 +88,58 @@ const Users = () => {
     navigate(`/users/${id}`);
   };
 
-  const update = (id) => {
-    navigate(`/users/${id}/edit`);
+  const update = (element) => {
+    navigate(`/users/${element.id}/edit`, { state: { user: JSON.stringify(element) } });
   };
 
   useEffect(() => {
     fetchUsers();
-  }, [token]);
+  }, [token, selectedType]);
 
   const deleteUser = (item) => {
     setSelectedUser(item);
     setIsPopupVisible(true);
   };
 
+  const handleTypeChange = (event) => {
+    setSelectedType(event.target.value);
+  };
+
+  const filteredUsers = selectedType === 'user' 
+    ? users 
+    : users.filter(user => user.type === selectedType);
+
   return (
     <div className="users">
       <Sidebar />
       <div className="container">
+      {loading ? (
+          <div className="loader">Deleting Users ...</div> 
+        ) : (
+          <>
         <div className="header">
           <h1>All Users</h1>
           <div className="links">
-            <Link to="users-only">Users</Link>
-            <Link to="drivers-only">Drivers</Link>
+            <Link to="users-only"><FaUser id="fa"/> Users</Link>
+            <Link to="drivers-only"><FaCar id="fa"/> Drivers</Link>
             <div className="travel-links">
               <Link to="drivers-unactive">UnActive Drivers</Link>
             </div>
           </div>
-          {/* <div className="links">
+          <div className="links">
             <Link to="/users/add">ADD User</Link>
             <Link to="/drivers/add">ADD Driver</Link>
             <button onClick={handleDeleteSelected}>Delete Selected</button>
-          </div> */}
+            <div className="filter">
+            <label htmlFor="userType">Filter by Type: </label>
+            <select id="userType" value={selectedType} onChange={handleTypeChange}>
+              {/* <option value="all">All</option> */}
+              <option value="user">User</option>
+              <option value="driver">Driver</option>
+            </select>
+          </div>
+          </div>
+          
         </div>
 
         <table>
@@ -120,26 +148,26 @@ const Users = () => {
               <th>ID</th>
               <th>Name</th>
               <th>Phone Number</th>
-              {/* <th>Actions</th>
+              <th>Actions</th>
               <th>
                 <input
                   type="checkbox"
                   onChange={handleSelectAll}
                   checked={selectedUsers.length === users.length}
                 />
-              </th> */}
+              </th>
             </tr>
           </thead>
           <tbody>
-            {users.map((element, index) => {
+            {filteredUsers.map((element, index) => {
               return (
                 <tr key={index}>
                   <td>{element.id}</td>
                   <td>{element.full_name}</td>
                   <td>{element.phone}</td>
-                  {/* <td className="actions-style">
+                  <td className="actions-style">
                     <button onClick={() => show(element.id)}>show</button>
-                    <button onClick={() => update(element.id)}>
+                    <button onClick={() => update(element)}>
                       <RiEdit2Fill />
                     </button>
                     <button onClick={() => deleteUser(element)}>
@@ -152,20 +180,22 @@ const Users = () => {
                       checked={selectedUsers.includes(element.id)}
                       onChange={() => handleSelectUser(element.id)}
                     /> 
-                  </td> */}
+                  </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
-      </div>
-      {isPopupVisible && (
+        {isPopupVisible && (
         <Popup 
           message="Are you sure you want to delete the selected users?"
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />
       )}
+      </>
+        )}
+      </div>
     </div>
   );
 };

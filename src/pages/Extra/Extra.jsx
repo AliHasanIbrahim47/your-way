@@ -12,6 +12,7 @@ const Extra = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
@@ -50,11 +51,14 @@ const Extra = () => {
   };
 
   const handleDeleteSelected = () => {
-    setIsPopupVisible(true);
+    if (selectedUsers.length > 0) {
+      setIsPopupVisible(true);
+    }
   };
 
   const confirmDelete = async () => {
     setIsPopupVisible(false);
+    setLoading(true);
     try {
       const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
       const response = await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/extra/', {
@@ -70,6 +74,7 @@ const Extra = () => {
     }
     setSelectedUsers([]);
     setSelectedUser(null);
+    setLoading(false);
   }
 
   const cancelDelete = () => {
@@ -80,8 +85,8 @@ const Extra = () => {
   //   navigate(`/extra/${id}`);
   // };
 
-  const update = (id) => {
-    navigate(`/extra/${id}/edit`);
+  const update = (element) => {
+    navigate(`/extra/${element.id}/edit`, { state: { user: JSON.stringify(element) } });
   };
 
   useEffect(() => {
@@ -97,6 +102,10 @@ const Extra = () => {
     <div className="users">
       <Sidebar />
       <div className="container">
+      {loading ? (
+          <div className="loader">Deleting Extra ...</div> 
+        ) : (
+          <>
         <div className="header">
           <h1>All Extra</h1>
           <div className="links">
@@ -130,7 +139,7 @@ const Extra = () => {
                 <td>{element.price}</td>
                 <td className="actions-style">
                   {/* <button onClick={() => show(element.id)}>show</button> */}
-                  <button onClick={() => update(element.id)}>
+                  <button onClick={() => update(element)}>
                     <RiEdit2Fill />
                   </button>
                   <button onClick={() => deleteUser(element)}>
@@ -148,14 +157,16 @@ const Extra = () => {
             ))}
           </tbody>
         </table>
-      </div>
       {isPopupVisible && (
-        <Popup
-          message="Are you sure you want to delete the selected extras?"
+        <Popup 
+          message="Are you sure you want to delete the selected extra?"
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />
       )}
+      </>
+        )}
+      </div>
     </div>
   );
 };

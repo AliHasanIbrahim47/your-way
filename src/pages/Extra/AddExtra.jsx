@@ -10,6 +10,7 @@ const AddExtra = () => {
   const [price, setprice] = useState(null);
   const [title_ar, settitle_ar] = useState("");
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -26,6 +27,7 @@ const AddExtra = () => {
       return;
     }
     let data = { title_en: title_en, price: price, title_ar: title_ar };
+    setLoading(true);
     try {
       const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/extra', {
         title_en: title_en , title_ar: title_ar, price: price
@@ -41,9 +43,10 @@ const AddExtra = () => {
       settitle_ar("");
       navigate('/extra');
       } catch (error) {
-      console.error('Error adding extra', error);
+        alert("Error adding extra please try again");
+    } finally {
+      setLoading(false);
     }
-
   }
   
   const cancelDelete = () => {
@@ -54,13 +57,17 @@ const AddExtra = () => {
     <div className="addextra">
       <Sidebar />
       <div className="container">
+      {loading ? (
+          <div className="loader">Adding Extra ...</div> 
+        ) : (
+          <>
         <h1>Add Extra</h1>
         <form onSubmit={sendData}>
           <label htmlFor="title_en">Title English</label>
           <input
             type="text"
             id="title_en"
-            placeholder="Title in English"
+            placeholder=""
             value={title_en}
             onChange={(event) => settitle_en(event.target.value)}
             required
@@ -69,7 +76,7 @@ const AddExtra = () => {
           <input
             type="text"
             id="title_ar"
-            placeholder="Title in Arabic"
+            placeholder=""
             value={title_ar}
             onChange={(event) => settitle_ar(event.target.value)}
             required
@@ -78,21 +85,23 @@ const AddExtra = () => {
           <input
             type="number"
             id="price"
-            placeholder="Price"
+            placeholder=""
             value={price}
             onChange={(event) => setprice(event.target.value)}
             required
           />
           <input type="submit" value="Add Extra" />
         </form>
+        {isPopupVisible && (
+              <Popup 
+                message="Are you sure you want to add this extra?"
+                onConfirm={confirmDelete}
+                onCancel={cancelDelete}
+              />
+            )}
+          </>
+        )}
       </div>
-      {isPopupVisible && (
-        <Popup 
-          message="Are you sure you want to add this extra?"
-          onConfirm={confirmDelete}
-          onCancel={cancelDelete}
-        />
-      )}
     </div>
   );
 };

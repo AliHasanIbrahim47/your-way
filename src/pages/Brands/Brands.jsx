@@ -5,12 +5,34 @@ import "./Brands.css";
 import { RiEdit2Fill } from "react-icons/ri";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
-import axios from "axios"; 
+import axios from "axios";
 
 const Brands = () => {
   const navigate = useNavigate();
   const [selectedUsers, setSelectedUsers] = useState([]);
-  const [isPopupVisible, setIsPopuoVisble] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [users, setUsers] = useState([]); 
+  const token = localStorage.getItem('token');
+
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/banners', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      if (Array.isArray(response.data.data)) {
+        setUsers(response.data.data);
+      } else {
+        console.error('Response data is not an array');
+      }
+    } catch (error) {
+      console.error('Error fetching extra', error);
+    }
+  };
 
   const handleSelectAll = (event) => {
     if (event.target.checked) {
@@ -29,58 +51,61 @@ const Brands = () => {
   };
 
   const handleDeleteSelected = () => {
-    setIsPopuoVisble(true);
-
+    if (selectedUsers.length > 0) {
+      setIsPopupVisible(true);
+    }
   };
 
-  const confirmDelete = () => {
-    setIsPopuoVisble(false);
+  const confirmDelete = async () => {
+    setIsPopupVisible(false);
+    setLoading(true);
+    try {
+      const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
+      const response = await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/banners/', {
+        data: { ids: idsToDelete },
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      fetchUsers();
+    } catch (error) {
+      console.error('Error deleting extra', error);
+    }
     setSelectedUsers([]);
+    setSelectedUser(null);
+    setLoading(false);
   }
 
   const cancelDelete = () => {
-    setIsPopuoVisble(false);
+    setIsPopupVisible(false);
   }
 
   // const show = (id) => {
-  //   navigate(`/brands/${id}`);
+  //   navigate(`/extra/${id}`);
   // };
 
-  const update = (id) => {
-    navigate(`/brands/${id}/edit`);
+  const update = (element) => {
+    navigate(`/brands/${element.id}/edit`, { state: { user: JSON.stringify(element) } });
   };
 
-  const deleteUser = (id) => {
-    setIsPopuoVisble(true);
-  };
-
-  const [users, setUsers] = useState([]); 
-  const token = localStorage.getItem('token');
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/banners', {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        if (Array.isArray(response.data.data)) {
-          setUsers(response.data.data);
-        } else {
-          console.error('Response data is not an array');
-        }
-      } catch (error) {
-        console.error('Error fetching users', error);
-      }
-    };
-
     fetchUsers();
   }, [token]);
+
+  const deleteUser = (item) => {
+    setSelectedUser(item);
+    setIsPopupVisible(true);
+  };
 
   return (
     <div className="users">
       <Sidebar />
       <div className="container">
+      {loading ? (
+          <div className="loader">Deleting Banner ...</div> 
+        ) : (
+          <>
         <div className="header">
           <h1>All Banners</h1>
           <div className="links">
@@ -88,7 +113,6 @@ const Brands = () => {
             <button onClick={handleDeleteSelected}>Delete Selected</button>
           </div>
         </div>
-
         <table>
           <thead>
             <tr>
@@ -116,7 +140,7 @@ const Brands = () => {
                   <td>{element.title_ar}</td>
                   <td className="actions-style">
                     {/* <button onClick={() => show(element.id)}>show</button> */}
-                    <button onClick={() => update(element.id)}>
+                    <button onClick={() => update(element)}>
                       <RiEdit2Fill />
                     </button>
                     <button onClick={() => deleteUser(element.id)}>
@@ -135,14 +159,16 @@ const Brands = () => {
             })}
           </tbody>
         </table>
-      </div>
       {isPopupVisible && (
         <Popup 
-          message="Are you sure you want to delete the selected users?"
+          message="Are you sure you want to delete the selected banner?"
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />
       )}
+      </>
+        )}
+      </div>
     </div>
   );
 };

@@ -3,66 +3,90 @@ import "./EditBrand.css";
 import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 const EditBrand = () => {
   const [title_en, settitle_en] = useState("");
   const [image, setimage] = useState(null);
   const [title_ar, settitle_ar] = useState("");
-  const [isPopupVisible, setIsPopuoVisble] = useState(false);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const location = useLocation();
+  const [loading, setLoading] = useState(false);
 
   const { id } = useParams();
-
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.state && location.state.user) {
+      const userData = JSON.parse(location.state.user);
+      settitle_en(userData.title_en);
+      settitle_ar(userData.title_ar);
+    } else {
+      alert("User data not found in location state");
+    }
+  }, [location.state]);
 
   const sendData = (event) => {
     event.preventDefault();
-    setIsPopuoVisble(true);
+    setIsPopupVisible(true);
   };
 
-  const confirmDelete = async () => {
+  const confirmEdit = async () => {
     const token = localStorage.getItem('token');
-    setIsPopuoVisble(false);
-    if (!title_en || !image || !title_ar) {
+    setIsPopupVisible(false);
+
+    if (!title_en || !title_ar) {
       alert("All fields are required!");
       return;
     }
-    let data = { title_en: title_en, price: image, title_ar: title_ar };
+
+    setLoading(true);
+
+    const formData = new FormData();
+    formData.append('title_en', title_en);
+    if (image) {
+      formData.append('image', image);
+    }
+    formData.append('title_ar', title_ar);
+
     try {
-      const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/banners/${id}`, {
-        data
-      }, {
+      await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/banners/${id}`, formData, {
         headers: {
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'multipart/form-data'
         }
       });
 
       settitle_en("");
-      setimage();
+      setimage(null);
       settitle_ar("");
-      navigate('/extra');
-      } catch (error) {
-      console.error('Error adding extra', error);
+      navigate('/brands');
+    } catch (error) {
+      alert("Error editing banner, please try again");
+    } finally {
+      setLoading(false);
     }
+  };
 
-  }
-  
-  const cancelDelete = () => {
-    setIsPopuoVisble(false);
-  }
+  const cancelEdit = () => {
+    setIsPopupVisible(false);
+  };
 
   return (
     <div className="edituser">
       <Sidebar />
       <div className="container">
-        <h1>Edit Banner: {id}</h1>
+      {loading ? (
+          <div className="loader">Editing banner ...</div> 
+        ) : (
+          <>
+        <h1>Edit Banner</h1>
         <form onSubmit={sendData}>
           <label htmlFor="title_en">Title English</label>
           <input
             type="text"
             id="title_en"
-            placeholder="Title in English"
+            placeholder=""
             value={title_en}
             onChange={(event) => settitle_en(event.target.value)}
             required
@@ -71,7 +95,7 @@ const EditBrand = () => {
           <input
             type="text"
             id="title_ar"
-            placeholder="Title in Arabic"
+            placeholder=""
             value={title_ar}
             onChange={(event) => settitle_ar(event.target.value)}
             required
@@ -80,22 +104,21 @@ const EditBrand = () => {
           <input
             type="file"
             id="image"
-            placeholder="Image src"
             accept="image/*"
-            // value={image}
             onChange={(event) => setimage(event.target.files[0])}
-            required
           />
           <input type="submit" value="Edit Banner" />
         </form>
+        {isPopupVisible && (
+              <Popup 
+                message="Are you sure you want to edit this banner?"
+                onConfirm={confirmEdit}
+                onCancel={cancelEdit}
+              />
+            )}
+          </>
+        )}
       </div>
-      {isPopupVisible && (
-        <Popup 
-          message="Are you sure you want to edit this banner?"
-          onConfirm={confirmDelete}
-          onCancel={cancelDelete}
-        />
-      )}
     </div>
   );
 };

@@ -6,64 +6,35 @@ import axios from 'axios';
 
 const ShowUser = () => {
   const [loader, setLoader] = useState(true);
-  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState(null);
   const token = localStorage.getItem('token');
 
-
   const { id } = useParams();
-  const user = users.find(user => user.id.toString() === id);
   const navigate = useNavigate();
 
-  // const trips = [
-  //   { id: 1, type: 'previous', departure: 'New York', arrival: 'Los Angeles', date: '2024-05-01', time: '10:00 AM', services: ['WiFi', 'Meal'] },
-  //   { id: 2, type: 'pending', departure: 'Los Angeles', arrival: 'New York', date: '2024-06-15', time: '12:00 PM', services: ['WiFi'] },
-  //   { id: 3, type: 'previous', departure: 'Chicago', arrival: 'Miami', date: '2024-04-20', time: '03:00 PM', services: ['Meal'] },
-  //   { id: 4, type: 'pending', departure: 'Miami', arrival: 'Los Angeles', date: '2024-07-10', time: '09:00 AM', services: [] }
-  // ];
-
-  // const previousTrips = trips.filter(trip => trip.type === 'previous');
-  // const pendingTrips = trips.filter(trip => trip.type === 'pending');
-
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchUser = async () => {
       try {
-        const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
+        const response = await axios.get(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`,
           },
         });
-        if (Array.isArray(response.data.data)) {
-          setUsers(response.data.data);
-        } else {
-          console.error('Response data is not an array');
-        }
+        const users = response.data.data;
+        const foundUser = users.find(user => user.id.toString() === id);
+        setUser(foundUser);
         setLoader(false);
       } catch (error) {
-        console.error('Error fetching users', error);
+        console.error('Error fetching user', error);
+        setLoader(false);
       }
     };
+    fetchUser();
+  }, [token, id]);
 
-    fetchUsers();
-  }, [token]);
-
-  const handleAddTrip = () => {
-    navigate(`/travels/add`);
-  };
-
-  // const update = (id) => {
-  //   navigate(`/users/${id}/trip/edit`);
+  // const handleAddTrip = () => {
+  //   navigate(`/travels/add`);
   // };
-
-  if (!user && !loader) {
-    return (
-      <div className="showuser">
-        <Sidebar />
-        <div className="container">
-          <h1>User Not Found</h1>
-        </div>
-      </div>
-    );
-  }
 
   if (loader) {
     return (
@@ -76,11 +47,22 @@ const ShowUser = () => {
     );
   }
 
+  if (!user) {
+    return (
+      <div className="showuser">
+        <Sidebar />
+        <div className="container">
+          <h1>User Not Found</h1>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="showuser">
       <Sidebar />
       <div className="container">
-        <h1>User {id} Details</h1>
+        <h1>User Details</h1>
         <div className="user-details">
           <p><strong>Name:</strong> {user.full_name}</p>
           <p><strong>Phone:</strong> {user.phone}</p>

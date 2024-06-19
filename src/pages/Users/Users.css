@@ -118,6 +118,21 @@
   background-color: #1D1C1C;
 }
 
+#fa{
+    margin-right: 3px;
+  }
+
+.filter {
+  background-color: #BA8D38;
+  height: 45px;
+  display: flex;
+  border-radius: 5px;
+  padding: 3px;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
 @media (max-width: 768px) {
   .users {
       flex-direction: column;
@@ -150,5 +165,9 @@
       height: 35px;
       padding: 20px;
       font-size: 0.9rem;
+  }
+
+  #fa{
+    margin-right: 3px;
   }
 }

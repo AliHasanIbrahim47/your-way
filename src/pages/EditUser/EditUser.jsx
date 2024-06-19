@@ -3,62 +3,73 @@ import "./EditUser.css";
 import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation  } from "react-router-dom";
 
 const EditUser= () => {
   const { id } = useParams();
-
-  const [full_name, setfull_name] = useState("");
-  const [phone, setphone] = useState();
-  const [password, setpassword] = useState("");
-  const [is_activated, setis_activated] = useState();
-
-  const [isPopupVisible, setIsPopuoVisble] = useState(false);
-
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [full_name, setFull_name] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [is_activated, setIs_activated] = useState("");
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+  useEffect(() => {
+    if (location.state && location.state.user) {
+      const userData = JSON.parse(location.state.user);
+      setFull_name(userData.full_name);
+      setPhone(userData.phone);
+      setPassword(userData.password);
+      setIs_activated(userData.is_activated);
+    } else {
+      // Handle scenario where user data is not passed correctly
+      // alert("User data not found in location state");
+    }
+  }, [location.state]);
 
   const sendData = (event) => {
     event.preventDefault();
-    setIsPopuoVisble(true);
+    setIsPopupVisible(true);
   };
 
   const confirmDelete = async () => {
-    const token = localStorage.getItem('token');
-    setIsPopuoVisble(false);
+    const token = localStorage.getItem("token");
+    setIsPopupVisible(false);
     if (!full_name || !phone || !password) {
       alert("All fields are required!");
       return;
     }
-    let data = { full_name: full_name, phone: phone,  password: password, is_activated: is_activated};
+    const data = { full_name, phone, password, is_activated };
     try {
-      const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/${id}`,
-        data, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+      await axios.put(
+        `https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/${id}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         }
-      });
-
-      setfull_name("");
-      setphone();
-      setpassword("");
-      setis_activated();
-      navigate('/users');
-      } catch (error) {
-        console.error('Error adding user', error.response?.data || error.message);
-        alert(`Error: ${error.response?.data.message || error.message}`);
+      );
+      navigate("/users");
+    } catch (error) {
+      console.error("Error updating user", error.response?.data || error.message);
+      // alert(`Error: ${error.response?.data.message || error.message}`);
+      alert("Error editing the user please try again");
     }
-  }
+  };
 
   const cancelDelete = () => {
-    setIsPopuoVisble(false);
-  }
+    setIsPopupVisible(false);
+  };
 
   return (
     <div className="edituser">
       <Sidebar />
       <div className="container">
-        <h1>Edit User {id}</h1>
+        <h1>Edit User {full_name}</h1>
         <form onSubmit={sendData}>
           <label htmlFor="full_name">Full Name</label>
           <input
@@ -66,7 +77,7 @@ const EditUser= () => {
             id="full_name"
             placeholder=""
             value={full_name}
-            onChange={(event) => setfull_name(event.target.value)}
+            onChange={(event) => setFull_name(event.target.value)}
             required
           />
           <label htmlFor="phone">Phone</label>
@@ -75,7 +86,7 @@ const EditUser= () => {
             id="phone"
             placeholder=""
             value={phone}
-            onChange={(event) => setphone(event.target.value)}
+            onChange={(event) => setPhone(event.target.value)}
             required
           />
           <label htmlFor="password">Password</label>
@@ -84,7 +95,7 @@ const EditUser= () => {
             id="password"
             placeholder=""
             value={password}
-            onChange={(event) => setpassword(event.target.value)}
+            onChange={(event) => setPassword(event.target.value)}
             required
           />
           <label htmlFor="is_activated">Is Activated</label>
@@ -93,7 +104,7 @@ const EditUser= () => {
             id="is_activated"
             placeholder=""
             value={is_activated}
-            onChange={(event) => setis_activated(event.target.value)}
+            onChange={(event) => setIs_activated(event.target.value)}
             required
           />
           <input type="submit" value="Add Reservation" />

@@ -12,6 +12,7 @@ const UsersOnly = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);;
   const [selectedUser, setSelectedUser] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
@@ -56,6 +57,7 @@ const UsersOnly = () => {
 
   const confirmDelete = async () => {
     setIsPopupVisible(false);
+    setLoading(true);
     try {
       const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
       const response = await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
@@ -71,6 +73,7 @@ const UsersOnly = () => {
     }
     setSelectedUsers([]);
     setSelectedUser(null);
+    setLoading(false);
   }
 
   const cancelDelete = () => {
@@ -98,6 +101,10 @@ const UsersOnly = () => {
     <div className="users">
       <Sidebar />
       <div className="container">
+      {loading ? (
+          <div className="loader">Deleting Users ...</div> 
+        ) : (
+          <>
         <div className="header">
           <h1>Users Only</h1>
           <div className="links">
@@ -150,14 +157,16 @@ const UsersOnly = () => {
             })}
           </tbody>
         </table>
-      </div>
-      {isPopupVisible && (
+        {isPopupVisible && (
         <Popup 
           message="Are you sure you want to delete the selected users?"
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />
       )}
+      </>
+        )}
+      </div>
     </div>
   );
 };

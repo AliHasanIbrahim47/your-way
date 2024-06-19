@@ -1,19 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./EditExtra.css";
 import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 const EditExtra = () => {
   const [title_en, settitle_en] = useState("");
   const [price, setprice] = useState(null);
   const [title_ar, settitle_ar] = useState("");
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
+  const location = useLocation();
+  const [loading, setLoading] = useState(false);
 
   const { id } = useParams();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.state && location.state.user) {
+      const userData = JSON.parse(location.state.user);
+      settitle_en(userData.title_en);
+      setprice(userData.price);
+      settitle_ar(userData.title_ar);
+    } else {
+      // Handle scenario where user data is not passed correctly
+      // alert("User data not found in location state");
+    }
+  }, [location.state]);
 
   const sendData = (event) => {
     event.preventDefault();
@@ -28,8 +42,9 @@ const EditExtra = () => {
       return;
     }
     let data = { title_en: title_en, price: price, title_ar: title_ar };
+    setLoading(true);
     try {
-      const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/extra/${id}`, {
+      await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/extra/${id}`, {
         title_en: title_en , title_ar: title_ar, price: price
       }, {
         headers: {
@@ -43,11 +58,12 @@ const EditExtra = () => {
       settitle_ar("");
       navigate('/extra');
       } catch (error) {
-      console.error('Error adding extra', error);
+        alert("Error editing extra please try again");
+    } finally {
+      setLoading(false);
     }
-
   }
-  
+
   const cancelDelete = () => {
     setIsPopuoVisble(false);
   }
@@ -56,13 +72,17 @@ const EditExtra = () => {
     <div className="editextra">
       <Sidebar />
       <div className="container">
+      {loading ? (
+          <div className="loader">Adding Extra ...</div> 
+        ) : (
+          <>
         <h1>Edit Extra</h1>
         <form onSubmit={sendData}>
           <label htmlFor="title_en">Title English</label>
           <input
             type="text"
             id="title_en"
-            placeholder="Title in English"
+            placeholder=""
             value={title_en}
             onChange={(event) => settitle_en(event.target.value)}
             required
@@ -71,7 +91,7 @@ const EditExtra = () => {
           <input
             type="text"
             id="title_ar"
-            placeholder="Title in Arabic"
+            placeholder=""
             value={title_ar}
             onChange={(event) => settitle_ar(event.target.value)}
             required
@@ -80,21 +100,23 @@ const EditExtra = () => {
           <input
             type="number"
             id="price"
-            placeholder="Price"
+            placeholder=""
             value={price}
             onChange={(event) => setprice(event.target.value)}
             required
           />
           <input type="submit" value="Edit Extra" />
         </form>
+        {isPopupVisible && (
+              <Popup 
+                message="Are you sure you want to edit this extra?"
+                onConfirm={confirmDelete}
+                onCancel={cancelDelete}
+              />
+            )}
+          </>
+        )}
       </div>
-      {isPopupVisible && (
-        <Popup 
-          message="Are you sure you want to edit this extra?"
-          onConfirm={confirmDelete}
-          onCancel={cancelDelete}
-        />
-      )}
     </div>
   );
 };

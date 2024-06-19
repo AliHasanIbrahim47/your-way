@@ -42,7 +42,7 @@ const Sidebar = () => {
             <li>
               <Link to="/travels">
                 <FaMap className="icons-margin" />
-                <span className="lll"> Daily Trips</span>
+                <span className="lll"> Travels</span>
               </Link>
             </li>
             <li>
@@ -54,7 +54,7 @@ const Sidebar = () => {
             <li>
               <Link to="/brands">
                 <PiFlagBannerFill className="icons-margin" />
-                <span className="lll"> Brands</span>
+                <span className="lll"> Banners</span>
               </Link>
             </li>
             <li>

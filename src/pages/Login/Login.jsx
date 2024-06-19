@@ -13,6 +13,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false); 
+    const [loading, setLoading] = useState(false); // Add loader state
     const { login } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -28,6 +29,7 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true); // Start loading
 
         try {
             const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/login', {
@@ -40,8 +42,6 @@ const Login = () => {
             if (token) {
               login(token);
               setSuccess(true);
-            //   alert('Login successful!');
-            //   navigate('/dashboard');
             } else {
               alert('Login failed. Token not found in the response.');
             }
@@ -59,42 +59,47 @@ const Login = () => {
                     errRef.current.focus();
                 }
             }
+          setLoading(false); // Stop loading
     }
 
     return (
         <div className='login'>
             { success ? (
                 <section>
-                    <p>Login Success</p>
+                    <p>Login Successful</p>
                     <Link to='dashboard'>Go To Dashboard</Link>
                 </section>
             ) : (
                     <section>
                         <img src={logo} alt="logo" />
                         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                        <h1>Sign In</h1>
-                        <form onSubmit={handleSubmit}>
-                            <label htmlFor="phone">Email:</label>
-                            <input
-                                type="text"
-                                id="phone"
-                                ref={phoneRef}
-                                autoComplete="off"
-                                onChange={(e) => setPhone(e.target.value)}
-                                value={phone}
-                                required
-                            />
+                        {loading ? "" : <h1>Sign In</h1>}
+                        {loading ? ( // Display loader when loading
+                            <div className="loader"><strong>Siging In ...</strong></div>
+                        ) : (
+                            <form onSubmit={handleSubmit}>
+                                <label htmlFor="phone">Email:</label>
+                                <input
+                                    type="text"
+                                    id="phone"
+                                    ref={phoneRef}
+                                    autoComplete="off"
+                                    onChange={(e) => setPhone(e.target.value)}
+                                    value={phone}
+                                    required
+                                />
 
-                            <label htmlFor="password">Password:</label>
-                            <input
-                                type="password"
-                                id="password"
-                                onChange={(e) => setPassword(e.target.value)}
-                                value={password}
-                                required
-                            />
-                            <button>Sign In</button>
-                        </form>
+                                <label htmlFor="password">Password:</label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    value={password}
+                                    required
+                                />
+                                <button>Sign In</button>
+                            </form>
+                        )}
                     </section>
                 )
             }

@@ -12,6 +12,7 @@ const UnAcceptedDrivers = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);;
   const [selectedUser, setSelectedUser] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
@@ -30,7 +31,7 @@ const UnAcceptedDrivers = () => {
       }
     } catch (error) {
       console.error('Error fetching private travels', error);
-    }
+    } 
   };
 
   const handleSelectAll = (event) => {
@@ -51,11 +52,14 @@ const UnAcceptedDrivers = () => {
 
 
   const handleDeleteSelected = () => {
-    setIsPopupVisible(true);
+    if (selectedUsers.length > 0) {
+      setIsPopupVisible(true);
+    }
   };
 
   const confirmDelete = async () => {
     setIsPopupVisible(false);
+    setLoading(true); 
     try {
       const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
       const response = await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
@@ -71,6 +75,7 @@ const UnAcceptedDrivers = () => {
     }
     setSelectedUsers([]);
     setSelectedUser(null);
+    setLoading(false); 
   }
 
   const cancelDelete = () => {
@@ -98,6 +103,10 @@ const UnAcceptedDrivers = () => {
     <div className="users">
       <Sidebar />
       <div className="container">
+      {loading ? (
+          <div className="loader">Deleting Users ...</div> 
+        ) : (
+          <>
         <div className="header">
           <h1>Unactive Drivers</h1>
           <div className="links">
@@ -128,7 +137,7 @@ const UnAcceptedDrivers = () => {
                   <td>{element.full_name}</td>
                   <td>{element.phone}</td>
                   <td className="actions-style">
-                    <button onClick={() => show(element.id)}>show</button>
+                    {/* <button onClick={() => show(element.id)}>show</button> */}
                     <button onClick={() => update(element.id)}>
                       <RiEdit2Fill />
                     </button>
@@ -148,7 +157,6 @@ const UnAcceptedDrivers = () => {
             })}
           </tbody>
         </table>
-      </div>
       {isPopupVisible && (
         <Popup 
           message="Are you sure you want to delete the selected users?"
@@ -156,6 +164,9 @@ const UnAcceptedDrivers = () => {
           onCancel={cancelDelete}
         />
       )}
+      </>
+        )}
+      </div>
     </div>
   );
 };
