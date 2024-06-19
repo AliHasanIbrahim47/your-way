@@ -17,10 +17,12 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const [selectedType, setSelectedType] = useState('user');
   const [loading, setLoading] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const token = localStorage.getItem('token');
 
   const fetchUsers = async () => {
+    setLoader(true);
     try {
       const response = await axios.get(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/type?type=${selectedType}`, {
         headers: {
@@ -34,6 +36,8 @@ const Users = () => {
       }
     } catch (error) {
       console.error('Error fetching private travels', error);
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -109,6 +113,36 @@ const Users = () => {
     ? users 
     : users.filter(user => user.type === selectedType);
 
+  if (users.length === 0 && !loader) {
+    return (
+      <div className="users">
+        <Sidebar />
+        <div className="container">
+          <h1>There are no Drivers</h1>
+          <div className="links">
+            <Link to="users-only"><FaUser id="fa"/> Users</Link>
+            <Link to="drivers-only"><FaCar id="fa"/> Drivers</Link>
+            <div className="travel-links">
+              <Link to="drivers-unactive">Incctive Drivers</Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (loader) {
+    return (
+      <div className="users">
+        <Sidebar />
+        <div className="container">
+          <h1>Loading data ...</h1>
+          
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="users">
       <Sidebar />
@@ -123,7 +157,7 @@ const Users = () => {
             <Link to="users-only"><FaUser id="fa"/> Users</Link>
             <Link to="drivers-only"><FaCar id="fa"/> Drivers</Link>
             <div className="travel-links">
-              <Link to="drivers-unactive">UnActive Drivers</Link>
+              <Link to="drivers-unactive">Inactive Drivers</Link>
             </div>
           </div>
           <div className="links">

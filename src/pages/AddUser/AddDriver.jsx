@@ -137,7 +137,7 @@ const AddDriver = () => {
               />
               <label htmlFor="model">Model</label>
               <input
-                type="number"
+                type="text"
                 id="model"
                 placeholder=""
                 value={model}

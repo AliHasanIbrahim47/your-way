@@ -13,11 +13,13 @@ const UnAcceptedDrivers = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
 
   const fetchUsers = async () => {
+    setLoader(true);
     try {
       const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/drivers/un-accepted', {
         headers: {
@@ -31,6 +33,8 @@ const UnAcceptedDrivers = () => {
       }
     } catch (error) {
       console.error('Error fetching private travels', error);
+    } finally {
+      setLoader(false);
     } 
   };
 
@@ -99,6 +103,18 @@ const UnAcceptedDrivers = () => {
     setIsPopupVisible(true);
   };
 
+  
+  if (loader) {
+    return (
+      <div className="users">
+        <Sidebar />
+        <div className="container">
+          <h1>Loading data ...</h1>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="users">
       <Sidebar />
@@ -108,7 +124,7 @@ const UnAcceptedDrivers = () => {
         ) : (
           <>
         <div className="header">
-          <h1>Unactive Drivers</h1>
+          <h1>Inactive Drivers</h1>
           <div className="links">
             <button onClick={handleDeleteSelected}>Delete Selected</button>
           </div>

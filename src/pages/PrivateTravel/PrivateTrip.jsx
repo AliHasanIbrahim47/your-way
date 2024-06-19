@@ -198,9 +198,9 @@ const PrivateTrip = () => {
                 <td>{element.seats}</td>
                 <td className="actions-style">
                   {/* <button onClick={() => show(element.id)}>show</button> */}
-                  <button onClick={() => update(element)}>
+                  {/* <button onClick={() => update(element)}>
                     <RiEdit2Fill />
-                  </button>
+                  </button> */}
                   <button onClick={() => deleteUser(element)}>
                     <RiDeleteBin5Fill />
                   </button>

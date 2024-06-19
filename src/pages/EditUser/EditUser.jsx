@@ -24,6 +24,7 @@ const EditUser= () => {
       setPhone(userData.phone);
       setPassword(userData.password);
       setIs_activated(userData.is_activated);
+      console.log(userData.is_activated);
     } else {
       // Handle scenario where user data is not passed correctly
       // alert("User data not found in location state");
@@ -55,6 +56,7 @@ const EditUser= () => {
           },
         }
       );
+      console.log("success");
       navigate("/users");
     } catch (error) {
       console.error("Error updating user", error.response?.data || error.message);
@@ -106,7 +108,7 @@ const EditUser= () => {
             onChange={(event) => setPassword(event.target.value)}
             required
           />
-          <label htmlFor="is_activated">Is Activated</label>
+          {/* <label htmlFor="is_activated">Is Activated</label>
           <input
             type="text"
             id="is_activated"
@@ -114,7 +116,17 @@ const EditUser= () => {
             value={is_activated}
             onChange={(event) => setIs_activated(event.target.value)}
             required
-          />
+          /> */}
+          <label htmlFor="is_activated">Is Activated</label>
+          <select
+            id="is_activated"
+            value={is_activated}
+            onChange={(event) => setIs_activated(event.target.value)}
+            required
+          >
+            <option value="true">true</option>
+            <option value="false">false</option>
+          </select>
           <input type="submit" value="Edit User" />
         </form>
       {isPopupVisible && (
