@@ -15,6 +15,7 @@ const PrivateTrip = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [deleteORaccept, setdeleteORaccept] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
@@ -69,17 +70,22 @@ const PrivateTrip = () => {
   };
 
   const handleDeleteSelected = () => {
-    setdeleteORaccept(false);
-    setIsPopupVisible(true);
+    if (selectedUsers.length > 0) {
+      setdeleteORaccept(false);
+      setIsPopupVisible(true);
+    }
   };
 
   const handleAcceptedSelected = () => {
-    setdeleteORaccept(true);
-    setIsPopupVisible(true);
+    if (acceptedUsers.length > 0) {
+      setdeleteORaccept(true);
+      setIsPopupVisible(true);
+    }
   };
 
   const confirmDelete = async () => {
     setIsPopupVisible(false);
+    setLoading(true);
     if(!deleteORaccept) {
       try {
         const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
@@ -102,7 +108,9 @@ const PrivateTrip = () => {
       try {
         const idsToAccept = acceptedUsers;
         const response = await axios.put('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/update-many', {
-          data: { ids: idsToAccept, status: 'accepted' },
+          ids: idsToAccept,
+          status: 'accepted'
+        }, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -110,9 +118,10 @@ const PrivateTrip = () => {
         });
         fetchUsers();
       } catch (error) {
-        console.error('Error accepting private travels', error);
+        alert("Error deleting Private Travels please try again")
       }
       setAcceptedUser([]);
+      setLoading(false);
     }
   }
 
@@ -124,8 +133,8 @@ const PrivateTrip = () => {
   //   navigate(`/travels/private/${id}`);
   // };
 
-  const update = (id) => {
-    navigate(`/travels/private/${id}/edit`);
+  const update = (element) => {
+    navigate(`/travels/private/${element.id}/edit`, { state: { user: JSON.stringify(element) } });
   };
 
   useEffect(() => {
@@ -142,6 +151,10 @@ const PrivateTrip = () => {
     <div className="users">
       <Sidebar />
       <div className="container">
+      {loading ? (
+          <div className="loader">Deleting Private Travel ...</div> 
+        ) : (
+          <>
         <div className="header">
           <h1>All Private Travels</h1>
           <div className="links">
@@ -156,8 +169,6 @@ const PrivateTrip = () => {
               <th>Going Date</th>
               <th>Going From</th>
               <th>Going To</th>
-              <th>Bus ID</th>
-              <th>User ID</th>
               <th>Seats</th>
               <th>Actions</th>
               <th>
@@ -184,12 +195,10 @@ const PrivateTrip = () => {
                 <td><Moment format="YYYY/MM/DD">{element.going_date}</Moment></td>       
                 <td>{element.going_from}</td>                
                 <td>{element.going_to}</td>
-                <td>{element.bus_id}</td>
-                <td>{element.user_id}</td>
                 <td>{element.seats}</td>
                 <td className="actions-style">
                   {/* <button onClick={() => show(element.id)}>show</button> */}
-                  <button onClick={() => update(element.id)}>
+                  <button onClick={() => update(element)}>
                     <RiEdit2Fill />
                   </button>
                   <button onClick={() => deleteUser(element)}>
@@ -214,16 +223,18 @@ const PrivateTrip = () => {
             ))}
           </tbody>
         </table>
-      </div>
-      {isPopupVisible && (
-        <Popup
-          message={ deleteORaccept ? "Are you sure you want to accept the selected private travel?" : 
-            "Are you sure you want to delete the selected private travel?"
-          }
+        {isPopupVisible && (
+        <Popup 
+          message={ deleteORaccept ? "Are you sure you want to accept the selected private travels?" : 
+                  "Are you sure you want to delete the selected private travels?"
+                }
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />
       )}
+      </>
+        )}
+      </div>
     </div>
   );
 };

@@ -3,17 +3,28 @@ import "./EditReservation.css";
 import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
-const EditReservation= () => {
-  const { id } = useParams();
-
+const EditReservation = () => {
   const [status, setstatus] = useState("");
   const [note, setnote] = useState("");
-
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
+  const location = useLocation();
+  const [loading, setLoading] = useState(false);
+
+  const { id } = useParams();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.state && location.state.user) {
+      const userData = JSON.parse(location.state.user);
+      setstatus(userData.status);
+    } else {
+      // Handle scenario where user data is not passed correctly
+      // alert("User data not found in location state");
+    }
+  }, [location.state]);
 
   const sendData = (event) => {
     event.preventDefault();
@@ -23,14 +34,16 @@ const EditReservation= () => {
   const confirmDelete = async () => {
     const token = localStorage.getItem('token');
     setIsPopuoVisble(false);
-    if (!status || !note) {
+    if (!note || !status) {
       alert("All fields are required!");
       return;
     }
     let data = { status: status, note: note };
+    setLoading(true);
     try {
-      const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations/${id}`,
-        data, {
+      const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations/${id}`, {
+        status: status, note: note
+      }, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -41,20 +54,25 @@ const EditReservation= () => {
       setnote("");
       navigate('/travels/reservations');
       } catch (error) {
-        console.error('Error adding reservation', error.response?.data || error.message);
-        alert(`Error: ${error.response?.data.message || error.message}`);
+        alert("Error editing Reservation please try again");
+    } finally {
+      setLoading(false);
     }
   }
-
+  
   const cancelDelete = () => {
     setIsPopuoVisble(false);
   }
 
   return (
-    <div className="edituser">
+    <div className="editextra">
       <Sidebar />
       <div className="container">
-        <h1>Edit Reservation {id}</h1>
+      {loading ? (
+          <div className="loader">Editing Reservation ...</div> 
+        ) : (
+          <>
+        <h1>Edit Reservation</h1>
         <form onSubmit={sendData}>
           <label htmlFor="status">Status</label>
           <input
@@ -76,14 +94,16 @@ const EditReservation= () => {
           />
           <input type="submit" value="Edit Reservation" />
         </form>
+        {isPopupVisible && (
+              <Popup 
+                message="Are you sure you want to edit this reservation?"
+                onConfirm={confirmDelete}
+                onCancel={cancelDelete}
+              />
+            )}
+          </>
+        )}
       </div>
-      {isPopupVisible && (
-        <Popup 
-          message="Are you sure you want to edit this reservation?"
-          onConfirm={confirmDelete}
-          onCancel={cancelDelete}
-        />
-      )}
     </div>
   );
 };

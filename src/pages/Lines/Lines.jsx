@@ -70,7 +70,7 @@ const Lines = () => {
       });
       fetchUsers();
     } catch (error) {
-      console.error('Error deleting extra', error);
+      alert("Error deleting Lines please try again");
     }
     setSelectedUsers([]);
     setSelectedUser(null);

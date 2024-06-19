@@ -6,20 +6,22 @@ import { RiEdit2Fill } from "react-icons/ri";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
 import axios from "axios";
-import Moment from 'react-moment';
+import Moment from "react-moment";
 
 const DailyTrips = () => {
   const navigate = useNavigate();
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [users, setUsers] = useState([]);
+  // const [selectedType, setSelectedType] = useState('private');
+  const [loading, setLoading] = useState(false);
 
-  const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels', {
+      const response = await axios.get(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -30,7 +32,7 @@ const DailyTrips = () => {
         console.error('Response data is not an array');
       }
     } catch (error) {
-      console.error('Error fetching travels', error);
+      console.error('Error fetching private travels', error);
     }
   };
 
@@ -51,15 +53,17 @@ const DailyTrips = () => {
   };
 
   const handleDeleteSelected = () => {
-    setIsPopupVisible(true);
-
+    if (selectedUsers.length > 0) {
+      setIsPopupVisible(true);
+    }
   };
 
   const confirmDelete = async () => {
     setIsPopupVisible(false);
+    setLoading(true);
     try {
       const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
-      const response = await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/', {
+      await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels', {
         data: { ids: idsToDelete },
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -68,10 +72,11 @@ const DailyTrips = () => {
       });
       fetchUsers();
     } catch (error) {
-      console.error('Error deleting extra', error);
+      alert("Error deleting Travels please try again");
     }
     setSelectedUsers([]);
     setSelectedUser(null);
+    setLoading(false);
   }
 
   const cancelDelete = () => {
@@ -82,8 +87,8 @@ const DailyTrips = () => {
     navigate(`/travels/${id}`);
   };
 
-  const update = (id) => {
-    navigate(`/travels/${id}/edit`);
+  const update = (element) => {
+    navigate(`/travels/${element.id}/edit`, { state: { user: JSON.stringify(element) } });
   };
 
   useEffect(() => {
@@ -95,11 +100,23 @@ const DailyTrips = () => {
     setIsPopupVisible(true);
   };
 
+  // const handleTypeChange = (event) => {
+  //   setSelectedType(event.target.value);
+  // };
+  //
+  // const filteredUsers = selectedType === 'user' 
+  //   ? users 
+  //   : users.filter(user => user.type === selectedType);
+
   return (
     <div className="users">
       <Sidebar />
-    <div className="container">
-      <div className="header">
+      <div className="container">
+      {loading ? (
+          <div className="loader">Deleting Travels ...</div> 
+        ) : (
+          <>
+        <div className="header">
         <h1>All Travels</h1>
         <Link to="/travels/private">Private</Link>
         <div className="travel-links">
@@ -143,7 +160,7 @@ const DailyTrips = () => {
                 <td>{element.status}</td>
                 <td className="actions-style">
                   <button onClick={() => show(element.id)}>show</button>
-                  <button onClick={() => update(element.id)}>
+                  <button onClick={() => update(element)}>
                     <RiEdit2Fill />
                   </button>
                   <button onClick={() => deleteUser(element)}>
@@ -162,14 +179,16 @@ const DailyTrips = () => {
           </tbody>
         </table>
       </div>
-    </div>
-      {isPopupVisible && (
-        <Popup
+        {isPopupVisible && (
+        <Popup 
           message="Are you sure you want to delete the selected travels?"
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />
       )}
+      </>
+        )}
+      </div>
     </div>
   );
 };

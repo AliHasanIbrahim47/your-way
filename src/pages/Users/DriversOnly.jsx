@@ -69,7 +69,7 @@ const DriversOnly = () => {
       });
       fetchUsers();
     } catch (error) {
-      console.error('Error deleting user', error);
+      alert("Error deleting Drivers please try again");
     }
     setSelectedUsers([]);
     setSelectedUser(null);

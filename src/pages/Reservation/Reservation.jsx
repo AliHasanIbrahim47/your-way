@@ -6,7 +6,6 @@ import { RiEdit2Fill } from "react-icons/ri";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
 import axios from "axios";
-import Moment from 'react-moment';
 
 const Reservation = () => {
   const navigate = useNavigate();
@@ -15,6 +14,7 @@ const Reservation = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [deleteORaccept, setdeleteORaccept] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
@@ -32,7 +32,7 @@ const Reservation = () => {
         console.error('Response data is not an array');
       }
     } catch (error) {
-      console.error('Error fetching reservations', error);
+      console.error('Error fetching reservtaions', error);
     }
   };
 
@@ -69,17 +69,22 @@ const Reservation = () => {
   };
 
   const handleDeleteSelected = () => {
-    setdeleteORaccept(false);
-    setIsPopupVisible(true);
+    if (selectedUsers.length > 0) {
+      setdeleteORaccept(false);
+      setIsPopupVisible(true);
+    }
   };
 
   const handleAcceptedSelected = () => {
-    setdeleteORaccept(true);
-    setIsPopupVisible(true);
+    if (acceptedUsers.length > 0) {
+      setdeleteORaccept(true);
+      setIsPopupVisible(true);
+    }
   };
 
   const confirmDelete = async () => {
     setIsPopupVisible(false);
+    setLoading(true);
     if(!deleteORaccept) {
       try {
         const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
@@ -92,7 +97,7 @@ const Reservation = () => {
         });
         fetchUsers();
       } catch (error) {
-        console.error('Error deleting reservation', error);
+        console.error('Error deleting extra', error);
       }
       setSelectedUsers([]);
       setSelectedUser(null);
@@ -102,7 +107,9 @@ const Reservation = () => {
       try {
         const idsToAccept = acceptedUsers;
         const response = await axios.put('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations/update-many', {
-          data: { ids: idsToAccept, status: 'accepted' },
+          ids: idsToAccept,
+          status: 'accepted'
+        }, {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -110,9 +117,10 @@ const Reservation = () => {
         });
         fetchUsers();
       } catch (error) {
-        console.error('Error accepting private travels', error);
+        alert("Error deleting Reservations please try again");
       }
       setAcceptedUser([]);
+      setLoading(false);
     }
   }
 
@@ -124,8 +132,8 @@ const Reservation = () => {
   //   navigate(`/travels/private/${id}`);
   // };
 
-  const update = (id) => {
-    navigate(`/travels/reservations/${id}/edit`);
+  const update = (element) => {
+    navigate(`/travels/reservations/${element.id}/edit`, { state: { user: JSON.stringify(element) } });
   };
 
   useEffect(() => {
@@ -142,6 +150,10 @@ const Reservation = () => {
     <div className="users">
       <Sidebar />
       <div className="container">
+      {loading ? (
+          <div className="loader">Deleting Reservations ...</div> 
+        ) : (
+          <>
         <div className="header">
           <h1>All Reservations</h1>
           <div className="links">
@@ -178,14 +190,14 @@ const Reservation = () => {
           </thead>
           <tbody>
             {users.map((element, index) => (
-              <tr key={index}>  
-                <td>{element.id}</td>                
+              <tr key={index}>
+                <td>{element.id}</td>
                 <td>{element.travel_id}</td> 
                 <td>{element.user_id}</td>
                 <td>{element.status}</td>
                 <td className="actions-style">
                   {/* <button onClick={() => show(element.id)}>show</button> */}
-                  <button onClick={() => update(element.id)}>
+                  <button onClick={() => update(element)}>
                     <RiEdit2Fill />
                   </button>
                   <button onClick={() => deleteUser(element)}>
@@ -210,16 +222,18 @@ const Reservation = () => {
             ))}
           </tbody>
         </table>
-      </div>
-      {isPopupVisible && (
-        <Popup
-        message={ deleteORaccept ? "Are you sure you want to accept the selected Reservatios?" : 
-          "Are you sure you want to delete the selected Reservatios?"
-          }
+        {isPopupVisible && (
+        <Popup 
+          message={ deleteORaccept ? "Are you sure you want to accept the selected reservations?" : 
+                  "Are you sure you want to delete the selected reservations?"
+                }
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />
       )}
+      </>
+        )}
+      </div>
     </div>
   );
 };

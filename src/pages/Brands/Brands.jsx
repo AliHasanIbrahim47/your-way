@@ -70,7 +70,7 @@ const Brands = () => {
       });
       fetchUsers();
     } catch (error) {
-      console.error('Error deleting extra', error);
+      alert("Error deleting Banners please try again");
     }
     setSelectedUsers([]);
     setSelectedUser(null);

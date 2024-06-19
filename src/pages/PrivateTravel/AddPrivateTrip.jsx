@@ -12,10 +12,47 @@ const AddPrivateTrip = () => {
   const [bus_id, setbus_id] = useState();
   const [user_id, setuser_id] = useState();
   const [seats, setseats] = useState();
+  const [loading, setLoading] = useState(false);
+  const [drivers, setDrivers] = useState([]); // State for drivers
+  const [users, setUsers] = useState([]); // State for users
 
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchDrivers();
+    fetchUsers();
+  }, []);
+
+  const fetchDrivers = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/type?type=driver', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      setDrivers(response.data.data);
+      console.log(drivers);
+    } catch (error) {
+      console.error('Error fetching drivers', error);
+    }
+  };
+
+  const fetchUsers = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      setUsers(response.data.data);
+    } catch (error) {
+      console.error('Error fetching users', error);
+    }
+  };
 
   const sendData = (event) => {
     event.preventDefault();
@@ -32,6 +69,7 @@ const AddPrivateTrip = () => {
     let data = { going_date: going_date, going_from: going_from, going_to: going_to,
       bus_id: bus_id, user_id: user_id, seats: seats, extra_ids: [1]
     };
+    setLoading(true);
     try {
       const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/private', 
         data, {
@@ -49,8 +87,9 @@ const AddPrivateTrip = () => {
       setseats();
       navigate('/travels/private');
       } catch (error) {
-        console.error('Error adding travel', error.response?.data || error.message);
-        alert(`Error: ${error.response?.data.message || error.message}`);
+        alert("Error adding private travel please try again");
+    }  finally {
+      setLoading(false);
     }
   }
 
@@ -62,9 +101,13 @@ const AddPrivateTrip = () => {
     <div className="addextra">
       <Sidebar />
       <div className="container">
+      {loading ? (
+          <div className="loader">Adding Private Travel ...</div> 
+        ) : (
+          <>
         <h1>Add Private Travel</h1>
         <form onSubmit={sendData}>
-          <label htmlFor="status">Going Date</label>
+          <label htmlFor="going_date">Going Date</label>
           <input
             type="date"
             id="going_date"
@@ -82,33 +125,45 @@ const AddPrivateTrip = () => {
             onChange={(event) => setgoing_from(event.target.value)}
             required
           />
-          <label htmlFor="status">Going To</label>
+          <label htmlFor="going_to">Going To</label>
           <input
             type="text"
-            id="status"
+            id="going_to"
             placeholder=""
             value={going_to}
             onChange={(event) => setgoing_to(event.target.value)}
             required
           />
-          <label htmlFor="bus_id">Bus ID</label>
-          <input
-            type="number"
+          <label htmlFor="bus_id">Bus</label>
+          <select
             id="bus_id"
-            placeholder=""
             value={bus_id}
             onChange={(event) => setbus_id(event.target.value)}
             required
-          />
-          <label htmlFor="user_id">User ID</label>
-          <input
-            type="number"
+          >
+            <option value="">Select Bus</option>
+            {drivers.map(driver => (
+              driver.bus.map(bus => (
+                <option key={bus.id} value={bus.id}>
+                  {`Driver: ${driver.full_name}, Car:${bus.brand} ${bus.model}`}
+                </option>
+              ))
+            ))}
+          </select>
+          <label htmlFor="user_id">User</label>
+          <select
             id="user_id"
-            placeholder=""
             value={user_id}
             onChange={(event) => setuser_id(event.target.value)}
             required
-          />
+          >
+            <option value="">Select User</option>
+            {users.map(user => (
+              <option key={user.id} value={user.id}>
+                {user.full_name}
+              </option>
+            ))}
+          </select>
           <label htmlFor="seats">Seats</label>
           <input
             type="number"
@@ -120,14 +175,16 @@ const AddPrivateTrip = () => {
           />
           <input type="submit" value="Add Private Travel" />
         </form>
-      </div>
-      {isPopupVisible && (
+        {isPopupVisible && (
         <Popup 
-          message="Are you sure you want to add this private travel?"
+          message="Are you sure you want to add this private Travel?"
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />
       )}
+    </>
+  )}
+</div>
     </div>
   );
 };

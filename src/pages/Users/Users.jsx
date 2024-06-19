@@ -73,7 +73,7 @@ const Users = () => {
       });
       fetchUsers();
     } catch (error) {
-      console.error('Error deleting user', error);
+      alert("Error deleting Users please try again");
     }
     setSelectedUsers([]);
     setSelectedUser(null);

@@ -70,7 +70,7 @@ const Extra = () => {
       });
       fetchUsers();
     } catch (error) {
-      console.error('Error deleting extra', error);
+      alert("Error deleting Extra please try again");
     }
     setSelectedUsers([]);
     setSelectedUser(null);
