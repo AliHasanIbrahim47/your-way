@@ -15,6 +15,7 @@ const EditUser= () => {
   const [password, setPassword] = useState("");
   const [is_activated, setIs_activated] = useState("");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (location.state && location.state.user) {
@@ -42,13 +43,14 @@ const EditUser= () => {
       return;
     }
     const data = { full_name, phone, password, is_activated };
+    setLoading(true);
     try {
       await axios.put(
         `https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/${id}`,
         data,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }
@@ -58,6 +60,8 @@ const EditUser= () => {
       console.error("Error updating user", error.response?.data || error.message);
       // alert(`Error: ${error.response?.data.message || error.message}`);
       alert("Error editing the user please try again");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,6 +73,10 @@ const EditUser= () => {
     <div className="edituser">
       <Sidebar />
       <div className="container">
+      {loading ? (
+          <div className="loader">Editing User ...</div> 
+        ) : (
+          <>
         <h1>Edit User {full_name}</h1>
         <form onSubmit={sendData}>
           <label htmlFor="full_name">Full Name</label>
@@ -107,9 +115,8 @@ const EditUser= () => {
             onChange={(event) => setIs_activated(event.target.value)}
             required
           />
-          <input type="submit" value="Add Reservation" />
+          <input type="submit" value="Edit User" />
         </form>
-      </div>
       {isPopupVisible && (
         <Popup 
           message="Are you sure you want to edit this user?"
@@ -117,6 +124,9 @@ const EditUser= () => {
           onCancel={cancelDelete}
         />
       )}
+    </>
+  )}
+</div>
     </div>
   );
 };

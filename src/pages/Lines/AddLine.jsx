@@ -9,6 +9,7 @@ const AddLine = () => {
   const [point_a, setpoint_a] = useState("");
   const [point_b, setpoint_b] = useState("");
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -25,6 +26,7 @@ const AddLine = () => {
       return;
     }
     let data = { point_a: point_a, point_b: point_b };
+    setLoading(true);
     try {
       const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/lines', {
         point_a: point_a, point_b: point_b
@@ -40,8 +42,9 @@ const AddLine = () => {
       navigate('/lines');
       } catch (error) {
       console.error('Error adding line', error);
+    }  finally {
+      setLoading(false);
     }
-
   }
   
   const cancelDelete = () => {
@@ -52,13 +55,17 @@ const AddLine = () => {
     <div className="addextra">
       <Sidebar />
       <div className="container">
+      {loading ? (
+          <div className="loader">Adding Line ...</div> 
+        ) : (
+          <>
         <h1>Add Line</h1>
         <form onSubmit={sendData}>
           <label htmlFor="point_a">Deprature Place</label>
           <input
             type="text"
             id="point_a"
-            placeholder="Point A"
+            placeholder=""
             value={point_a}
             onChange={(event) => setpoint_a(event.target.value)}
             required
@@ -68,7 +75,7 @@ const AddLine = () => {
           <input
             type="text"
             id="point_b"
-            placeholder="Point B"
+            placeholder=""
             value={point_b}
             onChange={(event) => setpoint_b(event.target.value)}
             required
@@ -76,7 +83,6 @@ const AddLine = () => {
 
           <input type="submit" value="Add Line" />
         </form>
-      </div>
       {isPopupVisible && (
         <Popup 
           message="Are you sure you want to add this line?"
@@ -84,6 +90,9 @@ const AddLine = () => {
           onCancel={cancelDelete}
         />
       )}
+    </>
+  )}
+</div>
     </div>
   );
 };

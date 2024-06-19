@@ -1,18 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./EditLine.css";
 import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 const EditLine = () => {
   const [point_a, setpoint_a] = useState("");
   const [point_b, setpoint_b] = useState("");
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
+  const location = useLocation();
+  const [loading, setLoading] = useState(false);
 
   const { id } = useParams();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.state && location.state.user) {
+      const userData = JSON.parse(location.state.user);
+      setpoint_a(userData.point_a);
+      setpoint_b(userData.point_b);
+    } else {
+      // Handle scenario where user data is not passed correctly
+      // alert("User data not found in location state");
+    }
+  }, [location.state]);
 
   const sendData = (event) => {
     event.preventDefault();
@@ -27,6 +40,7 @@ const EditLine = () => {
       return;
     }
     let data = { point_a: point_a, point_b: point_b };
+    setLoading(true);
     try {
       const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/lines/${id}`, {
         point_a: point_a, point_b: point_b
@@ -42,8 +56,9 @@ const EditLine = () => {
       navigate('/lines');
       } catch (error) {
       console.error('Error adding line', error);
+    } finally {
+      setLoading(false);
     }
-
   }
   
   const cancelDelete = () => {
@@ -54,13 +69,17 @@ const EditLine = () => {
     <div className="editextra">
       <Sidebar />
       <div className="container">
+      {loading ? (
+          <div className="loader">Editing Line ...</div> 
+        ) : (
+          <>
         <h1>Edit Line</h1>
         <form onSubmit={sendData}>
           <label htmlFor="point_a">Deprature Place</label>
           <input
             type="text"
             id="point_a"
-            placeholder="Point A"
+            placeholder=""
             value={point_a}
             onChange={(event) => setpoint_a(event.target.value)}
             required
@@ -69,21 +88,23 @@ const EditLine = () => {
           <input
             type="text"
             id="point_b"
-            placeholder="Point B"
+            placeholder=""
             value={point_b}
             onChange={(event) => setpoint_b(event.target.value)}
             required
           />
           <input type="submit" value="Edit Line" />
         </form>
+        {isPopupVisible && (
+              <Popup 
+                message="Are you sure you want to edit this line?"
+                onConfirm={confirmDelete}
+                onCancel={cancelDelete}
+              />
+            )}
+          </>
+        )}
       </div>
-      {isPopupVisible && (
-        <Popup 
-          message="Are you sure you want to edit this line?"
-          onConfirm={confirmDelete}
-          onCancel={cancelDelete}
-        />
-      )}
     </div>
   );
 };
