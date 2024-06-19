@@ -1,65 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import Sidebar from '../../components/Sidebar';
-import './ShowDailyTrip.css';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import Sidebar from "../../components/Sidebar";
+import { Link, useParams } from "react-router-dom";
+import "./ShowDailyTrip.css";
+import axios from "axios";
 
-const ShowDailyTrip = () => {
-  const [loader, setLoader] = useState(true);
-  const [user, setUser] = useState(null);
+const ShowDailyTrips = () => {
+  const { id } = useParams();
+  const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
 
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      if (Array.isArray(response.data.data)) {
+        setUsers(response.data.data);
+      } else {
+        console.error('Response data is not an array');
+      }
+    } catch (error) {
+      console.error('Error fetching travels', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels`, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        const users = response.data.data;
-        const foundUser = users.find(user => user.id.toString() === id);
-        setUser(foundUser);
-        setLoader(false);
-      } catch (error) {
-        console.error('Error fetching user', error);
-        setLoader(false);
-      }
-    };
-    fetchUser();
-  }, [token, id]);
-
-  if (loader) {
-    return (
-      <div className="showuser">
-        <Sidebar />
-        <div className="container">
-          <h1>Loading...</h1>
-        </div>
-      </div>
-    );
-  }
-
-  if (!user) {
-    return (
-      <div className="showuser">
-        <Sidebar />
-        <div className="container">
-          <h1>User Not Found</h1>
-        </div>
-      </div>
-    );
-  }
+    fetchUsers();
+  }, [token]);
 
   return (
-    <div className="showuser">
+    <div className="users">
       <Sidebar />
       <div className="container">
-      <div className="header">
-          <h1>All Lines for this Travel</h1>
+        <div className="header">
+          <h1>All Lines for Travel: {id}</h1>
           <div className="links">
             <Link to="/travels">Go Back</Link>
           </div>
@@ -73,11 +49,11 @@ const ShowDailyTrip = () => {
             </tr>
           </thead>
           <tbody>
-          {user.line.map((element, index) => (
+            {users.map((element, index) => (
               <tr key={index}>
-                <td>{element.id}</td>       
-                <td>{element.point_a}</td>                
-                <td>{element.point_b}</td>
+                <td>{element.line.id}</td>       
+                <td>{element.line.point_a}</td>                
+                <td>{element.line.point_b}</td>
               </tr>
             ))}
           </tbody>
@@ -87,4 +63,4 @@ const ShowDailyTrip = () => {
   );
 };
 
-export default ShowDailyTrip;
+export default ShowDailyTrips;

@@ -26,6 +26,10 @@
   color: #555;
 }
 
+#bus_id, #line_id {
+  margin-bottom: 20px;
+}
+
 .adddailytrip input[type="text"],
 .adddailytrip input[type="date"],
 .adddailytrip input[type="number"],

@@ -16,10 +16,47 @@ const AddDailyTrip = () => {
   const [returning_from, setreturning_from] = useState("");
   const [going_time, setgoing_time] = useState("");
   const [returning_time, setreturning_time] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const [users, setUsers] = useState([]); // State for buses
+  const [lines, setLines] = useState([]); // State for lines
 
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchUsers();
+    fetchLines();
+  }, []);
+
+  const fetchUsers = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/type?type=driver', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      setUsers(response.data.data);
+    } catch (error) {
+      console.error('Error fetching users');
+    }
+  };
+
+  const fetchLines = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/lines', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      setLines(response.data.data);
+    } catch (error) {
+      console.error('Error fetching lines');
+    }
+  };
 
   const sendData = (event) => {
     event.preventDefault();
@@ -34,11 +71,8 @@ const AddDailyTrip = () => {
       alert("All fields are required!");
       return;
     }
-    let data = { starting_date: starting_date, going_from: going_from, 
-      ending_date: ending_date, bus_id: bus_id, 
-      line_id: line_id, type: type, status: status , returning_from: returning_from,
-      going_time: going_time, returning_time: returning_time };
-      console.log(data);
+    let data = { starting_date, going_from, ending_date, bus_id, line_id, type, status, returning_from, going_time, returning_time };
+    setLoading(true);
     try {
       const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/', 
         data, {
@@ -58,22 +92,26 @@ const AddDailyTrip = () => {
       setreturning_time("");
       setgoing_time("");
       setreturning_from("");
-      console.log(response);
       navigate('/travels');
-      } catch (error) {
-        console.error('Error adding travel', error.response?.data || error.message);
-        alert(`Error: ${error.response?.data.message || error.message}`);
+    } catch (error) {
+      alert("Error adding Travel please try again");
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   const cancelDelete = () => {
     setIsPopuoVisble(false);
-  }
+  };
 
   return (
     <div className="adddailytrip">
       <Sidebar />
       <div className="container">
+      {loading ? (
+          <div className="loader">Adding Travel ...</div> 
+        ) : (
+          <>
         <h1>Add Travel</h1>
         <form onSubmit={sendData}>
           <label htmlFor="starting_date">Starting Date</label>
@@ -130,24 +168,36 @@ const AddDailyTrip = () => {
             onChange={(event) => setreturning_time(event.target.value)}
             required
           />
-          <label htmlFor="bus_id">Bus ID</label>
-          <input
-            type="number"
+          <label htmlFor="bus_id">Car</label>
+          <select
             id="bus_id"
-            placeholder=""
             value={bus_id}
             onChange={(event) => setbus_id(event.target.value)}
             required
-          />
-          <label htmlFor="line_id">Line ID</label>
-          <input
-            type="number"
+          >
+            <option value="">Select Car</option>
+            {users.map(user => (
+              user.bus.map(bus => (
+                <option key={bus.id} value={bus.id}>
+                  {`${bus.brand} ${bus.model}`}
+                </option>
+              ))
+            ))}
+          </select>
+          <label htmlFor="line_id">Line</label>
+          <select
             id="line_id"
-            placeholder=""
             value={line_id}
             onChange={(event) => setline_id(event.target.value)}
             required
-          />
+          >
+            <option value="">Select Line</option>
+            {lines.map(line => (
+              <option key={line.id} value={line.id}>
+                {`From: ${line.point_a}, To: ${line.point_b}`}
+              </option>
+            ))}
+          </select>
           <label htmlFor="type">Type</label>
           <input
             type="text"
@@ -167,6 +217,8 @@ const AddDailyTrip = () => {
           />
           <input type="submit" value="Add Travel" />
         </form>
+      </>
+      )}
       </div>
       {isPopupVisible && (
         <Popup 
