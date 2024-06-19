@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const AddReservation = () => {
   const [travel_id, settravel_id] = useState("");
   const [user_id, setuser_id] = useState("");
+  const [going_date, setgoing_date] = useState("");
   const [loading, setLoading] = useState(false);
   const [travels, setTravels] = useState([]); // State for travels
   const [users, setUsers] = useState([]); // State for users
@@ -61,7 +62,7 @@ const AddReservation = () => {
       alert("All fields are required!");
       return;
     }
-    let data = { travel_id: travel_id, user_id: user_id };
+    let data = { travel_id: travel_id, user_id: user_id, going_date: going_date };
     setLoading(true);
     try {
       const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations', 
@@ -74,6 +75,7 @@ const AddReservation = () => {
       
       settravel_id("");
       setuser_id("");
+      setgoing_date("");
       navigate('/travels/reservations');
     } catch (error) {
       alert("Error adding the Reservation please try again");
@@ -96,6 +98,15 @@ const AddReservation = () => {
           <>
         <h1>Add Reservation</h1>
         <form onSubmit={sendData}>
+          <label htmlFor="going_date">Going Date</label>
+          <input
+            type="date"
+            id="going_date"
+            placeholder=""
+            value={going_date}
+            onChange={(event) => setgoing_date(event.target.value)}
+            required
+          />
           <label htmlFor="travel_id">Travel</label>
           <select
             id="travel_id"
