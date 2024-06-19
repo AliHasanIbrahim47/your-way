@@ -16,10 +16,12 @@ const DailyTrips = () => {
   const [users, setUsers] = useState([]);
   // const [selectedType, setSelectedType] = useState('private');
   const [loading, setLoading] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const token = localStorage.getItem('token');
 
   const fetchUsers = async () => {
+    setLoader(true);
     try {
       const response = await axios.get(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels`, {
         headers: {
@@ -33,6 +35,8 @@ const DailyTrips = () => {
       }
     } catch (error) {
       console.error('Error fetching private travels', error);
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -107,6 +111,18 @@ const DailyTrips = () => {
   // const filteredUsers = selectedType === 'user' 
   //   ? users 
   //   : users.filter(user => user.type === selectedType);
+
+  if (loader) {
+    return (
+      <div className="users">
+        <Sidebar />
+        <div className="container">
+          <h1>Loading data ...</h1>
+          
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="users">

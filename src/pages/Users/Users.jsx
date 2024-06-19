@@ -35,7 +35,7 @@ const Users = () => {
         console.error('Response data is not an array');
       }
     } catch (error) {
-      console.error('Error fetching private travels', error);
+      alert("Error loading data");
     } finally {
       setLoader(false);
     }
@@ -123,7 +123,7 @@ const Users = () => {
             <Link to="users-only"><FaUser id="fa"/> Users</Link>
             <Link to="drivers-only"><FaCar id="fa"/> Drivers</Link>
             <div className="travel-links">
-              <Link to="drivers-unactive">Incctive Drivers</Link>
+              <Link to="drivers-unactive">Inactive Drivers</Link>
             </div>
           </div>
         </div>

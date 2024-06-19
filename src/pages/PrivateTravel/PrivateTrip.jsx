@@ -16,11 +16,13 @@ const PrivateTrip = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [deleteORaccept, setdeleteORaccept] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
 
   const fetchUsers = async () => {
+    setLoader(true);
     try {
       const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/private?status=pending', {
         headers: {
@@ -33,7 +35,9 @@ const PrivateTrip = () => {
         console.error('Response data is not an array');
       }
     } catch (error) {
-      console.error('Error fetching private travels', error);
+      console.error('Error fetching private travels', error);alert("Error loading data");
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -98,7 +102,7 @@ const PrivateTrip = () => {
         });
         fetchUsers();
       } catch (error) {
-        console.error('Error deleting extra', error);
+        console.error('Error deleting extra', error); alert("Error loading data");
       }
       setSelectedUsers([]);
       setSelectedUser(null);
@@ -146,6 +150,18 @@ const PrivateTrip = () => {
     setdeleteORaccept(false);
     setIsPopupVisible(true);
   };
+
+  if (loader) {
+    return (
+      <div className="users">
+        <Sidebar />
+        <div className="container">
+          <h1>Loading data ...</h1>
+          
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="users">

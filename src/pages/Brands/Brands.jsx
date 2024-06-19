@@ -13,11 +13,13 @@ const Brands = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
 
   const fetchUsers = async () => {
+    setLoader(true);
     try {
       const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/banners', {
         headers: {
@@ -30,7 +32,9 @@ const Brands = () => {
         console.error('Response data is not an array');
       }
     } catch (error) {
-      console.error('Error fetching extra', error);
+      console.error('Error fetching extra', error);alert("Error loading data");
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -97,6 +101,18 @@ const Brands = () => {
     setSelectedUser(item);
     setIsPopupVisible(true);
   };
+
+  if (loader) {
+    return (
+      <div className="users">
+        <Sidebar />
+        <div className="container">
+          <h1>Loading data ...</h1>
+          
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="users">

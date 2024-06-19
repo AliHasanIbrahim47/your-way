@@ -98,7 +98,7 @@
   gap: 10px;
 }
 
-.users .links a, .users .header button {
+.users .links a, .users .header button, .goback {
   color: #1D1C1C;
   width: 100px;
   height: 45px;
@@ -113,7 +113,7 @@
   cursor: pointer;
 }
 
-.users .links a:hover, .users .header button:hover {
+.users .links a:hover, .users .header button:hover , .goback:hover {
   color: white;
   background-color: #1D1C1C;
 }

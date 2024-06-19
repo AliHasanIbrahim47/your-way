@@ -13,11 +13,13 @@ const Lines = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const [users, setUsers] = useState([]);
   const token = localStorage.getItem('token');
 
   const fetchUsers = async () => {
+    setLoader(true);
     try {
       const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/lines', {
         headers: {
@@ -31,6 +33,8 @@ const Lines = () => {
       }
     } catch (error) {
       console.error('Error fetching lines', error);
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -97,6 +101,18 @@ const Lines = () => {
     setSelectedUser(item);
     setIsPopupVisible(true);
   };
+
+  if (loader) {
+    return (
+      <div className="users">
+        <Sidebar />
+        <div className="container">
+          <h1>Loading data ...</h1>
+          
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="users">

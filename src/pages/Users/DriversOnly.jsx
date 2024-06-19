@@ -103,10 +103,13 @@ const DriversOnly = () => {
 
   if (users.length === 0) {
     return (
-      <div className="showuser">
+      <div className="users">
         <Sidebar />
         <div className="container">
           <h1>There are no Drivers</h1>
+          <div className="links">
+            <button className="goback" onClick={() => {navigate("/users")}}>Go Back</button>
+          </div>
         </div>
       </div>
     );
