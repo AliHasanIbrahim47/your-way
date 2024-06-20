@@ -52,6 +52,7 @@ const EditReservation = () => {
 
       setstatus("");
       setnote("");
+      alert("Editing Reservation is successful");
       navigate('/travels/reservations');
       } catch (error) {
         alert("Error editing Reservation please try again");
@@ -68,9 +69,9 @@ const EditReservation = () => {
     <div className="editextra">
       <Sidebar />
       <div className="container">
-      {loading ? (
+      {/* {loading ? (
           <div className="loader">Editing Reservation ...</div> 
-        ) : (
+        ) : ( */}
           <>
         <h1>Edit Reservation</h1>
         <form onSubmit={sendData}>
@@ -92,7 +93,7 @@ const EditReservation = () => {
             onChange={(event) => setnote(event.target.value)}
             required
           />
-          <input type="submit" value="Edit Reservation" />
+          <input type="submit" value={loading ? "Editing..." : "Edit Reservation"} />
         </form>
         {isPopupVisible && (
               <Popup 
@@ -102,7 +103,7 @@ const EditReservation = () => {
               />
             )}
           </>
-        )}
+        {/* )} */}
       </div>
     </div>
   );

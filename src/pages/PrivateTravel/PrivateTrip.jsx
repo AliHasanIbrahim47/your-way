@@ -103,6 +103,7 @@ const PrivateTrip = () => {
             'Content-Type': 'application/json'
           }
         });
+        alert("Deleting Private Travels is successful");
         fetchUsers();
       } catch (error) {
         console.error('Error deleting extra', error); alert("Error loading data");

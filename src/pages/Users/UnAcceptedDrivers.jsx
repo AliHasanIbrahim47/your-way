@@ -74,6 +74,7 @@ const UnAcceptedDrivers = () => {
           'Content-Type': 'application/json'
         }
       });
+      alert("Deleting Inactive Drivers is successful");
       fetchUsers();
     } catch (error) {
       alert("Error deleting unactive drivers please try again");

@@ -39,6 +39,7 @@ const AddLine = () => {
 
       setpoint_a("");
       setpoint_b("");
+      alert("Adding Line is successful");
       navigate('/lines');
       } catch (error) {
         alert("Error adding line please try again");
@@ -55,9 +56,9 @@ const AddLine = () => {
     <div className="addextra">
       <Sidebar />
       <div className="container">
-      {loading ? (
+      {/* {loading ? (
           <div className="loader">Adding Line ...</div> 
-        ) : (
+        ) : ( */}
           <>
         <h1>Add Line</h1>
         <form onSubmit={sendData}>
@@ -81,7 +82,7 @@ const AddLine = () => {
             required
           />
 
-          <input type="submit" value="Add Line" />
+          <input type="submit" value={loading ? "Adding..." : "Add Line"}  />
         </form>
       {isPopupVisible && (
         <Popup 
@@ -91,7 +92,7 @@ const AddLine = () => {
         />
       )}
     </>
-  )}
+  {/* )} */}
 </div>
     </div>
   );

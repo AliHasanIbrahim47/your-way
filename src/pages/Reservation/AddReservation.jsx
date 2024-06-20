@@ -76,6 +76,7 @@ const AddReservation = () => {
       settravel_id("");
       setuser_id("");
       setgoing_date("");
+      alert("Adding Reservation is successful");
       navigate('/travels/reservations');
     } catch (error) {
       alert("Error adding the Reservation please try again");
@@ -92,9 +93,9 @@ const AddReservation = () => {
     <div className="addextra">
       <Sidebar />
       <div className="container">
-      {loading ? (
+      {/* {loading ? (
           <div className="loader">Adding Reservation ...</div> 
-        ) : (
+        ) : ( */}
           <>
         <h1>Add Reservation</h1>
         <form onSubmit={sendData}>
@@ -135,10 +136,10 @@ const AddReservation = () => {
               </option>
             ))}
           </select>
-          <input type="submit" value="Add Reservation" />
+          <input type="submit" value={loading ? "Adding..." : "Add Reservation"} />
         </form>
       </>
-      )}
+      {/* )} */}
       </div>
       {isPopupVisible && (
         <Popup 

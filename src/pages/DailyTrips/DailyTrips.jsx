@@ -75,6 +75,7 @@ const DailyTrips = () => {
           'Content-Type': 'application/json'
         }
       });
+      alert("Deleting Travels is successful");
       fetchUsers();
     } catch (error) {
       alert("Error deleting Travels please try again");

@@ -85,6 +85,7 @@ const AddPrivateTrip = () => {
       setbus_id();
       setuser_id();
       setseats();
+      alert("Adding Private Travel is successful");
       navigate('/travels/private');
       } catch (error) {
         alert("Error adding private travel please try again");
@@ -101,10 +102,10 @@ const AddPrivateTrip = () => {
     <div className="addextra">
       <Sidebar />
       <div className="container">
-      {loading ? (
+      {/* {loading ? (
           <div className="loader">Adding Private Travel ...</div> 
-        ) : (
-          <>
+        ) : ( */}
+          <> 
         <h1>Add Private Travel</h1>
         <form onSubmit={sendData}>
           <label htmlFor="going_date">Going Date</label>
@@ -173,7 +174,7 @@ const AddPrivateTrip = () => {
             onChange={(event) => setseats(event.target.value)}
             required
           />
-          <input type="submit" value="Add Private Travel" />
+          <input type="submit" value={loading ? "Adding..." : "Add Private Travel"} />
         </form>
         {isPopupVisible && (
         <Popup 
@@ -183,7 +184,7 @@ const AddPrivateTrip = () => {
         />
       )}
     </>
-  )}
+  {/* )} */}
 </div>
     </div>
   );

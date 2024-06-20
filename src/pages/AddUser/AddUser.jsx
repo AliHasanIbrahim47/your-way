@@ -43,6 +43,7 @@ const AddUser = () => {
       setFullName("");
       setPhone("");
       setPassword("");
+      alert("Adding User is successful");
       navigate('/users');
     } catch (error) {
       console.error('Error adding user', error.response?.data || error.message);
@@ -62,9 +63,9 @@ const AddUser = () => {
     <div className="addextra">
       <Sidebar />
       <div className="container">
-        {loading ? (
+        {/* {loading ? (
           <div className="loader">Adding User ...</div> 
-        ) : (
+        ) : ( */}
           <>
             <h1>Add User</h1>
             {/* {error && <p className="error">{error}</p>} */}
@@ -96,7 +97,7 @@ const AddUser = () => {
                 onChange={(event) => setPassword(event.target.value)}
                 required
               />
-              <input type="submit" value="Add User" />
+              <input type="submit" value={loading ? "Adding..." : "Add User"}  />
             </form>
             {isPopupVisible && (
               <Popup 
@@ -106,7 +107,7 @@ const AddUser = () => {
               />
             )}
           </>
-        )}
+        {/* )} */}
       </div>
     </div>
   );

@@ -72,6 +72,7 @@ const DriversOnly = () => {
           'Content-Type': 'application/json'
         }
       });
+      alert("Deleting Drivers is successful");
       fetchUsers();
     } catch (error) {
       alert("Error deleting Drivers please try again");

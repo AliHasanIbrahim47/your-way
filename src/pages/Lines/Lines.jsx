@@ -72,6 +72,7 @@ const Lines = () => {
           'Content-Type': 'application/json'
         }
       });
+      alert("Deleting Lines is successful");
       fetchUsers();
     } catch (error) {
       alert("Error deleting Lines please try again");

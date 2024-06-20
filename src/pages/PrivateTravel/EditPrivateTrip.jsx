@@ -52,6 +52,7 @@ const EditPrivateTrip = () => {
 
       setstatus("");
       setnote("");
+      alert("Editing Private Travel is successful");
       navigate('/travels/private');
       } catch (error) {
         alert("Error editing private travel please try again");
@@ -68,9 +69,9 @@ const EditPrivateTrip = () => {
     <div className="editextra">
       <Sidebar />
       <div className="container">
-      {loading ? (
+      {/* {loading ? (
           <div className="loader">Editing Private Travel ...</div> 
-        ) : (
+        ) : ( */}
           <>
         <h1>Edit Line</h1>
         <form onSubmit={sendData}>
@@ -92,7 +93,7 @@ const EditPrivateTrip = () => {
             onChange={(event) => setnote(event.target.value)}
             required
           />
-          <input type="submit" value="Edit Private Travel" />
+          <input type="submit" value={loading ? "Editing..." : "Edit Private Travel"} />
         </form>
         {isPopupVisible && (
               <Popup 
@@ -102,7 +103,7 @@ const EditPrivateTrip = () => {
               />
             )}
           </>
-        )}
+        {/* )} */}
       </div>
     </div>
   );

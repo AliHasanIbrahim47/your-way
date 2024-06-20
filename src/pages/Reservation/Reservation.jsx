@@ -102,6 +102,7 @@ const Reservation = () => {
             'Content-Type': 'application/json'
           }
         });
+        alert("Deleting Reservations is successful");
         fetchUsers();
       } catch (error) {
         console.error('Error deleting extra', error);

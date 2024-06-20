@@ -76,7 +76,7 @@ const EditDailyTrip = () => {
     let data = { starting_date, going_from, ending_date, bus_id, line_id, type, status, returning_from, going_time, returning_time };
     setLoading(true);
     try {
-      const response = await axios.post(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/${id}`, 
+      const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/${id}`, 
         data, {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -94,6 +94,7 @@ const EditDailyTrip = () => {
       setreturning_time("");
       setgoing_time("");
       setreturning_from("");
+      alert("Editing Travel is successful");
       navigate('/travels');
     } catch (error) {
       alert("Error adding Travel please try again");
@@ -110,9 +111,9 @@ const EditDailyTrip = () => {
     <div className="adddailytrip">
       <Sidebar />
       <div className="container">
-      {loading ? (
+      {/* {loading ? (
           <div className="loader">Adding Travel ...</div> 
-        ) : (
+        ) : ( */}
           <>
         <h1>Add Travel</h1>
         <form onSubmit={sendData}>
@@ -217,10 +218,10 @@ const EditDailyTrip = () => {
             onChange={(event) => setstatus(event.target.value)}
             required
           />
-          <input type="submit" value="Edit Travel" />
+          <input type="submit" value={loading ? "Editing..." : "Edit Travel"} />
         </form>
       </>
-      )}
+      {/* )} */}
       </div>
       {isPopupVisible && (
         <Popup 

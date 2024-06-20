@@ -53,6 +53,7 @@ const EditLine = () => {
 
       setpoint_a("");
       setpoint_b("");
+      alert("Editing Line is successful");
       navigate('/lines');
       } catch (error) {
         alert("Error editing extra please try again");
@@ -69,9 +70,9 @@ const EditLine = () => {
     <div className="editextra">
       <Sidebar />
       <div className="container">
-      {loading ? (
+      {/* {loading ? (
           <div className="loader">Editing Line ...</div> 
-        ) : (
+        ) : ( */}
           <>
         <h1>Edit Line</h1>
         <form onSubmit={sendData}>
@@ -93,7 +94,7 @@ const EditLine = () => {
             onChange={(event) => setpoint_b(event.target.value)}
             required
           />
-          <input type="submit" value="Edit Line" />
+          <input type="submit" value={loading ? "Editing..." : "Edit Line"}  />
         </form>
         {isPopupVisible && (
               <Popup 
@@ -103,7 +104,7 @@ const EditLine = () => {
               />
             )}
           </>
-        )}
+        {/* )} */}
       </div>
     </div>
   );

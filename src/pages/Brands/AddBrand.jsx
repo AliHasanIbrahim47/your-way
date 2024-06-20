@@ -49,6 +49,7 @@ const AddBrand = () => {
       setImage(null);
       setImagePreview(null);
       setTitleAr("");
+      alert("Adding Banner is successful");
       navigate('/brands');
     } catch (error) {
       alert("Error adding banner, please try again");
@@ -77,9 +78,9 @@ const AddBrand = () => {
     <div className="addbanner">
       <Sidebar />
       <div className="container">
-        {loading ? (
+        {/* {loading ? (
           <div className="loader">Adding banner ...</div> 
-        ) : (
+        ) : ( */}
           <>
             <h1>Add Banner</h1>
             <form onSubmit={sendData}>
@@ -114,7 +115,7 @@ const AddBrand = () => {
                   <button type="button" onClick={removeImage}>Remove Image</button>
                 </div>
               )}
-              <input type="submit" value="Add Banner" />
+              <input type="submit" value={loading ? "Adding..." : "Add Banner"}  />
             </form>
             {isPopupVisible && (
               <Popup 
@@ -124,7 +125,7 @@ const AddBrand = () => {
               />
             )}
           </>
-        )}
+        {/* )} */}
       </div>
     </div>
   );

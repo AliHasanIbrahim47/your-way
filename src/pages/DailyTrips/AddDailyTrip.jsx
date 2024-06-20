@@ -92,6 +92,7 @@ const AddDailyTrip = () => {
       setreturning_time("");
       setgoing_time("");
       setreturning_from("");
+      alert("Adding Travel is successful");
       navigate('/travels');
     } catch (error) {
       alert("Error adding Travel please try again");
@@ -108,9 +109,9 @@ const AddDailyTrip = () => {
     <div className="adddailytrip">
       <Sidebar />
       <div className="container">
-      {loading ? (
+      {/* {loading ? (
           <div className="loader">Adding Travel ...</div> 
-        ) : (
+        ) : ( */}
           <>
         <h1>Add Travel</h1>
         <form onSubmit={sendData}>
@@ -215,10 +216,10 @@ const AddDailyTrip = () => {
             onChange={(event) => setstatus(event.target.value)}
             required
           />
-          <input type="submit" value="Add Travel" />
+          <input type="submit" value={loading ? "Adding..." : "Add Travel"} />
         </form>
       </>
-      )}
+      {/* )} */}
       </div>
       {isPopupVisible && (
         <Popup 

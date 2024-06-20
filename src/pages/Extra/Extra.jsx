@@ -73,6 +73,7 @@ const Extra = () => {
           'Content-Type': 'application/json'
         }
       });
+      alert("Deleting Extra is successful");
       fetchUsers();
     } catch (error) {
       alert("Error deleting Extra please try again");

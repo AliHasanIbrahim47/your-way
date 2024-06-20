@@ -73,6 +73,7 @@ const Brands = () => {
           'Content-Type': 'application/json'
         }
       });
+      alert("Deleting Banners is successful");
       fetchUsers();
     } catch (error) {
       alert("Error deleting Banners please try again");

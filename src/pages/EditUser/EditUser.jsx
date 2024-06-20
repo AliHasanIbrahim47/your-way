@@ -56,7 +56,7 @@ const EditUser= () => {
           },
         }
       );
-      console.log("success");
+      alert("Editing User is successful");
       navigate("/users");
     } catch (error) {
       console.error("Error updating user", error.response?.data || error.message);
@@ -75,9 +75,9 @@ const EditUser= () => {
     <div className="edituser">
       <Sidebar />
       <div className="container">
-      {loading ? (
+      {/* {loading ? (
           <div className="loader">Editing User ...</div> 
-        ) : (
+        ) : ( */}
           <>
         <h1>Edit User {full_name}</h1>
         <form onSubmit={sendData}>
@@ -127,7 +127,7 @@ const EditUser= () => {
             <option value="true">true</option>
             <option value="false">false</option>
           </select>
-          <input type="submit" value="Edit User" />
+          <input type="submit" value={loading ? "Editing..." : "Edit User"}  />
         </form>
       {isPopupVisible && (
         <Popup 
@@ -137,7 +137,7 @@ const EditUser= () => {
         />
       )}
     </>
-  )}
+  {/* )} */}
 </div>
     </div>
   );

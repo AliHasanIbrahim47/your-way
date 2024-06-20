@@ -72,6 +72,7 @@ const UsersOnly = () => {
           'Content-Type': 'application/json'
         }
       });
+      alert("Deleting Users is successful");
       fetchUsers();
     } catch (error) {
       alert("Error deleting Users please try again");

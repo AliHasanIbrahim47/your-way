@@ -63,6 +63,7 @@ const EditBrand = () => {
       setimage(null);
       setImagePreview(null);
       settitle_ar("");
+      alert("Editing Banner is successful");
       navigate('/brands');
     } catch (error) {
       alert("Error editing banner, please try again");
@@ -91,9 +92,9 @@ const EditBrand = () => {
     <div className="editbanner">
       <Sidebar />
       <div className="container">
-        {loading ? (
+        {/* {loading ? (
           <div className="loader">Editing banner ...</div> 
-        ) : (
+        ) : ( */}
           <>
             <h1>Edit Banner</h1>
             <form onSubmit={sendData}>
@@ -129,7 +130,7 @@ const EditBrand = () => {
                   <button type="button" onClick={removeImage}>Remove Image</button>
                   </div>
               )}
-              <input type="submit" value="Edit Banner" />
+              <input type="submit" value={loading ? "Editing..." : "Edit Banner"} />
             </form>
             {isPopupVisible && (
               <Popup 
@@ -139,7 +140,7 @@ const EditBrand = () => {
               />
             )}
           </>
-        )}
+        {/* )} */}
       </div>
     </div>
   );

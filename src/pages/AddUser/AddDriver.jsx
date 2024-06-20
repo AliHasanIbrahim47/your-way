@@ -73,6 +73,7 @@ const AddDriver = () => {
       setModel("");
       setCapacity("");
       setLineId("");
+      alert("Adding Driver is successful");
       navigate('/users');
     } catch (error) {
       console.error('Error adding driver', error.response?.data || error.message);
@@ -92,9 +93,9 @@ const AddDriver = () => {
     <div className="addextra">
       <Sidebar />
       <div className="container">
-        {loading ? (
-          <div className="loader">adding Driver ...</div> // Display only the loading text
-        ) : (
+        {/* {loading ? (
+          <div className="loader">adding Driver ...</div>
+        ) : ( */}
           <>
             <h1>Add Driver</h1>
             {/* {error && <p className="error">{error}</p>}  */}
@@ -167,7 +168,7 @@ const AddDriver = () => {
                   </option>
                 ))}
               </select>
-              <input type="submit" value="Add Driver" />
+              <input type="submit" value={loading ? "Adding..." : "Add Driver"} />
             </form>
             {isPopupVisible && (
               <Popup 
@@ -177,7 +178,7 @@ const AddDriver = () => {
               />
             )}
           </>
-        )}
+        {/* )} */}
       </div>
     </div>
   );

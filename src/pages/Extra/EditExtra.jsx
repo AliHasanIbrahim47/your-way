@@ -56,6 +56,7 @@ const EditExtra = () => {
       settitle_en("");
       setprice("");
       settitle_ar("");
+      alert("Editing Extra is successful");
       navigate('/extra');
       } catch (error) {
         alert("Error editing extra please try again");
@@ -72,9 +73,9 @@ const EditExtra = () => {
     <div className="editextra">
       <Sidebar />
       <div className="container">
-      {loading ? (
+      {/* {loading ? (
           <div className="loader">Adding Extra ...</div> 
-        ) : (
+        ) : ( */}
           <>
         <h1>Edit Extra</h1>
         <form onSubmit={sendData}>
@@ -105,7 +106,7 @@ const EditExtra = () => {
             onChange={(event) => setprice(event.target.value)}
             required
           />
-          <input type="submit" value="Edit Extra" />
+          <input type="submit" value={loading ? "Editing..." : "Edit Extra"} />
         </form>
         {isPopupVisible && (
               <Popup 
@@ -115,7 +116,7 @@ const EditExtra = () => {
               />
             )}
           </>
-        )}
+        {/* )} */}
       </div>
     </div>
   );
