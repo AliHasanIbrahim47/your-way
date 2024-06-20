@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./AddBrand.css";
 import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
@@ -8,9 +8,11 @@ import { useNavigate } from "react-router-dom";
 const AddBrand = () => {
   const [title_en, setTitleEn] = useState("");
   const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [title_ar, setTitleAr] = useState("");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const imageInputRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -23,7 +25,7 @@ const AddBrand = () => {
     const token = localStorage.getItem('token');
     setIsPopupVisible(false);
 
-    if (!title_en || !image || !title_ar) {
+    if (!title_en ||  !image || !title_ar) {
       alert("All fields are required!");
       return;
     }
@@ -45,10 +47,11 @@ const AddBrand = () => {
 
       setTitleEn("");
       setImage(null);
+      setImagePreview(null);
       setTitleAr("");
       navigate('/brands');
     } catch (error) {
-      alert("Error adding banner please try again");
+      alert("Error adding banner, please try again");
     } finally {
       setLoading(false);
     }
@@ -56,6 +59,18 @@ const AddBrand = () => {
 
   const cancelAdd = () => {
     setIsPopupVisible(false);
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setImage(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
+
+  const removeImage = () => {
+    setImage(null);
+    setImagePreview(null);
+    imageInputRef.current.value = null;
   };
 
   return (
@@ -88,10 +103,17 @@ const AddBrand = () => {
               <input
                 type="file"
                 id="image"
+                ref={imageInputRef}
                 accept="image/*"
-                onChange={(event) => setImage(event.target.files[0])}
+                onChange={handleImageChange}
                 required
               />
+              {imagePreview && (
+                <div className="image-preview">
+                  <img src={imagePreview} alt="Preview" />
+                  <button type="button" onClick={removeImage}>Remove Image</button>
+                </div>
+              )}
               <input type="submit" value="Add Banner" />
             </form>
             {isPopupVisible && (

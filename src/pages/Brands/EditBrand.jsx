@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./EditBrand.css";
 import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
@@ -8,10 +8,12 @@ import { useNavigate, useParams, useLocation } from "react-router-dom";
 const EditBrand = () => {
   const [title_en, settitle_en] = useState("");
   const [image, setimage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [title_ar, settitle_ar] = useState("");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const location = useLocation();
   const [loading, setLoading] = useState(false);
+  const imageInputRef = useRef(null);
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -59,10 +61,11 @@ const EditBrand = () => {
 
       settitle_en("");
       setimage(null);
+      setImagePreview(null);
       settitle_ar("");
       navigate('/brands');
     } catch (error) {
-      alert("Error editing banner please try again");
+      alert("Error editing banner, please try again");
     } finally {
       setLoading(false);
     }
@@ -72,44 +75,63 @@ const EditBrand = () => {
     setIsPopupVisible(false);
   };
 
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setimage(file);
+    setImagePreview(URL.createObjectURL(file));
+  };
+
+  const removeImage = () => {
+    setimage(null);
+    setImagePreview(null);
+    imageInputRef.current.value = null;
+  };
+
   return (
-    <div className="edituser">
+    <div className="editbanner">
       <Sidebar />
       <div className="container">
-      {loading ? (
+        {loading ? (
           <div className="loader">Editing banner ...</div> 
         ) : (
           <>
-        <h1>Edit Banner</h1>
-        <form onSubmit={sendData}>
-          <label htmlFor="title_en">Title English</label>
-          <input
-            type="text"
-            id="title_en"
-            placeholder=""
-            value={title_en}
-            onChange={(event) => settitle_en(event.target.value)}
-            required
-          />
-          <label htmlFor="title_ar">Title Arabic</label>
-          <input
-            type="text"
-            id="title_ar"
-            placeholder=""
-            value={title_ar}
-            onChange={(event) => settitle_ar(event.target.value)}
-            required
-          />
-          <label htmlFor="image">Image</label>
-          <input
-            type="file"
-            id="image"
-            accept="image/*"
-            onChange={(event) => setimage(event.target.files[0])}
-          />
-          <input type="submit" value="Edit Banner" />
-        </form>
-        {isPopupVisible && (
+            <h1>Edit Banner</h1>
+            <form onSubmit={sendData}>
+              <label htmlFor="title_en">Title English</label>
+              <input
+                type="text"
+                id="title_en"
+                placeholder=""
+                value={title_en}
+                onChange={(event) => settitle_en(event.target.value)}
+                required
+              />
+              <label htmlFor="title_ar">Title Arabic</label>
+              <input
+                type="text"
+                id="title_ar"
+                placeholder=""
+                value={title_ar}
+                onChange={(event) => settitle_ar(event.target.value)}
+                required
+              />
+              <label htmlFor="image">Image</label>
+              <input
+                type="file"
+                id="image"
+                ref={imageInputRef}
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+              {imagePreview && (
+                <div className="image-preview">
+                  <img src={imagePreview} alt="Preview" />
+                  <button type="button" onClick={removeImage}>Remove Image</button>
+                  </div>
+              )}
+              <input type="submit" value="Edit Banner" />
+            </form>
+            {isPopupVisible && (
               <Popup 
                 message="Are you sure you want to edit this banner?"
                 onConfirm={confirmEdit}
