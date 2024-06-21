@@ -8,6 +8,7 @@ import Popup from '../../components/Popup';
 import axios from "axios";
 import { FaUser } from "react-icons/fa";
 import { FaCar } from "react-icons/fa";
+import Spinner from "../../components/Spinner";
 
 const Users = () => {
   const navigate = useNavigate();
@@ -138,9 +139,10 @@ const Users = () => {
     return (
       <div className="users">
         <Sidebar />
-        <div className="container">
-          <h1>Loading data ...</h1>
-          
+        <div className="continer">
+          <h1 className="loader">
+            Loading Data <Spinner />
+          </h1>
         </div>
       </div>
     );
@@ -151,7 +153,7 @@ const Users = () => {
       <Sidebar />
       <div className="container">
       {loading && !loader ? (
-          <div className="loader">Deleting Users ...</div> 
+          <div className="loader">Deleting Users <Spinner /></div> 
         ) : (
           <>
         <div className="header">

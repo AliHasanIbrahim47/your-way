@@ -7,6 +7,7 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import Moment from "react-moment";
+import Spinner from "../../components/Spinner";
 
 const DailyTrips = () => {
   const navigate = useNavigate();
@@ -120,7 +121,7 @@ const DailyTrips = () => {
       <div className="users">
         <Sidebar />
         <div className="container">
-          <h1>Loading data ...</h1>
+          <h1 className="loader">Loading data <Spinner/></h1>
           
         </div>
       </div>
@@ -132,7 +133,7 @@ const DailyTrips = () => {
       <Sidebar />
       <div className="container">
       {loading && !loader ? (
-          <div className="loader">Deleting Travels ...</div> 
+          <div className="loader">Deleting Travels <Spinner /></div> 
         ) : (
           <>
         <div className="header">

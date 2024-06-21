@@ -91,13 +91,6 @@
   background-color: #A37A30;
 }
 
-.users .actions-style {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-}
-
 .users .links {
   display: flex;
   gap: 10px;

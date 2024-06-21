@@ -4,6 +4,7 @@ import './Login.css';
 import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import Spinner from '../../components/Spinner';
 
 const Login = () => {
     const phoneRef = useRef();
@@ -75,7 +76,7 @@ const Login = () => {
                         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                         {loading ? "" : <h1>Sign In</h1>}
                         {loading ? ( // Display loader when loading
-                            <div className="loader"><strong>Siging In ...</strong></div>
+                            <div className="loader"><Spinner /></div>
                         ) : (
                             <form onSubmit={handleSubmit}>
                                 <label htmlFor="phone">Email:</label>

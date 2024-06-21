@@ -9,6 +9,7 @@ import axios from "axios";
 import Moment from 'react-moment';
 import { FaCheckCircle } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
+import Spinner from "../../components/Spinner";
 
 const PrivateTrip = () => {
   const navigate = useNavigate();
@@ -114,7 +115,7 @@ const PrivateTrip = () => {
 
     if(deleteORaccept) {
       try {
-        const idsToAccept = acceptedUsers;
+        const idsToAccept = selectedUser ? [selectedUser.id] : acceptedUsers;
         const response = await axios.put('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/update-many', {
           ids: idsToAccept,
           status: 'accepted'
@@ -124,6 +125,7 @@ const PrivateTrip = () => {
             'Content-Type': 'application/json'
           }
         });
+        alert("Accepting Private Travels is successful");
         fetchUsers();
       } catch (error) {
         alert("Error deleting Private Travels please try again")
@@ -156,13 +158,18 @@ const PrivateTrip = () => {
     setIsPopupVisible(true);
   };
 
+  const acceptUser = (item) => {
+    setSelectedUser(item);
+    setdeleteORaccept(true);
+    setIsPopupVisible(true);
+  };
+
   if (loader && !loading) {
     return (
       <div className="users">
         <Sidebar />
         <div className="container">
-          <h1>Loading data ...</h1>
-          
+          <h1 className="loader">Loading data <Spinner /></h1>
         </div>
       </div>
     );
@@ -173,7 +180,7 @@ const PrivateTrip = () => {
       <Sidebar />
       <div className="container">
       {loading && !loader ? (
-          <div className="loader">Deleting Private Travel ...</div> 
+          <div className="loader">{setdeleteORaccept ? "Accepting" : "Deleting"} Private Travel <Spinner /></div> 
         ) : (
           <>
         <div className="header">
@@ -222,6 +229,9 @@ const PrivateTrip = () => {
                   {/* <button onClick={() => update(element)}>
                     <RiEdit2Fill />
                   </button> */}
+                  <button onClick={() => acceptUser(element)}>
+                    <FaCheckCircle />
+                  </button>
                   <button onClick={() => deleteUser(element)}>
                     <RiDeleteBin5Fill />
                   </button>

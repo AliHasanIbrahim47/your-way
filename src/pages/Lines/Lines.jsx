@@ -6,6 +6,7 @@ import { RiEdit2Fill } from "react-icons/ri";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
 import axios from "axios";
+import Spinner from "../../components/Spinner";
 
 const Lines = () => {
   const navigate = useNavigate();
@@ -108,7 +109,7 @@ const Lines = () => {
       <div className="users">
         <Sidebar />
         <div className="container">
-          <h1>Loading data ...</h1>
+          <h1 className="loader">Loading data <Spinner /></h1>
           
         </div>
       </div>
@@ -120,7 +121,7 @@ const Lines = () => {
       <Sidebar />
       <div className="container">
       {loading ? (
-          <div className="loader">Deleting Line ...</div> 
+          <div className="loader">Deleting Line <Spinner /></div> 
         ) : (
           <>
         <div className="header">

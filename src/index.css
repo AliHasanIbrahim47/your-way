@@ -24,6 +24,11 @@ input[type="number"] {
   outline: none;
 }
 
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 input[type="number"]:focus {
   border-color: #BA8D38;
@@ -39,5 +44,11 @@ input[type="number"]::placeholder {
   input[type="number"] {
     max-width: 100%; 
     font-size: 0.875rem; 
+  }
+
+  .actions-style {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
   }
 }

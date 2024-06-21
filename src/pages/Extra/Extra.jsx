@@ -6,6 +6,7 @@ import { RiEdit2Fill } from "react-icons/ri";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
 import axios from "axios";
+import Spinner from "../../components/Spinner";
 
 const Extra = () => {
   const navigate = useNavigate();
@@ -110,7 +111,7 @@ const Extra = () => {
       <div className="users">
         <Sidebar />
         <div className="container">
-          <h1>Loading data ...</h1>
+          <h1 className="loader">Loading data <Spinner /></h1>
           
         </div>
       </div>
@@ -122,7 +123,7 @@ const Extra = () => {
       <Sidebar />
       <div className="container">
       {loading && !loader ? (
-          <div className="loader">Deleting Extra ...</div> 
+          <div className="loader">Deleting Extra <Spinner /></div> 
         ) : (
           <>
         <div className="header">

@@ -13,16 +13,18 @@ const AddPrivateTrip = () => {
   const [user_id, setuser_id] = useState();
   const [seats, setseats] = useState();
   const [loading, setLoading] = useState(false);
-  const [drivers, setDrivers] = useState([]); // State for drivers
-  const [users, setUsers] = useState([]); // State for users
-
-  const [isPopupVisible, setIsPopuoVisble] = useState(false);
+  const [drivers, setDrivers] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [extras, setExtras] = useState([]);
+  const [selectedExtras, setSelectedExtras] = useState([]);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchDrivers();
     fetchUsers();
+    fetchExtras();
   }, []);
 
   const fetchDrivers = async () => {
@@ -34,7 +36,6 @@ const AddPrivateTrip = () => {
         },
       });
       setDrivers(response.data.data);
-      console.log(drivers);
     } catch (error) {
       console.error('Error fetching drivers', error);
     }
@@ -54,20 +55,40 @@ const AddPrivateTrip = () => {
     }
   };
 
+  const fetchExtras = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/extra', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      setExtras(response.data.data);
+    } catch (error) {
+      console.error('Error fetching extras', error);
+    }
+  };
+
   const sendData = (event) => {
     event.preventDefault();
-    setIsPopuoVisble(true);
+    setIsPopupVisible(true);
   };
 
   const confirmDelete = async () => {
     const token = localStorage.getItem('token');
-    setIsPopuoVisble(false);
+    setIsPopupVisible(false);
     if (!going_date || !going_from || !going_to || !bus_id || !user_id || !seats) {
       alert("All fields are required!");
       return;
     }
-    let data = { going_date: going_date, going_from: going_from, going_to: going_to,
-      bus_id: bus_id, user_id: user_id, seats: seats, extra_ids: [1]
+    let data = {
+      going_date: going_date,
+      going_from: going_from,
+      going_to: going_to,
+      bus_id: bus_id,
+      user_id: user_id,
+      seats: seats,
+      extra_ids: selectedExtras
     };
     setLoading(true);
     try {
@@ -85,107 +106,126 @@ const AddPrivateTrip = () => {
       setbus_id();
       setuser_id();
       setseats();
+      setSelectedExtras([]);
       alert("Adding Private Travel is successful");
       navigate('/travels/private');
-      } catch (error) {
-        alert("Error adding private travel please try again");
-    }  finally {
+    } catch (error) {
+      alert("Error adding private travel please try again");
+    } finally {
       setLoading(false);
     }
   }
 
   const cancelDelete = () => {
-    setIsPopuoVisble(false);
+    setIsPopupVisible(false);
   }
+
+  const handleExtraChange = (event) => {
+    const value = Array.from(
+      event.target.selectedOptions,
+      (option) => option.value
+    );
+    setSelectedExtras(value);
+  };
 
   return (
     <div className="addextra">
       <Sidebar />
       <div className="container">
-      {/* {loading ? (
+        {loading ? (
           <div className="loader">Adding Private Travel ...</div> 
-        ) : ( */}
-          <> 
-        <h1>Add Private Travel</h1>
-        <form onSubmit={sendData}>
-          <label htmlFor="going_date">Going Date</label>
-          <input
-            type="date"
-            id="going_date"
-            placeholder=""
-            value={going_date}
-            onChange={(event) => setgoing_date(event.target.value)}
-            required
-          />
-          <label htmlFor="going_from">Going From</label>
-          <input
-            type="text"
-            id="going_from"
-            placeholder=""
-            value={going_from}
-            onChange={(event) => setgoing_from(event.target.value)}
-            required
-          />
-          <label htmlFor="going_to">Going To</label>
-          <input
-            type="text"
-            id="going_to"
-            placeholder=""
-            value={going_to}
-            onChange={(event) => setgoing_to(event.target.value)}
-            required
-          />
-          <label htmlFor="bus_id">Bus</label>
-          <select
-            id="bus_id"
-            value={bus_id}
-            onChange={(event) => setbus_id(event.target.value)}
-            required
-          >
-            <option value="">Select Bus</option>
-            {drivers.map(driver => (
-              driver.bus.map(bus => (
-                <option key={bus.id} value={bus.id}>
-                  {`Driver: ${driver.full_name}, Car:${bus.brand} ${bus.model}`}
-                </option>
-              ))
-            ))}
-          </select>
-          <label htmlFor="user_id">User</label>
-          <select
-            id="user_id"
-            value={user_id}
-            onChange={(event) => setuser_id(event.target.value)}
-            required
-          >
-            <option value="">Select User</option>
-            {users.map(user => (
-              <option key={user.id} value={user.id}>
-                {user.full_name}
-              </option>
-            ))}
-          </select>
-          <label htmlFor="seats">Seats</label>
-          <input
-            type="number"
-            id="seats"
-            placeholder=""
-            value={seats}
-            onChange={(event) => setseats(event.target.value)}
-            required
-          />
-          <input type="submit" value={loading ? "Adding..." : "Add Private Travel"} />
-        </form>
-        {isPopupVisible && (
-        <Popup 
-          message="Are you sure you want to add this private Travel?"
-          onConfirm={confirmDelete}
-          onCancel={cancelDelete}
-        />
-      )}
-    </>
-  {/* )} */}
-</div>
+        ) : (
+          <>
+            <h1>Add Private Travel</h1>
+            <form onSubmit={sendData}>
+              <label htmlFor="going_date">Going Date</label>
+              <input
+                type="date"
+                id="going_date"
+                value={going_date}
+                onChange={(event) => setgoing_date(event.target.value)}
+                required
+              />
+              <label htmlFor="going_from">Going From</label>
+              <input
+                type="text"
+                id="going_from"
+                value={going_from}
+                onChange={(event) => setgoing_from(event.target.value)}
+                required
+              />
+              <label htmlFor="going_to">Going To</label>
+              <input
+                type="text"
+                id="going_to"
+                value={going_to}
+                onChange={(event) => setgoing_to(event.target.value)}
+                required
+              />
+              <label htmlFor="bus_id">Car</label>
+              <select
+                id="bus_id"
+                value={bus_id}
+                onChange={(event) => setbus_id(event.target.value)}
+                required
+              >
+                <option value="">Select Car</option>
+                {drivers.map(driver => (
+                  driver.bus.map(bus => (
+                    <option key={bus.id} value={bus.id}>
+                      {`Driver: ${driver.full_name}, Car: ${bus.brand} ${bus.model}`}
+                    </option>
+                  ))
+                ))}
+              </select>
+              <label htmlFor="user_id">User</label>
+              <select
+                id="user_id"
+                value={user_id}
+                onChange={(event) => setuser_id(event.target.value)}
+                required
+              >
+                <option value="">Select User</option>
+                {users.map(user => (
+                  <option key={user.id} value={user.id}>
+                    {user.full_name}
+                  </option>
+                ))}
+              </select>
+              <label htmlFor="seats">Seats</label>
+              <input
+                type="number"
+                id="seats"
+                value={seats}
+                onChange={(event) => setseats(event.target.value)}
+                required
+              />
+              <label htmlFor="extras">Extra Services</label>
+              <select
+                id="extras"
+                multiple
+                value={selectedExtras}
+                onChange={handleExtraChange}
+                
+              >
+                {extras.map(extra => (
+                  <option key={extra.id} value={extra.id}>
+                    {extra.title_en} {extra.price}
+                  </option>
+                ))}
+              </select>
+              <input type="submit" value={loading ? "Adding..." : "Add Private Travel"} />
+            </form>
+            {isPopupVisible && (
+              <Popup 
+                message="Are you sure you want to add this private Travel?"
+                onConfirm={confirmDelete}
+                onCancel={cancelDelete}
+              />
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 };

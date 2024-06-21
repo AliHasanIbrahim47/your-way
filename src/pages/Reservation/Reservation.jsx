@@ -8,6 +8,7 @@ import Popup from '../../components/Popup';
 import axios from "axios";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
+import Spinner from "../../components/Spinner";
 
 const Reservation = () => {
   const navigate = useNavigate();
@@ -113,7 +114,7 @@ const Reservation = () => {
 
     if(deleteORaccept) {
       try {
-        const idsToAccept = acceptedUsers;
+        const idsToAccept = selectedUser ? [selectedUser.id] : acceptedUsers;
         const response = await axios.put('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations/update-many', {
           ids: idsToAccept,
           status: 'accepted'
@@ -123,6 +124,7 @@ const Reservation = () => {
             'Content-Type': 'application/json'
           }
         });
+        alert("Accepting Reservations is successful");
         fetchUsers();
       } catch (error) {
         alert("Error deleting Reservations please try again");
@@ -155,12 +157,18 @@ const Reservation = () => {
     setIsPopupVisible(true);
   };
 
+  const acceptUser = (item) => {
+    setSelectedUser(item);
+    setdeleteORaccept(true);
+    setIsPopupVisible(true);
+  };
+
   if (loader && !loading) {
     return (
       <div className="users">
         <Sidebar />
         <div className="container">
-          <h1>Loading data ...</h1>
+          <h1 className="loader">Loading data <Spinner /></h1>
         </div>
       </div>
     );
@@ -171,7 +179,7 @@ const Reservation = () => {
       <Sidebar />
       <div className="container">
       {loading && !loader ? (
-          <div className="loader">Deleting Reservations ...</div> 
+          <div className="loader">{setdeleteORaccept ? "Accepting" : "Deleting"} Reservations <Spinner /></div> 
         ) : (
           <>
         <div className="header">
@@ -186,8 +194,9 @@ const Reservation = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Travel ID</th>
-              <th>User ID</th>
+              <th>Going From</th>
+              <th>Going To</th>
+              <th>User</th>
               <th>Status</th>
               <th>Actions</th>
               <th>
@@ -212,11 +221,15 @@ const Reservation = () => {
             {users.map((element, index) => (
               <tr key={index}>
                 <td>{element.id}</td>
-                <td>{element.travel_id}</td> 
-                <td>{element.user_id}</td>
+                <td>{element.travel.going_from}</td> 
+                <td>{element.travel.returning_from}</td>
+                <td>{element.user.full_name}</td>
                 <td>{element.status}</td>
                 <td className="actions-style">
                   {/* <button onClick={() => show(element.id)}>show</button> */}
+                  <button onClick={() => acceptUser(element)}>
+                    <FaCheckCircle />
+                  </button>
                   <button onClick={() => update(element)}>
                     <RiEdit2Fill />
                   </button>
