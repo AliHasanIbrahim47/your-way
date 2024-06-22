@@ -9,8 +9,10 @@ import axios from "axios";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
 import Spinner from "../../components/Spinner";
+import { useTranslation } from 'react-i18next';
 
 const Reservation = () => {
+  const [t, i18n] = useTranslation("global");
   const navigate = useNavigate();
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [acceptedUsers, setAcceptedUser] = useState([]);
@@ -127,7 +129,7 @@ const Reservation = () => {
         alert("Accepting Reservations is successful");
         fetchUsers();
       } catch (error) {
-        alert("Error deleting Reservations please try again");
+        alert("Error accepting Reservations please try again");
       }
       setAcceptedUser([]);
       setLoading(false);
@@ -168,7 +170,7 @@ const Reservation = () => {
       <div className="users">
         <Sidebar />
         <div className="container">
-          <h1 className="loader">Loading data <Spinner /></h1>
+          <h1 className="loader">{t("usersOnly.load")} <Spinner /></h1>
         </div>
       </div>
     );
@@ -179,28 +181,28 @@ const Reservation = () => {
       <Sidebar />
       <div className="container">
       {loading && !loader ? (
-          <div className="loader">{setdeleteORaccept ? "Accepting" : "Deleting"} Reservations <Spinner /></div> 
+          <div className="loader">{!deleteORaccept ? t("private.deleting") : t("private.accepting")} {t("reservations.title")} <Spinner /></div> 
         ) : (
           <>
         <div className="header">
           <h1>All Reservations</h1>
           <div className="links">
-            <Link to="/travels/reservations/add">ADD</Link>
-            <button onClick={handleDeleteSelected}>Delete Selected</button>
-            <button onClick={handleAcceptedSelected}>Accept Selected</button>
+            <Link to="/travels/reservations/add">{t("reservations.add")}</Link>
+            <button onClick={handleDeleteSelected}>{t("usersOnly.deleteS")}</button>
+            <button onClick={handleAcceptedSelected}>{t("private.acceptS")}</button>
           </div>
         </div>
         <table>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Going From</th>
-              <th>Going To</th>
-              <th>User</th>
-              <th>Status</th>
-              <th>Actions</th>
+              <th>{t("usersOnly.id")}</th>
+              <th>{t("private.going_from")}</th>
+              <th>{t("private.going_to")}</th>
+              <th>{t("private.user")}</th>
+              <th>{t("travels.status")}</th>
+              <th>{t("usersOnly.actions")}</th>
               <th>
-                <label>Delete All</label>
+                <label>{t("private.deleteAll")}</label>
                 <input
                   type="checkbox"
                   onChange={handleSelectAll}
@@ -208,7 +210,7 @@ const Reservation = () => {
                 />
               </th>
               <th>
-                <label>Accept All</label>
+                <label>{t("private.acceptAll")}</label>
                 <input
                   type="checkbox"
                   onChange={handleAcceptAll}
@@ -257,8 +259,8 @@ const Reservation = () => {
         </table>
         {isPopupVisible && (
         <Popup 
-          message={ deleteORaccept ? "Are you sure you want to accept the selected reservations?" : 
-                  "Are you sure you want to delete the selected reservations?"
+          message={ deleteORaccept ? t("reservations.acceptMessage") : 
+            t("reservations.deleteMessage")
                 }
           onConfirm={confirmDelete}
           onCancel={cancelDelete}

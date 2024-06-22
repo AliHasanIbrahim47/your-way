@@ -218,7 +218,7 @@ const AddDailyTrip = () => {
             onChange={(event) => setstatus(event.target.value)}
             required
           />
-          <input type="submit" value={loading ? t("editusers.editing") : t("travels.add")} />
+          <input type="submit" value={loading ? t("addusers.adding") : t("travels.add")} />
         </form>
       </>
       {/* )} */}

@@ -107,7 +107,7 @@ const DriversOnly = () => {
     setIsPopupVisible(true);
   };
 
-  if (users.length === 0) {
+  if (users.length === 0 && !loader) {
     return (
       <div className="users">
         <Sidebar />
@@ -126,7 +126,7 @@ const DriversOnly = () => {
       <div className="users">
         <Sidebar />
         <div className="container">
-          <h1>{t("usersOnly.load")} <Spinner /></h1>
+          <h1 className="loader">{t("usersOnly.load")} <Spinner /></h1>
         </div>
       </div>
     );

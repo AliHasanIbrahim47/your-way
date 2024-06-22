@@ -4,8 +4,10 @@ import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const AddPrivateTrip = () => {
+  const [t, i18n] = useTranslation("global");
   const [going_date, setgoing_date] = useState("");
   const [going_from, setgoing_from] = useState("");
   const [going_to, setgoing_to] = useState("");
@@ -88,6 +90,8 @@ const AddPrivateTrip = () => {
       bus_id: bus_id,
       user_id: user_id,
       seats: seats,
+      lat: "2.42",
+      lon: "2.42",
       extra_ids: selectedExtras
     };
     setLoading(true);
@@ -132,13 +136,13 @@ const AddPrivateTrip = () => {
     <div className="addextra">
       <Sidebar />
       <div className="container">
-        {loading ? (
+        {/* {loading ? (
           <div className="loader">Adding Private Travel ...</div> 
-        ) : (
+        ) : ( */}
           <>
-            <h1>Add Private Travel</h1>
+            <h1>{t("private.add")}</h1>
             <form onSubmit={sendData}>
-              <label htmlFor="going_date">Going Date</label>
+              <label htmlFor="going_date">{t("private.gDate")}</label>
               <input
                 type="date"
                 id="going_date"
@@ -146,7 +150,7 @@ const AddPrivateTrip = () => {
                 onChange={(event) => setgoing_date(event.target.value)}
                 required
               />
-              <label htmlFor="going_from">Going From</label>
+              <label htmlFor="going_from">{t("private.going_from")}</label>
               <input
                 type="text"
                 id="going_from"
@@ -154,7 +158,7 @@ const AddPrivateTrip = () => {
                 onChange={(event) => setgoing_from(event.target.value)}
                 required
               />
-              <label htmlFor="going_to">Going To</label>
+              <label htmlFor="going_to">{t("private.going_to")}</label>
               <input
                 type="text"
                 id="going_to"
@@ -162,14 +166,14 @@ const AddPrivateTrip = () => {
                 onChange={(event) => setgoing_to(event.target.value)}
                 required
               />
-              <label htmlFor="bus_id">Car</label>
+              <label htmlFor="bus_id">{t("travels.car")}</label>
               <select
                 id="bus_id"
                 value={bus_id}
                 onChange={(event) => setbus_id(event.target.value)}
                 required
               >
-                <option value="">Select Car</option>
+                <option value="">{t("travels.sCar")}</option>
                 {drivers.map(driver => (
                   driver.bus.map(bus => (
                     <option key={bus.id} value={bus.id}>
@@ -178,21 +182,21 @@ const AddPrivateTrip = () => {
                   ))
                 ))}
               </select>
-              <label htmlFor="user_id">User</label>
+              <label htmlFor="user_id">{t("private.user")}</label>
               <select
                 id="user_id"
                 value={user_id}
                 onChange={(event) => setuser_id(event.target.value)}
                 required
               >
-                <option value="">Select User</option>
+                <option value="">{t("private.userS")}</option>
                 {users.map(user => (
                   <option key={user.id} value={user.id}>
                     {user.full_name}
                   </option>
                 ))}
               </select>
-              <label htmlFor="seats">Seats</label>
+              <label htmlFor="seats">{t("private.seats")}</label>
               <input
                 type="number"
                 id="seats"
@@ -200,7 +204,7 @@ const AddPrivateTrip = () => {
                 onChange={(event) => setseats(event.target.value)}
                 required
               />
-              <label htmlFor="extras">Extra Services</label>
+              <label htmlFor="extras">{t("private.extraS")}</label>
               <select
                 id="extras"
                 multiple
@@ -214,17 +218,17 @@ const AddPrivateTrip = () => {
                   </option>
                 ))}
               </select>
-              <input type="submit" value={loading ? "Adding..." : "Add Private Travel"} />
+              <input type="submit" value={loading ? t("addusers.adding"): t("private.add")} />
             </form>
             {isPopupVisible && (
               <Popup 
-                message="Are you sure you want to add this private Travel?"
+                message={t("private.addMessage")}
                 onConfirm={confirmDelete}
                 onCancel={cancelDelete}
               />
             )}
           </>
-        )}
+        {/* )} */}
       </div>
     </div>
   );

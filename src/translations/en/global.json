@@ -6,6 +6,7 @@
     },
     "users": {
         "h1": "All Users",
+        "all": "All Users",
         "users": "Users",
         "drivers": "Drivers",
         "travels": "Travels",
@@ -135,5 +136,39 @@
         "sLine": "Select a Line",
         "type": "Type",
         "travelLineShow": "All Lines for Travel"
+    },
+    "private": {
+        "accepting": "Accepting",
+        "deleting": "Deleting",
+        "title": "Private Travel",
+        "h1": "ALL Private Travels",
+        "add": "ADD Private",
+        "acceptS": "Accept Selected",
+        "gDate": "Going Date",
+        "going_from": "Going From",
+        "going_to": "Going To",
+        "seats": "Seats",
+        "deleteAll": "Delete All",
+        "acceptAll": "Accept All",
+        "acceptMessage": "Are you sure you want to accept the selected Private Travels?",
+        "deleteMessage": "Are you sure you want to delete the selected Private Travels?",
+        "user": "User",
+        "userS": "Select a User",
+        "extraS": "Extra Services",
+        "addMessage":"Are you sure you want to add this Private Travel?"
+    },
+    "reservations": {
+        "title": "Reservations",
+        "add": "ADD",
+        "add1": "Add Reservation",
+        "acceptMessage": "Are you sure you want to accept the selected Reservations?",
+        "deleteMessage": "Are you sure you want to delete the selected Reservations?",
+        "travel": "Travel",
+        "travelS": "Select a Travel",
+        "passengers_count": "Passengers Count",
+        "addMessage": "Are you sure you want to add this Reservation?",
+        "edit": "Edit Reservation",
+        "note": "Note",
+        "editMessage": "Are you sure you want to edit this Reservation?"
     }
 }

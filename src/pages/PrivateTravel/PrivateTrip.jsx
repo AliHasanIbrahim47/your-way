@@ -10,8 +10,10 @@ import Moment from 'react-moment';
 import { FaCheckCircle } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
 import Spinner from "../../components/Spinner";
+import { useTranslation } from 'react-i18next';
 
 const PrivateTrip = () => {
+  const [t, i18n] = useTranslation("global");
   const navigate = useNavigate();
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [acceptedUsers, setAcceptedUser] = useState([]);
@@ -116,7 +118,7 @@ const PrivateTrip = () => {
     if(deleteORaccept) {
       try {
         const idsToAccept = selectedUser ? [selectedUser.id] : acceptedUsers;
-        const response = await axios.put('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/update-many', {
+        const response = await axios.put('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/private/update-many', {
           ids: idsToAccept,
           status: 'accepted'
         }, {
@@ -128,7 +130,7 @@ const PrivateTrip = () => {
         alert("Accepting Private Travels is successful");
         fetchUsers();
       } catch (error) {
-        alert("Error deleting Private Travels please try again")
+        alert("Error Accepting Private Travels please try again")
       }
       setAcceptedUser([]);
       setLoading(false);
@@ -169,7 +171,7 @@ const PrivateTrip = () => {
       <div className="users">
         <Sidebar />
         <div className="container">
-          <h1 className="loader">Loading data <Spinner /></h1>
+          <h1 className="loader">{t("usersOnly.load")} <Spinner /></h1>
         </div>
       </div>
     );
@@ -180,27 +182,28 @@ const PrivateTrip = () => {
       <Sidebar />
       <div className="container">
       {loading && !loader ? (
-          <div className="loader">{setdeleteORaccept ? "Accepting" : "Deleting"} Private Travel <Spinner /></div> 
+          <div className="loader">{!deleteORaccept ? t("private.deleting") : t("private.accepting")} {t("private.title")} <Spinner /></div> 
         ) : (
           <>
         <div className="header">
-          <h1>All Private Travels</h1>
+          <h1>{t("private.h1")}</h1>
           <div className="links">
-            <Link to="/travels/private/add">ADD</Link>
-            <button onClick={handleDeleteSelected}>Delete Selected</button>
-            <button onClick={handleAcceptedSelected}>Accept Selected</button>
+            <Link to="/travels/private/add">{t("private.add")}</Link>
+            <button onClick={handleDeleteSelected}>{t("usersOnly.deleteS")}</button>
+            <button onClick={handleAcceptedSelected}>{t("private.acceptS")}</button>
           </div>
         </div>
         <table>
           <thead>
             <tr>
-              <th>Going Date</th>
-              <th>Going From</th>
-              <th>Going To</th>
-              <th>Seats</th>
-              <th>Actions</th>
+              <th>{t("private.gDate")}</th>
+              <th>{t("private.going_from")}</th>
+              <th>{t("private.going_to")}</th>
+              <th>{t("private.user")}</th>
+              <th>{t("private.seats")}</th>
+              <th>{t("usersOnly.actions")}</th>
               <th>
-                <label>Delete All</label>
+                <label>{t("private.deleteAll")}</label>
                 <input
                   type="checkbox"
                   onChange={handleSelectAll}
@@ -208,7 +211,7 @@ const PrivateTrip = () => {
                 />
               </th>
               <th>
-                <label>Accept All</label>
+                <label>{t("private.acceptAll")}</label>
                 <input
                   type="checkbox"
                   onChange={handleAcceptAll}
@@ -223,6 +226,7 @@ const PrivateTrip = () => {
                 <td><Moment format="YYYY/MM/DD">{element.going_date}</Moment></td>       
                 <td>{element.going_from}</td>                
                 <td>{element.going_to}</td>
+                <td>{element.user.full_name}</td>
                 <td>{element.seats}</td>
                 <td className="actions-style">
                   {/* <button onClick={() => show(element.id)}>show</button> */}
@@ -256,8 +260,8 @@ const PrivateTrip = () => {
         </table>
         {isPopupVisible && (
         <Popup 
-          message={ deleteORaccept ? "Are you sure you want to accept the selected private travels?" : 
-                  "Are you sure you want to delete the selected private travels?"
+          message={ deleteORaccept ? t("private.acceptMessage") : 
+                  t("private.deleteMessage")
                 }
           onConfirm={confirmDelete}
           onCancel={cancelDelete}

@@ -27,7 +27,10 @@ const Users = () => {
   const fetchUsers = async () => {
     setLoader(true);
     try {
-      const response = await axios.get(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/type?type=${selectedType}`, {
+      const url = selectedType === "all"
+      ? "https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/"
+      : `https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/type?type=${selectedType}`
+      const response = await axios.get(url, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -115,10 +118,6 @@ const Users = () => {
     setSelectedType(event.target.value);
   };
 
-  const filteredUsers = selectedType === 'user' 
-    ? users 
-    : users.filter(user => user.type === selectedType);
-
   if (users.length === 0 && !loader) {
     return (
       <div className="users">
@@ -134,7 +133,7 @@ const Users = () => {
             <div className="filter">
               <label htmlFor="userType">{t("users.filter")}: </label>
               <select id="userType" value={selectedType} onChange={handleTypeChange}>
-                {/* <option value="all">All</option> */}
+                <option value="all">{t("users.all")}</option>
                 <option value="user">{t("users.user")}</option>
                 <option value="driver">{t("users.driver")}</option>
               </select>
@@ -182,7 +181,7 @@ const Users = () => {
             <div className="filter">
             <label htmlFor="userType">{t("users.filter")}: </label>
             <select id="userType" value={selectedType} onChange={handleTypeChange}>
-              {/* <option value="all">All</option> */}
+              <option value="all">{t("users.all")}</option>
               <option value="user">{t("users.user")}</option>
               <option value="driver">{t("users.driver")}</option>
             </select>
@@ -208,7 +207,7 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredUsers.map((element, index) => {
+            {users.map((element, index) => {
               return (
                 <tr key={index}>
                   <td>{element.id}</td>

@@ -4,8 +4,10 @@ import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const EditReservation = () => {
+  const [t, i18n] = useTranslation("global");
   const [status, setstatus] = useState("");
   const [note, setnote] = useState("");
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
@@ -73,9 +75,9 @@ const EditReservation = () => {
           <div className="loader">Editing Reservation ...</div> 
         ) : ( */}
           <>
-        <h1>Edit Reservation</h1>
+        <h1>{t("reservations.edit")}</h1>
         <form onSubmit={sendData}>
-          <label htmlFor="status">Status</label>
+          <label htmlFor="status">{t("travels.status")}</label>
           <input
             type="text"
             id="status"
@@ -84,7 +86,7 @@ const EditReservation = () => {
             onChange={(event) => setstatus(event.target.value)}
             required
           />
-          <label htmlFor="note">Note</label>
+          <label htmlFor="note">{t("reservations.note")}</label>
           <input
             type="text"
             id="note"
@@ -93,11 +95,11 @@ const EditReservation = () => {
             onChange={(event) => setnote(event.target.value)}
             required
           />
-          <input type="submit" value={loading ? "Editing..." : "Edit Reservation"} />
+          <input type="submit" value={loading ? t("editusers.editing"): t("reservations.edit")} />
         </form>
         {isPopupVisible && (
               <Popup 
-                message="Are you sure you want to edit this reservation?"
+                message={t("reservations.editMessage")}
                 onConfirm={confirmDelete}
                 onCancel={cancelDelete}
               />

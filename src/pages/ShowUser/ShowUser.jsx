@@ -68,7 +68,7 @@ const ShowUser = () => {
         <h1>{t("showuser.h1")}</h1>
         <div className="user-details">
           <p><strong>{t("showuser.name")}:</strong> {user.full_name}</p>
-          <p><strong>{t("showuser.phone")}:</strong> {user.phone}</p>//
+          <p><strong>{t("showuser.phone")}:</strong> {user.phone}</p>
         </div>
         {/* <div className="trips-section">
           <h2>Previous Trips</h2>

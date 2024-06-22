@@ -117,7 +117,7 @@ const AddBrand = () => {
                   <button type="button" onClick={removeImage}>{t("banners.remove")}</button>
                 </div>
               )}
-              <input type="submit" value={loading ? t("editusers.editing") : t("banners.add")}  />
+              <input type="submit" value={loading ? t("addusers.adding") : t("banners.add")}  />
             </form>
             {isPopupVisible && (
               <Popup 
