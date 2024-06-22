@@ -7,8 +7,10 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
 import axios from "axios"; 
 import Spinner from "../../components/Spinner";
+import { useTranslation } from "react-i18next";
 
 const UsersOnly = () => {
+  const [t, i18n] = useTranslation("global");
   const navigate = useNavigate();
   const [selectedUsers, setSelectedUsers] = useState([]);;
   const [selectedUser, setSelectedUser] = useState(null);
@@ -58,7 +60,9 @@ const UsersOnly = () => {
 
 
   const handleDeleteSelected = () => {
-    setIsPopupVisible(true);
+    if (selectedUsers.length > 0) {
+      setIsPopupVisible(true);
+    }
   };
 
   const confirmDelete = async () => {
@@ -110,7 +114,7 @@ const UsersOnly = () => {
       <div className="users">
         <Sidebar />
         <div className="container">
-          <h1 className="loader">Loading data <Spinner /></h1>
+          <h1 className="loader">{t("usersOnly.load")} <Spinner /></h1>
         </div>
       </div>
     );
@@ -121,24 +125,24 @@ const UsersOnly = () => {
       <Sidebar />
       <div className="container">
       {loading && !loader ? (
-          <div className="loader">Deleting Users <Spinner /></div> 
+          <div className="loader">{t("usersOnly.deleting")} <Spinner /></div> 
         ) : (
           <>
         <div className="header">
-          <h1>Users Only</h1>
+          <h1>{t("usersOnly.h1")}</h1>
           <div className="links">
-            <Link to="/users/add">ADD User</Link>
-            <button onClick={handleDeleteSelected}>Delete Selected</button>
+            <Link to="/users/add">{t("usersOnly.add")}</Link>
+            <button onClick={handleDeleteSelected}>{t("usersOnly.deleteS")}</button>
           </div>
         </div>
 
         <table>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Phone Number</th>
-              <th>Actions</th>
+              <th>{t("usersOnly.id")}</th>
+              <th>{t("usersOnly.name")}</th>
+              <th>{t("usersOnly.phone")}</th>
+              <th>{t("usersOnly.actions")}</th>
               <th>
                 <input
                   type="checkbox"
@@ -156,7 +160,7 @@ const UsersOnly = () => {
                   <td>{element.full_name}</td>
                   <td>{element.phone}</td>
                   <td className="actions-style">
-                    <button onClick={() => show(element.id)}>show</button>
+                    <button onClick={() => show(element.id)}>{t("usersOnly.show")}</button>
                     <button onClick={() => update(element)}>
                       <RiEdit2Fill />
                     </button>
@@ -178,7 +182,7 @@ const UsersOnly = () => {
         </table>
         {isPopupVisible && (
         <Popup 
-          message="Are you sure you want to delete the selected users?"
+          message={t("usersOnly.message")}
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />

@@ -40,6 +40,10 @@ input[type="number"]::placeholder {
   opacity: 1; 
 }
 
+label{
+  text-align: center;
+}
+
 @media (max-width: 600px) {
   input[type="number"] {
     max-width: 100%; 

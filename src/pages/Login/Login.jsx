@@ -79,7 +79,7 @@ const Login = () => {
                             <div className="loader"><Spinner /></div>
                         ) : (
                             <form onSubmit={handleSubmit}>
-                                <label htmlFor="phone">Email:</label>
+                                <label htmlFor="phone">Email</label>
                                 <input
                                     type="text"
                                     id="phone"
@@ -90,7 +90,7 @@ const Login = () => {
                                     required
                                 />
 
-                                <label htmlFor="password">Password:</label>
+                                <label htmlFor="password">Password</label>
                                 <input
                                     type="password"
                                     id="password"

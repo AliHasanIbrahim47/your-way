@@ -4,8 +4,10 @@ import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const EditLine = () => {
+  const [t, i18n] = useTranslation("global");
   const [point_a, setpoint_a] = useState("");
   const [point_b, setpoint_b] = useState("");
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
@@ -74,9 +76,9 @@ const EditLine = () => {
           <div className="loader">Editing Line ...</div> 
         ) : ( */}
           <>
-        <h1>Edit Line</h1>
+        <h1>{t("lines.edit")}</h1>
         <form onSubmit={sendData}>
-          <label htmlFor="point_a">Deprature Place</label>
+          <label htmlFor="point_a">{t("lines.dPlace")}</label>
           <input
             type="text"
             id="point_a"
@@ -85,7 +87,7 @@ const EditLine = () => {
             onChange={(event) => setpoint_a(event.target.value)}
             required
           />
-          <label htmlFor="point_b">Arrival Place</label>
+          <label htmlFor="point_b">{t("lines.aPlace")}</label>
           <input
             type="text"
             id="point_b"
@@ -94,11 +96,11 @@ const EditLine = () => {
             onChange={(event) => setpoint_b(event.target.value)}
             required
           />
-          <input type="submit" value={loading ? "Editing..." : "Edit Line"}  />
+          <input type="submit"value={loading ? t("banners.editing") : t("lines.edit")}  />
         </form>
         {isPopupVisible && (
               <Popup 
-                message="Are you sure you want to edit this line?"
+                message={t("lines.editMessage")}
                 onConfirm={confirmDelete}
                 onCancel={cancelDelete}
               />

@@ -4,8 +4,10 @@ import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const AddDriver = () => {
+  const [t, i18n] = useTranslation("global");
   const [full_name, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -97,10 +99,10 @@ const AddDriver = () => {
           <div className="loader">adding Driver ...</div>
         ) : ( */}
           <>
-            <h1>Add Driver</h1>
+            <h1>{t("addusers.h2")}</h1>
             {/* {error && <p className="error">{error}</p>}  */}
             <form onSubmit={sendData}>
-              <label htmlFor="full_name">Full Name</label>
+              <label htmlFor="full_name">{t("addusers.name")}</label>
               <input
                 type="text"
                 id="full_name"
@@ -109,7 +111,7 @@ const AddDriver = () => {
                 onChange={(event) => setFullName(event.target.value)}
                 required
               />
-              <label htmlFor="phone">Phone</label>
+              <label htmlFor="phone">{t("addusers.phone")}</label>
               <input
                 type="number"
                 id="phone"
@@ -118,7 +120,7 @@ const AddDriver = () => {
                 onChange={(event) => setPhone(event.target.value)}
                 required
               />
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">{t("addusers.password")}</label>
               <input
                 type="text"
                 id="password"
@@ -127,7 +129,7 @@ const AddDriver = () => {
                 onChange={(event) => setPassword(event.target.value)}
                 required
               />
-              <label htmlFor="brand">Brand</label>
+              <label htmlFor="brand">{t("addusers.brand")}</label>
               <input
                 type="text"
                 id="brand"
@@ -136,7 +138,7 @@ const AddDriver = () => {
                 onChange={(event) => setBrand(event.target.value)}
                 required
               />
-              <label htmlFor="model">Model</label>
+              <label htmlFor="model">{t("addusers.model")}</label>
               <input
                 type="text"
                 id="model"
@@ -145,7 +147,7 @@ const AddDriver = () => {
                 onChange={(event) => setModel(event.target.value)}
                 required
               />
-              <label htmlFor="capacity">Capacity</label>
+              <label htmlFor="capacity">{t("addusers.capacity")}</label>
               <input
                 type="number"
                 id="capacity"
@@ -154,25 +156,25 @@ const AddDriver = () => {
                 onChange={(event) => setCapacity(event.target.value)}
                 required
               />
-              <label htmlFor="line_id">Line</label>
+              <label htmlFor="line_id">{t("addusers.line")}</label>
               <select
                 id="line_id"
                 value={line_id}
                 onChange={(event) => setLineId(event.target.value)}
                 required
               >
-                <option value="">Select Line</option>
+                <option value="">{t("addusers.sline")}</option>
                 {lines.map((line) => (
                   <option key={line.id} value={line.id}>
                     from {line.point_a} to {line.point_b}
                   </option>
                 ))}
               </select>
-              <input type="submit" value={loading ? "Adding..." : "Add Driver"} />
+              <input type="submit" value={loading ? t("addusers.adding") : t("addusers.add2")} />
             </form>
             {isPopupVisible && (
               <Popup 
-                message="Are you sure you want to add this driver?"
+                message={t("addusers.message2")}
                 onConfirm={confirmDelete}
                 onCancel={cancelDelete}
               />

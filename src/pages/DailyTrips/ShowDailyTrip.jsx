@@ -3,11 +3,18 @@ import Sidebar from "../../components/Sidebar";
 import { Link, useParams } from "react-router-dom";
 import "./ShowDailyTrip.css";
 import axios from "axios";
+import Spinner from "../../components/Spinner";
+import { useTranslation } from 'react-i18next';
 
 const ShowDailyTrips = () => {
+  const [t, i18n] = useTranslation("global");
+
   const { id } = useParams();
+
   const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
+
+  const [loader, setLoader] = useState(true);
 
   const fetchUsers = async () => {
     try {
@@ -18,11 +25,13 @@ const ShowDailyTrips = () => {
       });
       if (Array.isArray(response.data.data)) {
         setUsers(response.data.data);
+        setLoader(false);
       } else {
         console.error('Response data is not an array');
       }
     } catch (error) {
       console.error('Error fetching travels', error);
+      setLoader(false);
     }
   };
 
@@ -30,22 +39,34 @@ const ShowDailyTrips = () => {
     fetchUsers();
   }, [token]);
 
+  if (loader) {
+    return (
+      <div className="showuser">
+        <Sidebar />
+        <div className="container loader">
+          <h1>{t("showuser.load")}</h1>
+          <Spinner />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="users">
       <Sidebar />
       <div className="container">
         <div className="header">
-          <h1>All Lines for Travel: {id}</h1>
+          <h1>{t("travels.travelLineShow")}:</h1>
           <div className="links">
-            <Link to="/travels">Go Back</Link>
+            <Link to="/travels">{t("driversOnly.back")}</Link>
           </div>
         </div>
         <table>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Going From</th>
-              <th>Going To</th>
+              <th>{t("usersOnly.id")}</th>
+              <th>{t("travels.going_from")}</th>
+              <th>{t("travels.going_to")}</th>
             </tr>
           </thead>
           <tbody>

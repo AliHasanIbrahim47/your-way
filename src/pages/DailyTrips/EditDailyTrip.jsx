@@ -4,10 +4,13 @@ import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const EditDailyTrip = () => {
+  const [t, i18n] = useTranslation("global");
+
   const { id } = useParams();
-  
+
   const [starting_date, setstarting_date] = useState("");
   const [going_from, setgoing_from] = useState("");
   const [ending_date, setending_date] = useState("");
@@ -115,9 +118,9 @@ const EditDailyTrip = () => {
           <div className="loader">Adding Travel ...</div> 
         ) : ( */}
           <>
-        <h1>Add Travel</h1>
+        <h1>{t("travels.edit")}</h1>
         <form onSubmit={sendData}>
-          <label htmlFor="starting_date">Starting Date</label>
+          <label htmlFor="starting_date">{t("travels.sDate")}</label>
           <input
             type="date"
             id="starting_date"
@@ -126,7 +129,7 @@ const EditDailyTrip = () => {
             onChange={(event) => setstarting_date(event.target.value)}
             required
           />
-          <label htmlFor="ending_date">Ending Date</label>
+          <label htmlFor="ending_date">{t("travels.eDate")}</label>
           <input
             type="date"
             id="ending_date"
@@ -135,7 +138,7 @@ const EditDailyTrip = () => {
             onChange={(event) => setending_date(event.target.value)}
             required
           />
-          <label htmlFor="going_from">Going From</label>
+          <label htmlFor="going_from">{t("travels.going_from")}</label>
           <input
             type="text"
             id="going_from"
@@ -144,7 +147,7 @@ const EditDailyTrip = () => {
             onChange={(event) => setgoing_from(event.target.value)}
             required
           />
-          <label htmlFor="returning_from">Returning From</label>
+          <label htmlFor="returning_from">{t("travels.going_to")}</label>
           <input
             type="text"
             id="returning_from"
@@ -153,7 +156,7 @@ const EditDailyTrip = () => {
             onChange={(event) => setreturning_from(event.target.value)}
             required
           />
-          <label htmlFor="going_time">Going Time</label>
+          <label htmlFor="going_time">{t("travels.sTime")}</label>
           <input
             type="time"
             id="going_time"
@@ -162,7 +165,7 @@ const EditDailyTrip = () => {
             onChange={(event) => setgoing_time(event.target.value)}
             required
           />
-          <label htmlFor="returning_time">Returning Time</label>
+          <label htmlFor="returning_time">{t("travels.eTime")}</label>
           <input
             type="time"
             id="returning_time"
@@ -171,14 +174,14 @@ const EditDailyTrip = () => {
             onChange={(event) => setreturning_time(event.target.value)}
             required
           />
-          <label htmlFor="bus_id">Car</label>
+          <label htmlFor="bus_id">{t("travels.car")}</label>
           <select
             id="bus_id"
             value={bus_id}
             onChange={(event) => setbus_id(event.target.value)}
             required
           >
-            <option value="">Select Car</option>
+            <option value="">{t("travels.sCar")}</option>
             {users.map(user => (
               user.bus.map(bus => (
                 <option key={bus.id} value={bus.id}>
@@ -187,21 +190,21 @@ const EditDailyTrip = () => {
               ))
             ))}
           </select>
-          <label htmlFor="line_id">Line</label>
+          <label htmlFor="line_id">{t("travels.line")}</label>
           <select
             id="line_id"
             value={line_id}
             onChange={(event) => setline_id(event.target.value)}
             required
           >
-            <option value="">Select Line</option>
+            <option value="">{t("travels.sLine")}</option>
             {lines.map(line => (
               <option key={line.id} value={line.id}>
                 {`From: ${line.point_a}, To: ${line.point_b}`}
               </option>
             ))}
           </select>
-          <label htmlFor="type">Type</label>
+          <label htmlFor="type">{t("travels.type")}</label>
           <input
             type="text"
             id="type"
@@ -209,7 +212,7 @@ const EditDailyTrip = () => {
             value={type}
             onChange={(event) => settype(event.target.value)}
           />
-          <label htmlFor="status">Status</label>
+          <label htmlFor="status">{t("travels.status")}</label>
           <input
             type="text"
             id="status"
@@ -218,14 +221,14 @@ const EditDailyTrip = () => {
             onChange={(event) => setstatus(event.target.value)}
             required
           />
-          <input type="submit" value={loading ? "Editing..." : "Edit Travel"} />
+          <input type="submit" value={loading ? t("editusers.editing") : t("travels.edit")} />
         </form>
       </>
       {/* )} */}
       </div>
       {isPopupVisible && (
         <Popup 
-          message="Are you sure you want to edit this Travel?"
+          message={t("travels.editMessage")}
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />

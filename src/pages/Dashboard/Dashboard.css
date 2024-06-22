@@ -1,0 +1,57 @@
+.dash {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.dash > .sidebar {
+    width: 250px;
+    flex-shrink: 0;
+}
+
+.dash .container {
+    flex: 1;
+    padding: 20px;
+    margin-left: 250px;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.dash .container img {
+    width: 200px;
+    height: 250px;
+}
+
+.dash button {
+    color: #1D1C1C;
+    width: 100px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #BA8D38;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.dash button:hover {
+    color: white;
+    background-color: #1D1C1C;
+}
+
+@media (max-width: 768px) {
+    .dash {
+        flex-direction: column;
+    }
+
+    .dash .container {
+        margin-left: 0;
+        padding: 10px;
+    }
+}

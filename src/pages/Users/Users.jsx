@@ -9,8 +9,10 @@ import axios from "axios";
 import { FaUser } from "react-icons/fa";
 import { FaCar } from "react-icons/fa";
 import Spinner from "../../components/Spinner";
+import { useTranslation } from "react-i18next";
 
 const Users = () => {
+  const [t, i18n] = useTranslation("global");
   const navigate = useNavigate();
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -122,12 +124,20 @@ const Users = () => {
       <div className="users">
         <Sidebar />
         <div className="container">
-          <h1>There are no Drivers</h1>
+          <h1>{t("driversOnly.noDrivers")}</h1>
           <div className="links">
-            <Link to="users-only"><FaUser id="fa"/> Users</Link>
-            <Link to="drivers-only"><FaCar id="fa"/> Drivers</Link>
+            <Link to="users-only"><FaUser id="fa"/> {t("users.users")}</Link>
+            <Link to="drivers-only"><FaCar id="fa"/> {t("users.drivers")}</Link>
             <div className="travel-links">
-              <Link to="drivers-unactive">Inactive Drivers</Link>
+              <Link to="drivers-unactive">{t("nonAccepted.h1")}</Link>
+            </div>
+            <div className="filter">
+              <label htmlFor="userType">{t("users.filter")}: </label>
+              <select id="userType" value={selectedType} onChange={handleTypeChange}>
+                {/* <option value="all">All</option> */}
+                <option value="user">{t("users.user")}</option>
+                <option value="driver">{t("users.driver")}</option>
+              </select>
             </div>
           </div>
         </div>
@@ -141,7 +151,7 @@ const Users = () => {
         <Sidebar />
         <div className="continer">
           <h1 className="loader">
-            Loading Data <Spinner />
+            {t("usersOnly.load")} <Spinner />
           </h1>
         </div>
       </div>
@@ -153,28 +163,28 @@ const Users = () => {
       <Sidebar />
       <div className="container">
       {loading && !loader ? (
-          <div className="loader">Deleting Users <Spinner /></div> 
+          <div className="loader">{t("usersOnly.deleting")} <Spinner /></div> 
         ) : (
           <>
         <div className="header">
-          <h1>All Users</h1>
+          <h1>{t("users.h1")}</h1>
           <div className="links">
-            <Link to="users-only"><FaUser id="fa"/> Users</Link>
-            <Link to="drivers-only"><FaCar id="fa"/> Drivers</Link>
+            <Link to="users-only"><FaUser id="fa"/> {t("users.users")}</Link>
+            <Link to="drivers-only"><FaCar id="fa"/> {t("users.drivers")}</Link>
             <div className="travel-links">
-              <Link to="drivers-unactive">Inactive Drivers</Link>
+              <Link to="drivers-unactive">{t("nonAccepted.h1")}</Link>
             </div>
           </div>
           <div className="links">
-            <Link to="/users/add">ADD User</Link>
-            <Link to="/drivers/add">ADD Driver</Link>
-            <button onClick={handleDeleteSelected}>Delete Selected</button>
+            <Link to="/users/add">{t("usersOnly.add")}</Link>
+            <Link to="/drivers/add">{t("driversOnly.add")}</Link>
+            <button onClick={handleDeleteSelected}>{t("usersOnly.deleteS")}</button>
             <div className="filter">
-            <label htmlFor="userType">Filter by Type: </label>
+            <label htmlFor="userType">{t("users.filter")}: </label>
             <select id="userType" value={selectedType} onChange={handleTypeChange}>
               {/* <option value="all">All</option> */}
-              <option value="user">User</option>
-              <option value="driver">Driver</option>
+              <option value="user">{t("users.user")}</option>
+              <option value="driver">{t("users.driver")}</option>
             </select>
           </div>
           </div>
@@ -184,10 +194,10 @@ const Users = () => {
         <table>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Phone Number</th>
-              <th>Actions</th>
+              <th>{t("usersOnly.id")}</th>
+              <th>{t("usersOnly.name")}</th>
+              <th>{t("usersOnly.phone")}</th>
+              <th>{t("usersOnly.actions")}</th>
               <th>
                 <input
                   type="checkbox"
@@ -205,7 +215,7 @@ const Users = () => {
                   <td>{element.full_name}</td>
                   <td>{element.phone}</td>
                   <td className="actions-style">
-                    <button onClick={() => show(element.id)}>show</button>
+                    <button onClick={() => show(element.id)}>{t("usersOnly.show")}</button>
                     <button onClick={() => update(element)}>
                       <RiEdit2Fill />
                     </button>
@@ -227,7 +237,7 @@ const Users = () => {
         </table>
         {isPopupVisible && (
         <Popup 
-          message="Are you sure you want to delete the selected users?"
+          message={t("usersOnly.message")}
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />

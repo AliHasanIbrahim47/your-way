@@ -8,8 +8,10 @@ import Popup from '../../components/Popup';
 import axios from "axios";
 import Moment from "react-moment";
 import Spinner from "../../components/Spinner";
+import { useTranslation } from "react-i18next";
 
 const DailyTrips = () => {
+  const [t, i18n] = useTranslation("global");
   const navigate = useNavigate();
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -121,7 +123,7 @@ const DailyTrips = () => {
       <div className="users">
         <Sidebar />
         <div className="container">
-          <h1 className="loader">Loading data <Spinner/></h1>
+          <h1 className="loader">{t("usersOnly.load")}  <Spinner/></h1>
           
         </div>
       </div>
@@ -133,32 +135,32 @@ const DailyTrips = () => {
       <Sidebar />
       <div className="container">
       {loading && !loader ? (
-          <div className="loader">Deleting Travels <Spinner /></div> 
+          <div className="loader">{t("travels.deleting")} <Spinner /></div> 
         ) : (
           <>
         <div className="header">
-        <h1>All Travels</h1>
-        <Link to="/travels/private">Private</Link>
+        <h1>{t("travels.h1")}</h1>
+        <Link to="/travels/private">{t("travels.private")}</Link>
         <div className="travel-links">
-          <Link to="/travels/reservations">Reservations</Link>
+          <Link to="/travels/reservations">{t("travels.res")}</Link>
         </div>
         <div className="links">
-          <Link to="/travels/add">ADD</Link>
-          <button onClick={handleDeleteSelected}>Delete Selected</button>
+          <Link to="/travels/add">{t("travels.add")}</Link>
+          <button onClick={handleDeleteSelected}>{t("usersOnly.deleteS")}</button>
         </div>
       </div>
       <div className="table-container">
         <table>
           <thead>
             <tr>
-              <th>Starting Date</th>
-              <th>Going Time</th>
-              <th>Going From</th>
-              <th>Ending Date</th>
-              <th>Returning Time</th>
-              <th>Returning From</th>
-              <th>Status</th>
-              <th>Actions</th>
+              <th>{t("travels.sDate")}</th>
+              <th>{t("travels.sTime")}</th>
+              <th>{t("travels.going_from")}</th>
+              <th>{t("travels.aDate")}</th>
+              <th>{t("travels.aTime")}</th>
+              <th>{t("travels.going_to")}</th>
+              <th>{t("travels.status")}</th>
+              <th>{t("usersOnly.actions")}</th>
               <th>
                 <input
                   type="checkbox"
@@ -179,7 +181,7 @@ const DailyTrips = () => {
                 <td>{element.returning_from}</td>
                 <td>{element.status}</td>
                 <td className="actions-style">
-                  <button onClick={() => show(element.id)}>show</button>
+                  <button onClick={() => show(element.id)}>{t("usersOnly.show")}</button>
                   <button onClick={() => update(element)}>
                     <RiEdit2Fill />
                   </button>
@@ -201,7 +203,7 @@ const DailyTrips = () => {
       </div>
         {isPopupVisible && (
         <Popup 
-          message="Are you sure you want to delete the selected travels?"
+          message={t("travels.message")}
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />

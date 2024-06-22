@@ -4,8 +4,10 @@ import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const AddBrand = () => {
+  const [t, i18n] = useTranslation("global");
   const [title_en, setTitleEn] = useState("");
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -82,9 +84,9 @@ const AddBrand = () => {
           <div className="loader">Adding banner ...</div> 
         ) : ( */}
           <>
-            <h1>Add Banner</h1>
+            <h1>{t("banners.add")}</h1>
             <form onSubmit={sendData}>
-              <label htmlFor="title_en">Title English</label>
+              <label htmlFor="title_en">{t("banners.titleEn")}</label>
               <input
                 type="text"
                 id="title_en"
@@ -92,7 +94,7 @@ const AddBrand = () => {
                 onChange={(event) => setTitleEn(event.target.value)}
                 required
               />
-              <label htmlFor="title_ar">Title Arabic</label>
+              <label htmlFor="title_ar">{t("banners.titleAr")}</label>
               <input
                 type="text"
                 id="title_ar"
@@ -100,7 +102,7 @@ const AddBrand = () => {
                 onChange={(event) => setTitleAr(event.target.value)}
                 required
               />
-              <label htmlFor="image">Image</label>
+              <label htmlFor="image">{t("banners.image")}</label>
               <input
                 type="file"
                 id="image"
@@ -112,14 +114,14 @@ const AddBrand = () => {
               {imagePreview && (
                 <div className="image-preview">
                   <img src={imagePreview} alt="Preview" />
-                  <button type="button" onClick={removeImage}>Remove Image</button>
+                  <button type="button" onClick={removeImage}>{t("banners.remove")}</button>
                 </div>
               )}
-              <input type="submit" value={loading ? "Adding..." : "Add Banner"}  />
+              <input type="submit" value={loading ? t("editusers.editing") : t("banners.add")}  />
             </form>
             {isPopupVisible && (
               <Popup 
-                message="Are you sure you want to add this banner?"
+                message={t("banners.addMessage")}
                 onConfirm={confirmAdd}
                 onCancel={cancelAdd}
               />

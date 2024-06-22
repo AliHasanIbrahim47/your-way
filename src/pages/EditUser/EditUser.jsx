@@ -4,8 +4,10 @@ import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import { useNavigate, useParams, useLocation  } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const EditUser= () => {
+  const [t, i18n] = useTranslation("global");
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -79,9 +81,9 @@ const EditUser= () => {
           <div className="loader">Editing User ...</div> 
         ) : ( */}
           <>
-        <h1>Edit User {full_name}</h1>
+        <h1>{t("editusers.h1")} {full_name}</h1>
         <form onSubmit={sendData}>
-          <label htmlFor="full_name">Full Name</label>
+          <label htmlFor="full_name">{t("editusers.name")}</label>
           <input
             type="text"
             id="full_name"
@@ -90,7 +92,7 @@ const EditUser= () => {
             onChange={(event) => setFull_name(event.target.value)}
             required
           />
-          <label htmlFor="phone">Phone</label>
+          <label htmlFor="phone">{t("editusers.phone")}</label>
           <input
             type="number"
             id="phone"
@@ -99,7 +101,7 @@ const EditUser= () => {
             onChange={(event) => setPhone(event.target.value)}
             required
           />
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">{t("editusers.password")}</label>
           <input
             type="text"
             id="password"
@@ -117,21 +119,21 @@ const EditUser= () => {
             onChange={(event) => setIs_activated(event.target.value)}
             required
           /> */}
-          <label htmlFor="is_activated">Is Activated</label>
+          <label htmlFor="is_activated">{t("editusers.isActivated")}</label>
           <select
             id="is_activated"
             value={is_activated}
             onChange={(event) => setIs_activated(event.target.value)}
             required
           >
-            <option value="true">true</option>
-            <option value="false">false</option>
+            <option value="true">{t("editusers.true")}</option>
+            <option value="false">{t("editusers.false")}</option>
           </select>
-          <input type="submit" value={loading ? "Editing..." : "Edit User"}  />
+          <input type="submit" value={loading ? t("editusers.editing") : t("editusers.edit")}  />
         </form>
       {isPopupVisible && (
         <Popup 
-          message="Are you sure you want to edit this user?"
+          message={t("editusers.message")}
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />

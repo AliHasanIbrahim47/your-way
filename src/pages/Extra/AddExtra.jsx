@@ -4,8 +4,10 @@ import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const AddExtra = () => {
+  const [t, i18n] = useTranslation("global");
   const [title_en, settitle_en] = useState("");
   const [price, setprice] = useState(null);
   const [title_ar, settitle_ar] = useState("");
@@ -62,9 +64,9 @@ const AddExtra = () => {
           <div className="loader">Adding Extra ...</div> 
         ) : ( */}
           <>
-        <h1>Add Extra</h1>
+        <h1>{t("extra.add")}</h1>
         <form onSubmit={sendData}>
-          <label htmlFor="title_en">Title English</label>
+          <label htmlFor="title_en">{t("banners.titleEn")}</label>
           <input
             type="text"
             id="title_en"
@@ -73,7 +75,7 @@ const AddExtra = () => {
             onChange={(event) => settitle_en(event.target.value)}
             required
           />
-          <label htmlFor="title_ar">Title Arabic</label>
+          <label htmlFor="title_ar">{t("banners.titleAr")}</label>
           <input
             type="text"
             id="title_ar"
@@ -82,7 +84,7 @@ const AddExtra = () => {
             onChange={(event) => settitle_ar(event.target.value)}
             required
           />
-          <label htmlFor="price">Price</label>
+          <label htmlFor="price">{t("extra.price")}</label>
           <input
             type="number"
             id="price"
@@ -91,11 +93,11 @@ const AddExtra = () => {
             onChange={(event) => setprice(event.target.value)}
             required
           />
-          <input type="submit" value={loading ? "Adding..." : "Add Extra"} />
+          <input type="submit" value={loading ? t("addusers.adding") : t("extra.add")} />
         </form>
         {isPopupVisible && (
               <Popup 
-                message="Are you sure you want to add this extra?"
+                message={t("extra.addMessage")}
                 onConfirm={confirmDelete}
                 onCancel={cancelDelete}
               />

@@ -1,0 +1,139 @@
+{
+    "lng": "language",
+    "popup": {
+        "yes": "Yes",
+        "no": "No"
+    },
+    "users": {
+        "h1": "All Users",
+        "users": "Users",
+        "drivers": "Drivers",
+        "travels": "Travels",
+        "lines": "Lines",
+        "banners": "Banners",
+        "extra": "Extra",
+        "logout": "Logout",
+        "filter": "Filter by Type",
+        "user": "User",
+        "driver": "Driver"
+    },
+    "usersOnly": {
+        "load": "Loading data",
+        "deleting": "Deleting Users",
+        "h1": "Users Only",
+        "add": "ADD User",
+        "deleteS": "Delete Selected",
+        "id": "ID",
+        "name": "Name",
+        "phone": "Phone Number",
+        "actions": "Actions",
+        "show": "show",
+        "message": "Are you sure you want to delete the selected users?"
+    },
+    "driversOnly": {
+        "noDrivers": "There are no Drivers",
+        "back": "Go Back",
+        "deleting": "Deleting Drivers",
+        "h1": "Driver Only",
+        "add": "ADD Driver",
+        "message": "Are you sure you want to delete the selected drivers?"
+    },
+    "nonAccepted": {
+        "h1": "Inactive Drivers"
+    },
+    "addusers": {
+        "h1": "Add User",
+        "h2": "AddDriver",
+        "name": "Full Name",
+        "phone": "Phone",
+        "password": "Password",
+        "add1": "Add User",
+        "adding": "Adding ...",
+        "message1": "Are you sure you want to add this user?",
+        "brand": "Brand",
+        "model": "Model",
+        "capacity": "Capacity",
+        "line": "Line",
+        "sline": "Select Line",
+        "add2": "Add Driver",
+        "message2": "Are you sure you want to add this driver?"
+    },
+    "editusers": {
+        "h1": "Edit User",
+        "name": "Full Name",
+        "password": "Password",
+        "phone": "Phone",
+        "isActivated": "Is Activated",
+        "editing": "Editing...",
+        "edit": "Edit User",
+        "ture": "true",
+        "false": "false",
+        "message": "Are you sure you want to edit this user?"
+    },
+    "showuser": {
+        "load": "Loading",
+        "found": "User not Found",
+        "h1": "User Details",
+        "name": "Name",
+        "phone": "Phone"
+    },
+    "banners": {
+        "deleting": "Deleting Banners",
+        "h1": "All Banners",
+        "add": "ADD Banner",
+        "titleEn": "Title in English",
+        "image": "Image",
+        "titleAr": "Title in Arabic",
+        "message": "Are you sure you want to delete the selected Banner?",
+        "edit": "Edit Banner",
+        "remove": "Remove Image",
+        "editMessage": "Are you sure you want to edit this Banner?",
+        "editing": "Editing...",
+        "addMessage": "Are you sure you want to add this Banner?"
+    },
+    "extra": {
+        "deleting": "Deleting Extra",
+        "h1": "ALL Extra",
+        "add": "ADD Extra",
+        "price": "Price",
+        "message": "Are you sure you want to delete the selected Extra?",
+        "edit": "Edit Extra",
+        "editMessage": "Are you sure you want to edit this Extra?",
+        "addMessage": "Are you sure you want to add this Extra?"
+    },
+    "lines": {
+        "deleting": "Deleting Lines",
+        "h1": "ALL Lines",
+        "add": "ADD Line",
+        "dPlace": "Deprature Place",
+        "aPlace": "Arrival Place",
+        "message": "Are you sure you want to delete the selected Lines?",
+        "edit": "Edit Extra",
+        "editMessage": "Are you sure you want to edit this Line?",
+        "addMessage": "Are you sure you want to add this Line?"
+    },
+    "travels": {
+        "deleting": "Deleting Travels",
+        "h1": "ALL Travels",
+        "private": "Private",
+        "res": "Reservations",
+        "add": "ADD Travel",
+        "sDate": "Starting Date",
+        "eDate": "Ending Date",
+        "sTime": "Going Time",
+        "eTime": "Returning Time",
+        "status": "Status",
+        "going_from": "Going From",
+        "going_to": "Going To",
+        "message": "Are you sure you want to delete the selected Travels?",
+        "edit": "Edit Travel",
+        "editMessage": "Are you sure you want to edit this Travel?",
+        "addMessage": "Are you sure you want to add this Travel?",
+        "car": "Car",
+        "sCar": "Select a Car",
+        "line": "Line",
+        "sLine": "Select a Line",
+        "type": "Type",
+        "travelLineShow": "All Lines for Travel"
+    }
+}

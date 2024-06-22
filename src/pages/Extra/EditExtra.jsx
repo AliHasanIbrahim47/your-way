@@ -4,8 +4,10 @@ import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const EditExtra = () => {
+  const [t, i18n] = useTranslation("global");
   const [title_en, settitle_en] = useState("");
   const [price, setprice] = useState(null);
   const [title_ar, settitle_ar] = useState("");
@@ -77,9 +79,9 @@ const EditExtra = () => {
           <div className="loader">Adding Extra ...</div> 
         ) : ( */}
           <>
-        <h1>Edit Extra</h1>
+        <h1>{t("extra.edit")}</h1>
         <form onSubmit={sendData}>
-          <label htmlFor="title_en">Title English</label>
+          <label htmlFor="title_en">{t("banners.titleEn")}</label>
           <input
             type="text"
             id="title_en"
@@ -88,7 +90,7 @@ const EditExtra = () => {
             onChange={(event) => settitle_en(event.target.value)}
             required
           />
-          <label htmlFor="title_ar">Title Arabic</label>
+          <label htmlFor="title_ar">{t("banners.titleAr")}</label>
           <input
             type="text"
             id="title_ar"
@@ -97,7 +99,7 @@ const EditExtra = () => {
             onChange={(event) => settitle_ar(event.target.value)}
             required
           />
-          <label htmlFor="price">Price</label>
+          <label htmlFor="price">{t("extra.price")}</label>
           <input
             type="number"
             id="price"
@@ -106,11 +108,11 @@ const EditExtra = () => {
             onChange={(event) => setprice(event.target.value)}
             required
           />
-          <input type="submit" value={loading ? "Editing..." : "Edit Extra"} />
+          <input type="submit" value={loading ? t("banners.editing") : t("extra.edit")} />
         </form>
         {isPopupVisible && (
               <Popup 
-                message="Are you sure you want to edit this extra?"
+                message={t("extra.editMessage")}
                 onConfirm={confirmDelete}
                 onCancel={cancelDelete}
               />

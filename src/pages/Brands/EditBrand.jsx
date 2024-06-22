@@ -4,8 +4,10 @@ import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const EditBrand = () => {
+  const [t, i18n] = useTranslation("global");
   const [title_en, settitle_en] = useState("");
   const [image, setimage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -96,9 +98,9 @@ const EditBrand = () => {
           <div className="loader">Editing banner ...</div> 
         ) : ( */}
           <>
-            <h1>Edit Banner</h1>
+            <h1>{t("banners.edit")}</h1>
             <form onSubmit={sendData}>
-              <label htmlFor="title_en">Title English</label>
+              <label htmlFor="title_en">{t("banners.titleEn")}</label>
               <input
                 type="text"
                 id="title_en"
@@ -107,7 +109,7 @@ const EditBrand = () => {
                 onChange={(event) => settitle_en(event.target.value)}
                 required
               />
-              <label htmlFor="title_ar">Title Arabic</label>
+              <label htmlFor="title_ar">{t("banners.titleAr")}</label>
               <input
                 type="text"
                 id="title_ar"
@@ -116,7 +118,7 @@ const EditBrand = () => {
                 onChange={(event) => settitle_ar(event.target.value)}
                 required
               />
-              <label htmlFor="image">Image</label>
+              <label htmlFor="image">{t("banners.image")}</label>
               <input
                 type="file"
                 id="image"
@@ -127,14 +129,14 @@ const EditBrand = () => {
               {imagePreview && (
                 <div className="image-preview">
                   <img src={imagePreview} alt="Preview" />
-                  <button type="button" onClick={removeImage}>Remove Image</button>
+                  <button type="button" onClick={removeImage}>{t("banners.remove")}</button>
                   </div>
               )}
-              <input type="submit" value={loading ? "Editing..." : "Edit Banner"} />
+              <input type="submit" value={loading ? t("banners.editing") : t("banners.edit")} />
             </form>
             {isPopupVisible && (
               <Popup 
-                message="Are you sure you want to edit this banner?"
+                message={t("banners.editMessage")}
                 onConfirm={confirmEdit}
                 onCancel={cancelEdit}
               />

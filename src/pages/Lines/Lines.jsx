@@ -7,8 +7,10 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import Spinner from "../../components/Spinner";
+import { useTranslation } from "react-i18next";
 
 const Lines = () => {
+  const [t, i18n] = useTranslation("global");
   const navigate = useNavigate();
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -109,7 +111,7 @@ const Lines = () => {
       <div className="users">
         <Sidebar />
         <div className="container">
-          <h1 className="loader">Loading data <Spinner /></h1>
+          <h1 className="loader">{t("usersOnly.load")} <Spinner /></h1>
           
         </div>
       </div>
@@ -121,23 +123,23 @@ const Lines = () => {
       <Sidebar />
       <div className="container">
       {loading ? (
-          <div className="loader">Deleting Line <Spinner /></div> 
+          <div className="loader">{t("lines.deleting")} <Spinner /></div> 
         ) : (
           <>
         <div className="header">
-          <h1>All Lines</h1>
+          <h1>{t("lines.h1")}</h1>
           <div className="links">
-            <Link to="/lines/add">ADD</Link>
-            <button onClick={handleDeleteSelected}>Delete Selected</button>
+            <Link to="/lines/add">{t("lines.add")}</Link>
+            <button onClick={handleDeleteSelected}>{t("usersOnly.deleteS")}</button>
           </div>
         </div>
         <table>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Deprature Place</th>
-              <th>Arrival Pace</th>
-              <th>Actions</th>
+              <th>{t("usersOnly.id")}</th>
+              <th>{t("lines.dPlace")}</th>
+              <th>{t("lines.aPlace")}</th>
+              <th>{t("usersOnly.actions")}</th>
               <th>
                 <input
                   type="checkbox"

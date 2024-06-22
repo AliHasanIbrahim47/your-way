@@ -4,8 +4,10 @@ import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const AddLine = () => {
+  const [t, i18n] = useTranslation("global");
   const [point_a, setpoint_a] = useState("");
   const [point_b, setpoint_b] = useState("");
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
@@ -60,9 +62,9 @@ const AddLine = () => {
           <div className="loader">Adding Line ...</div> 
         ) : ( */}
           <>
-        <h1>Add Line</h1>
+        <h1>{t("lines.add")}</h1>
         <form onSubmit={sendData}>
-          <label htmlFor="point_a">Deprature Place</label>
+          <label htmlFor="point_a">{t("lines.dPlace")}</label>
           <input
             type="text"
             id="point_a"
@@ -72,7 +74,7 @@ const AddLine = () => {
             required
           />
 
-          <label htmlFor="point_b">Arival Place</label>
+          <label htmlFor="point_b">{t("lines.aPlace")}</label>
           <input
             type="text"
             id="point_b"
@@ -82,11 +84,11 @@ const AddLine = () => {
             required
           />
 
-          <input type="submit" value={loading ? "Adding..." : "Add Line"}  />
+          <input type="submit"  value={loading ? t("addusers.adding") : t("lines.add")}  />
         </form>
       {isPopupVisible && (
         <Popup 
-          message="Are you sure you want to add this line?"
+          message={t("lines.addMessage")}
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />

@@ -5,9 +5,12 @@ import "./Users.css";
 import { RiEdit2Fill } from "react-icons/ri";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
-import axios from "axios"; 
+import axios from "axios";
+import Spinner from "../../components/Spinner";
+import { useTranslation } from "react-i18next"; 
 
 const DriversOnly = () => {
+  const [t, i18n] = useTranslation("global");
   const navigate = useNavigate();
   const [selectedUsers, setSelectedUsers] = useState([]);;
   const [selectedUser, setSelectedUser] = useState(null);
@@ -109,9 +112,9 @@ const DriversOnly = () => {
       <div className="users">
         <Sidebar />
         <div className="container">
-          <h1>There are no Drivers</h1>
+          <h1>{t("driversOnly.noDrivers")}</h1>
           <div className="links">
-            <button className="goback" onClick={() => {navigate("/users")}}>Go Back</button>
+            <button className="goback" onClick={() => {navigate("/users")}}>{t("driversOnly.back")}</button>
           </div>
         </div>
       </div>
@@ -123,7 +126,7 @@ const DriversOnly = () => {
       <div className="users">
         <Sidebar />
         <div className="container">
-          <h1>Loading data ...</h1>
+          <h1>{t("usersOnly.load")} <Spinner /></h1>
         </div>
       </div>
     );
@@ -134,23 +137,23 @@ const DriversOnly = () => {
       <Sidebar />
       <div className="container">
       {loading && !loader ? (
-          <div className="loader">Deleting Users ...</div> 
+          <div className="loader">{t("driversOnly.deleting")} <Spinner /></div> 
         ) : (
           <>
         <div className="header">
-          <h1>Drivers Only</h1>
+          <h1>{t("driversOnly.h1")}</h1>
           <div className="links">
-            <Link to="/drivers/add">ADD Driver</Link>
-            <button onClick={handleDeleteSelected}>Delete Selected</button>
+            <Link to="/drivers/add">{t("driversOnly.add")}</Link>
+            <button onClick={handleDeleteSelected}>{t("usersOnly.deleteS")}</button>
           </div>
         </div>
         <table>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Phone Number</th>
-              <th>Actions</th>
+              <th>{t("usersOnly.id")}</th>
+              <th>{t("usersOnly.name")}</th>
+              <th>{t("usersOnly.phone")}</th>
+              <th>{t("usersOnly.actions")}</th>
               <th>
                 <input
                   type="checkbox"
@@ -168,7 +171,7 @@ const DriversOnly = () => {
                   <td>{element.full_name}</td>
                   <td>{element.phone}</td>
                   <td className="actions-style">
-                    <button onClick={() => show(element.id)}>show</button>
+                    <button onClick={() => show(element.id)}>{t("usersOnly.show")}</button>
                     <button onClick={() => update(element)}>
                       <RiEdit2Fill />
                     </button>
@@ -190,7 +193,7 @@ const DriversOnly = () => {
         </table>
       {isPopupVisible && (
         <Popup 
-          message="Are you sure you want to delete the selected drivers?"
+          message={t("driversOnly.message")}
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />

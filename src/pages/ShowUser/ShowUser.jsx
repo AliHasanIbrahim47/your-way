@@ -3,8 +3,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 import './ShowUser.css';
 import axios from 'axios';
+import Spinner from "../../components/Spinner";
+import { useTranslation } from 'react-i18next';
 
 const ShowUser = () => {
+  const [t, i18n] = useTranslation("global");
   const [loader, setLoader] = useState(true);
   const [user, setUser] = useState(null);
   const token = localStorage.getItem('token');
@@ -41,7 +44,7 @@ const ShowUser = () => {
       <div className="showuser">
         <Sidebar />
         <div className="container">
-          <h1>Loading...</h1>
+          <h1>{t("showuser.load")} <Spinner /></h1>
         </div>
       </div>
     );
@@ -52,7 +55,7 @@ const ShowUser = () => {
       <div className="showuser">
         <Sidebar />
         <div className="container">
-          <h1>User Not Found</h1>
+          <h1>{t("showuser.found")}</h1>
         </div>
       </div>
     );
@@ -62,10 +65,10 @@ const ShowUser = () => {
     <div className="showuser">
       <Sidebar />
       <div className="container">
-        <h1>User Details</h1>
+        <h1>{t("showuser.h1")}</h1>
         <div className="user-details">
-          <p><strong>Name:</strong> {user.full_name}</p>
-          <p><strong>Phone:</strong> {user.phone}</p>
+          <p><strong>{t("showuser.name")}:</strong> {user.full_name}</p>
+          <p><strong>{t("showuser.phone")}:</strong> {user.phone}</p>//
         </div>
         {/* <div className="trips-section">
           <h2>Previous Trips</h2>
