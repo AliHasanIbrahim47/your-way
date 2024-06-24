@@ -8,6 +8,7 @@ import Popup from '../../components/Popup';
 import axios from "axios";
 import Spinner from "../../components/Spinner";
 import { useTranslation } from "react-i18next"; 
+import { IoMdCloseCircle } from "react-icons/io";
 
 const DriversOnly = () => {
   const [t, i18n] = useTranslation("global");
@@ -95,7 +96,7 @@ const DriversOnly = () => {
   };
 
   const update = (element) => {
-    navigate(`/users/${element.id}/edit`, { state: { user: JSON.stringify(element) } });
+    navigate(`/drivers/${element.id}/edit`, { state: { user: JSON.stringify(element) } });
   };
 
   useEffect(() => {
@@ -184,7 +185,7 @@ const DriversOnly = () => {
                       type="checkbox"
                       checked={selectedUsers.includes(element.id)}
                       onChange={() => handleSelectUser(element.id)}
-                    />
+                    /><IoMdCloseCircle  id="c" />
                   </td>
                 </tr>
               );

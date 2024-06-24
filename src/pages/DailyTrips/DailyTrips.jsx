@@ -9,6 +9,7 @@ import axios from "axios";
 import Moment from "react-moment";
 import Spinner from "../../components/Spinner";
 import { useTranslation } from "react-i18next";
+import { IoMdCloseCircle } from "react-icons/io";
 
 const DailyTrips = () => {
   const [t, i18n] = useTranslation("global");
@@ -196,7 +197,7 @@ const DailyTrips = () => {
                     type="checkbox"
                     checked={selectedUsers.includes(element.id)}
                     onChange={() => handleSelectUser(element.id)}
-                  />
+                  /> <IoMdCloseCircle  id="c" />
                 </td>
               </tr>
             ))}

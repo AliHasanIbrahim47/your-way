@@ -163,6 +163,7 @@
     },
     "reservations": {
         "title": "Reservations",
+        "h1": "All Reservations",
         "add": "ADD",
         "add1": "Add Reservation",
         "acceptMessage": "Are you sure you want to accept the selected Reservations?",
@@ -173,7 +174,12 @@
         "addMessage": "Are you sure you want to add this Reservation?",
         "edit": "Edit Reservation",
         "note": "Note",
-        "editMessage": "Are you sure you want to edit this Reservation?"
+        "editMessage": "Are you sure you want to edit this Reservation?",
+        "filter": "Filter by Status",
+        "accepted": "accepted",
+        "rejected": "rejected",
+        "canceled": "canceled",
+        "pending": "pending"
     },
     "static": {
         "h1": "Static Content",

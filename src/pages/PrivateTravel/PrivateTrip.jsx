@@ -6,11 +6,11 @@ import { RiEdit2Fill } from "react-icons/ri";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import Popup from '../../components/Popup';
 import axios from "axios";
-import Moment from 'react-moment';
 import { FaCheckCircle } from "react-icons/fa";
 import { IoMdCloseCircle } from "react-icons/io";
 import Spinner from "../../components/Spinner";
 import { useTranslation } from 'react-i18next';
+import Moment from "react-moment";
 
 const PrivateTrip = () => {
   const [t, i18n] = useTranslation("global");
@@ -20,6 +20,7 @@ const PrivateTrip = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [deleteORaccept, setdeleteORaccept] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState('pending');
   const [loading, setLoading] = useState(false);
   const [loader, setLoader] = useState(false);
 
@@ -29,7 +30,7 @@ const PrivateTrip = () => {
   const fetchUsers = async () => {
     setLoader(true);
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/private?status=pending', {
+      const response = await axios.get(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/private?status=${selectedStatus}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -40,7 +41,7 @@ const PrivateTrip = () => {
         console.error('Response data is not an array');
       }
     } catch (error) {
-      console.error('Error fetching private travels', error);alert("Error loading data");
+      console.error('Error fetching private', error);alert("Error loading data");
     } finally {
       setLoader(false);
       setLoading(false);
@@ -106,10 +107,10 @@ const PrivateTrip = () => {
             'Content-Type': 'application/json'
           }
         });
-        alert("Deleting Private Travels is successful");
+        alert("Deleting private travels is successful");
         fetchUsers();
       } catch (error) {
-        console.error('Error deleting extra', error); alert("Error loading data");
+        console.error('Error deleting extra', error);
       }
       setSelectedUsers([]);
       setSelectedUser(null);
@@ -130,7 +131,7 @@ const PrivateTrip = () => {
         alert("Accepting Private Travels is successful");
         fetchUsers();
       } catch (error) {
-        alert("Error Accepting Private Travels please try again")
+        alert("Error accepting Private Travels please try again");
       }
       setAcceptedUser([]);
       setLoading(false);
@@ -152,7 +153,11 @@ const PrivateTrip = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, [token]);
+  }, [token, selectedStatus]);
+
+  const handleStatusChange = (event) => {
+    setSelectedStatus(event.target.value);
+  };
 
   const deleteUser = (item) => {
     setSelectedUser(item);
@@ -188,12 +193,21 @@ const PrivateTrip = () => {
         <div className="header">
           <h1>{t("private.h1")}</h1>
           <div className="links">
-            {/* <Link to="/travels/private/add">{t("private.add")}</Link> */}
-            <button onClick={handleDeleteSelected}>{t("usersOnly.deleteS")}</button>
+            <Link to="/travels/reservations/add">{t("reservations.add")}</Link>
+            {/* <button onClick={handleDeleteSelected}>{t("usersOnly.deleteS")}</button> */}
             <button onClick={handleAcceptedSelected}>{t("private.acceptS")}</button>
+            <div className="filter">
+              <label htmlFor="userStatus">{t("reservations.filter")}: </label>
+              <select id="userStatus" value={selectedStatus} onChange={handleStatusChange}>
+                <option value="accepted">{t("reservations.accepted")}</option>
+                <option value="rejected">{t("reservations.rejected")}</option>
+                <option value="canceled">{t("reservations.canceled")}</option>
+                <option value="pending">{t("reservations.pending")}</option>
+              </select>
+            </div>
           </div>
         </div>
-        <table>
+        {selectedStatus !== "canceled" && <table>
           <thead>
             <tr>
               <th>{t("private.gDate")}</th>
@@ -202,14 +216,14 @@ const PrivateTrip = () => {
               <th>{t("private.user")}</th>
               <th>{t("private.seats")}</th>
               <th>{t("usersOnly.actions")}</th>
-              <th>
+              {/* <th>
                 <label>{t("private.deleteAll")}</label>
                 <input
                   type="checkbox"
                   onChange={handleSelectAll}
                   checked={selectedUsers.length === users.length}
                 />
-              </th>
+              </th> */}
               <th>
                 <label>{t("private.acceptAll")}</label>
                 <input
@@ -230,23 +244,23 @@ const PrivateTrip = () => {
                 <td>{element.seats}</td>
                 <td className="actions-style">
                   {/* <button onClick={() => show(element.id)}>show</button> */}
-                  {/* <button onClick={() => update(element)}>
-                    <RiEdit2Fill />
-                  </button> */}
                   <button onClick={() => acceptUser(element)}>
                     <FaCheckCircle />
                   </button>
-                  <button onClick={() => deleteUser(element)}>
-                    <RiDeleteBin5Fill />
+                  <button onClick={() => update(element)}>
+                    <RiEdit2Fill />
                   </button>
+                  {/* <button onClick={() => deleteUser(element)}>
+                    <RiDeleteBin5Fill />
+                  </button> */}
                 </td>
-                <td>
+                {/* <td>
                   <input
                     type="checkbox"
                     checked={selectedUsers.includes(element.id)}
                     onChange={() => handleSelectUser(element.id)}
                   /><IoMdCloseCircle  id="c" />
-                </td>
+                </td> */}
                 <td>
                   <input
                     type="checkbox"
@@ -257,11 +271,34 @@ const PrivateTrip = () => {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table>}
+
+        {selectedStatus === "canceled" && <table>
+          <thead>
+            <tr>
+              <th>{t("private.gDate")}</th>
+              <th>{t("private.going_from")}</th>
+              <th>{t("private.going_to")}</th>
+              <th>{t("private.user")}</th>
+              <th>{t("private.seats")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((element, index) => (
+              <tr key={index}>
+                <td><Moment format="YYYY/MM/DD">{element.going_date}</Moment></td>       
+                <td>{element.going_from}</td>                
+                <td>{element.going_to}</td>
+                <td>{element.user.full_name}</td>
+                <td>{element.seats}</td>
+              </tr>
+            ))}
+          </tbody>
+          </table>}
         {isPopupVisible && (
         <Popup 
           message={ deleteORaccept ? t("private.acceptMessage") : 
-                  t("private.deleteMessage")
+            t("private.deleteMessage")
                 }
           onConfirm={confirmDelete}
           onCancel={cancelDelete}

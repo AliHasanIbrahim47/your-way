@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate, useParams, useLocation  } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-const EditUser= () => {
+const EditDriver = () => {
   const [t, i18n] = useTranslation("global");
   const { id } = useParams();
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const EditUser= () => {
   const [full_name, setFull_name] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  // const [is_activated, setIs_activated] = useState("");
+  const [is_activated, setIs_activated] = useState("");
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -25,7 +25,7 @@ const EditUser= () => {
       setFull_name(userData.full_name);
       setPhone(userData.phone);
       setPassword(userData.password);
-      // setIs_activated(userData.is_activated);
+      setIs_activated(userData.is_activated);
     } else {
       // Handle scenario where user data is not passed correctly
       // alert("User data not found in location state");
@@ -44,8 +44,7 @@ const EditUser= () => {
       alert("All fields are required!");
       return;
     }
-    // const data = { full_name, phone, password, is_activated };
-    const data = { full_name, phone, password };
+    const data = { full_name, phone, password, is_activated };
     setLoading(true);
     try {
       await axios.put(
@@ -119,7 +118,7 @@ const EditUser= () => {
             onChange={(event) => setIs_activated(event.target.value)}
             required
           /> */}
-          {/* <label htmlFor="is_activated">{t("editusers.isActivated")}</label>
+          <label htmlFor="is_activated">{t("editusers.isActivated")}</label>
           <select
             id="is_activated"
             value={is_activated}
@@ -128,7 +127,7 @@ const EditUser= () => {
           >
             <option value="true">{t("editusers.true")}</option>
             <option value="false">{t("editusers.false")}</option>
-          </select> */}
+          </select>
           <input type="submit" value={loading ? t("editusers.editing") : t("editusers.edit")}  />
         </form>
       {isPopupVisible && (
@@ -145,4 +144,4 @@ const EditUser= () => {
   );
 };
 
-export default EditUser;
+export default EditDriver;

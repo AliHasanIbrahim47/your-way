@@ -96,6 +96,17 @@
   gap: 10px;
 }
 
+.filter {
+  background-color: #BA8D38;
+  height: 45px;
+  display: flex;
+  border-radius: 5px;
+  padding: 3px;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
 .users a, .users .header button {
   color: #1D1C1C;
   width: 75px;

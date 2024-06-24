@@ -44,6 +44,10 @@ label{
   text-align: center;
 }
 
+#c {
+  margin-left: 5px;
+}
+
 @media (max-width: 600px) {
   input[type="number"] {
     max-width: 100%; 

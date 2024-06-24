@@ -10,6 +10,7 @@ import { FaUser } from "react-icons/fa";
 import { FaCar } from "react-icons/fa";
 import Spinner from "../../components/Spinner";
 import { useTranslation } from "react-i18next";
+import { IoMdCloseCircle } from "react-icons/io";
 
 const Users = () => {
   const [t, i18n] = useTranslation("global");
@@ -101,8 +102,11 @@ const Users = () => {
     navigate(`/users/${id}`);
   };
 
-  const update = (element) => {
-    navigate(`/users/${element.id}/edit`, { state: { user: JSON.stringify(element) } });
+  const update = (element, type) => {
+    if(type === "driver") 
+      navigate(`/drivers/${element.id}/edit`, { state: { user: JSON.stringify(element) } });
+    else  
+      navigate(`/users/${element.id}/edit`, { state: { user: JSON.stringify(element) } });
   };
 
   useEffect(() => {
@@ -215,7 +219,7 @@ const Users = () => {
                   <td>{element.phone}</td>
                   <td className="actions-style">
                     <button onClick={() => show(element.id)}>{t("usersOnly.show")}</button>
-                    <button onClick={() => update(element)}>
+                    <button onClick={() => update(element, element.type)}>
                       <RiEdit2Fill />
                     </button>
                     <button onClick={() => deleteUser(element)}>
@@ -227,7 +231,7 @@ const Users = () => {
                       type="checkbox"
                       checked={selectedUsers.includes(element.id)}
                       onChange={() => handleSelectUser(element.id)}
-                    /> 
+                    /> <IoMdCloseCircle  id="c" />
                   </td>
                 </tr>
               );

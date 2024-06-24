@@ -19,6 +19,7 @@ const Reservation = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [deleteORaccept, setdeleteORaccept] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState('pending');
   const [loading, setLoading] = useState(false);
   const [loader, setLoader] = useState(false);
 
@@ -28,7 +29,7 @@ const Reservation = () => {
   const fetchUsers = async () => {
     setLoader(true);
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations?status=pending', {
+      const response = await axios.get(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations?status=${selectedStatus}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -151,7 +152,11 @@ const Reservation = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, [token]);
+  }, [token, selectedStatus]);
+
+  const handleStatusChange = (event) => {
+    setSelectedStatus(event.target.value);
+  };
 
   const deleteUser = (item) => {
     setSelectedUser(item);
@@ -185,14 +190,23 @@ const Reservation = () => {
         ) : (
           <>
         <div className="header">
-          <h1>All Reservations</h1>
+          <h1>{t("reservations.h1")}</h1>
           <div className="links">
-            {/* <Link to="/travels/reservations/add">{t("reservations.add")}</Link> */}
-            <button onClick={handleDeleteSelected}>{t("usersOnly.deleteS")}</button>
+            <Link to="/travels/reservations/add">{t("reservations.add")}</Link>
+            {/* <button onClick={handleDeleteSelected}>{t("usersOnly.deleteS")}</button> */}
             <button onClick={handleAcceptedSelected}>{t("private.acceptS")}</button>
+            <div className="filter">
+              <label htmlFor="userStatus">{t("reservations.filter")} </label>
+              <select id="userStatus" value={selectedStatus} onChange={handleStatusChange}>
+                <option value="accepted">{t("reservations.accepted")}</option>
+                <option value="rejected">{t("reservations.rejected")}</option>
+                <option value="canceled">{t("reservations.canceled")}</option>
+                <option value="pending">{t("reservations.pending")}</option>
+              </select>
+            </div>
           </div>
         </div>
-        <table>
+        {selectedStatus !== "canceled" && <table>
           <thead>
             <tr>
               <th>{t("usersOnly.id")}</th>
@@ -201,14 +215,14 @@ const Reservation = () => {
               <th>{t("private.user")}</th>
               <th>{t("travels.status")}</th>
               <th>{t("usersOnly.actions")}</th>
-              <th>
+              {/* <th>
                 <label>{t("private.deleteAll")}</label>
                 <input
                   type="checkbox"
                   onChange={handleSelectAll}
                   checked={selectedUsers.length === users.length}
                 />
-              </th>
+              </th> */}
               <th>
                 <label>{t("private.acceptAll")}</label>
                 <input
@@ -235,17 +249,17 @@ const Reservation = () => {
                   <button onClick={() => update(element)}>
                     <RiEdit2Fill />
                   </button>
-                  <button onClick={() => deleteUser(element)}>
+                  {/* <button onClick={() => deleteUser(element)}>
                     <RiDeleteBin5Fill />
-                  </button>
+                  </button> */}
                 </td>
-                <td>
+                {/* <td>
                   <input
                     type="checkbox"
                     checked={selectedUsers.includes(element.id)}
                     onChange={() => handleSelectUser(element.id)}
                   /><IoMdCloseCircle  id="c" />
-                </td>
+                </td> */}
                 <td>
                   <input
                     type="checkbox"
@@ -256,7 +270,30 @@ const Reservation = () => {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table>}
+
+        {selectedStatus === "canceled" && <table>
+          <thead>
+            <tr>
+              <th>{t("usersOnly.id")}</th>
+              <th>{t("private.going_from")}</th>
+              <th>{t("private.going_to")}</th>
+              <th>{t("private.user")}</th>
+              <th>{t("travels.status")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((element, index) => (
+              <tr key={index}>
+                <td>{element.id}</td>
+                <td>{element.travel.going_from}</td> 
+                <td>{element.travel.returning_from}</td>
+                <td>{element.user.full_name}</td>
+                <td>{element.status}</td>
+              </tr>
+            ))}
+          </tbody>
+          </table>}
         {isPopupVisible && (
         <Popup 
           message={ deleteORaccept ? t("reservations.acceptMessage") : 

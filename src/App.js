@@ -41,6 +41,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Static from './pages/static/Static';
 import EditStatic from './pages/static/EditStatic';
+import EditDriver from './pages/EditUser/EditDriver';
 
 function App() {
 
@@ -58,6 +59,7 @@ function App() {
           <Route path="/drivers/add" element={<ProtectedRoute><AddDriver /></ProtectedRoute>} />
           <Route path="/users/:id" element={<ProtectedRoute ><ShowUser /></ProtectedRoute>} />
           <Route path="/users/:id/edit" element={<ProtectedRoute ><EditUser /></ProtectedRoute>} />
+          <Route path="/drivers/:id/edit" element={<ProtectedRoute ><EditDriver /></ProtectedRoute>} />
           <Route path="/users/users-only" element={<ProtectedRoute><UsersOnly /></ProtectedRoute>} />
           <Route path="/users/drivers-only" element={<ProtectedRoute><DriversOnly /></ProtectedRoute>} />
           <Route path="/users/drivers-unactive" element={<ProtectedRoute><UnAcceptedDrivers /></ProtectedRoute>} />

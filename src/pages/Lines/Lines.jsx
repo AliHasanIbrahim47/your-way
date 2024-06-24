@@ -8,6 +8,7 @@ import Popup from '../../components/Popup';
 import axios from "axios";
 import Spinner from "../../components/Spinner";
 import { useTranslation } from "react-i18next";
+import { IoMdCloseCircle } from "react-icons/io";
 
 const Lines = () => {
   const [t, i18n] = useTranslation("global");
@@ -169,7 +170,7 @@ const Lines = () => {
                     type="checkbox"
                     checked={selectedUsers.includes(element.id)}
                     onChange={() => handleSelectUser(element.id)}
-                  />
+                  /> <IoMdCloseCircle  id="c" />
                 </td>
               </tr>
             ))}
