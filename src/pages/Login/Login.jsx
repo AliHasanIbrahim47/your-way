@@ -14,7 +14,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false); 
-    const [loading, setLoading] = useState(false); // Add loader state
+    const [loading, setLoading] = useState(false);
     const { login } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true); // Start loading
+        setLoading(true);
 
         try {
             const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/login', {
@@ -60,22 +60,23 @@ const Login = () => {
                     errRef.current.focus();
                 }
             }
-          setLoading(false); // Stop loading
+          setLoading(false);
+          navigate("/dashboard");
     }
 
     return (
         <div className='login'>
-            { success ? (
+            {/* { success ? (
                 <section>
                     <p>Login Successful</p>
                     <Link to='dashboard'>Go To Dashboard</Link>
                 </section>
-            ) : (
+            ) : ( */}
                     <section>
                         <img src={logo} alt="logo" />
                         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                         {loading ? "" : <h1>Sign In</h1>}
-                        {loading ? ( // Display loader when loading
+                        {loading ? ( 
                             <div className="loader"><Spinner /></div>
                         ) : (
                             <form onSubmit={handleSubmit}>
@@ -102,8 +103,7 @@ const Login = () => {
                             </form>
                         )}
                     </section>
-                )
-            }
+                {/* )} */}
         </div>
     )
 }

@@ -188,7 +188,7 @@ const PrivateTrip = () => {
         <div className="header">
           <h1>{t("private.h1")}</h1>
           <div className="links">
-            <Link to="/travels/private/add">{t("private.add")}</Link>
+            {/* <Link to="/travels/private/add">{t("private.add")}</Link> */}
             <button onClick={handleDeleteSelected}>{t("usersOnly.deleteS")}</button>
             <button onClick={handleAcceptedSelected}>{t("private.acceptS")}</button>
           </div>

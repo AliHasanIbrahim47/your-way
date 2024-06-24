@@ -13,11 +13,13 @@ const AddDailyTrip = () => {
   const [ending_date, setending_date] = useState("");
   const [bus_id, setbus_id] = useState("");
   const [line_id, setline_id] = useState(null);
-  const [type, settype] = useState("");
+  // const [type, settype] = useState("");
   const [status, setstatus] = useState();
   const [returning_from, setreturning_from] = useState("");
   const [going_time, setgoing_time] = useState("");
   const [returning_time, setreturning_time] = useState("");
+  const [starting_pool, setstarting_pool] = useState("");
+  const [returning_pool, setreturning_pool] = useState("");
   const [loading, setLoading] = useState(false);
 
   const [users, setUsers] = useState([]); // State for buses
@@ -73,7 +75,7 @@ const AddDailyTrip = () => {
       alert("All fields are required!");
       return;
     }
-    let data = { starting_date, going_from, ending_date, bus_id, line_id, type, status, returning_from, going_time, returning_time };
+    let data = { starting_date, starting_pool, returning_pool, going_from, ending_date, bus_id, line_id, type:'public', status, returning_from, going_time, returning_time };
     setLoading(true);
     try {
       const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/', 
@@ -89,11 +91,13 @@ const AddDailyTrip = () => {
       setending_date("");
       setbus_id(null);
       setline_id(null);
-      settype("");
+      // settype("");
       setstatus("");
       setreturning_time("");
       setgoing_time("");
       setreturning_from("");
+      setreturning_pool("");
+      setstarting_pool("");
       alert("Adding Travel is successful");
       navigate('/travels');
     } catch (error) {
@@ -201,13 +205,31 @@ const AddDailyTrip = () => {
               </option>
             ))}
           </select>
-          <label htmlFor="type">{t("travels.type")}</label>
+          {/* <label htmlFor="type">{t("travels.type")}</label>
           <input
             type="text"
             id="type"
             placeholder=""
             value={type}
             onChange={(event) => settype(event.target.value)}
+          /> */}
+          <label htmlFor="starting_pool">{t("travels.starting_pool")}</label>
+          <input
+            type="text"
+            id="starting_pool"
+            placeholder=""
+            value={starting_pool}
+            onChange={(event) => setstarting_pool(event.target.value)}
+            required
+          />
+          <label htmlFor="returning_pool">{t("travels.returning_pool")}</label>
+          <input
+            type="text"
+            id="returning_pool"
+            placeholder=""
+            value={returning_pool}
+            onChange={(event) => setreturning_pool(event.target.value)}
+            required
           />
           <label htmlFor="status">{t("travels.status")}</label>
           <input

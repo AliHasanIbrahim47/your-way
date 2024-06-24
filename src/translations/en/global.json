@@ -136,7 +136,9 @@
         "sLine": "Select a Line",
         "type": "Type",
         "travelLineShow": "All Lines for Travel",
-        "found": "There are no Lines for this Travel"
+        "found": "There are no Lines for this Travel",
+        "starting_pool": "Starting Pool",
+        "returning_pool": "Returning Pool"
     },
     "private": {
         "accepting": "Accepting",

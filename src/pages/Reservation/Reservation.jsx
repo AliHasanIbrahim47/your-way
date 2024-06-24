@@ -187,7 +187,7 @@ const Reservation = () => {
         <div className="header">
           <h1>All Reservations</h1>
           <div className="links">
-            <Link to="/travels/reservations/add">{t("reservations.add")}</Link>
+            {/* <Link to="/travels/reservations/add">{t("reservations.add")}</Link> */}
             <button onClick={handleDeleteSelected}>{t("usersOnly.deleteS")}</button>
             <button onClick={handleAcceptedSelected}>{t("private.acceptS")}</button>
           </div>
