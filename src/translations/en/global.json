@@ -16,7 +16,8 @@
         "logout": "Logout",
         "filter": "Filter by Type",
         "user": "User",
-        "driver": "Driver"
+        "driver": "Driver",
+        "static": "Content"
     },
     "usersOnly": {
         "load": "Loading data",
@@ -106,8 +107,8 @@
         "deleting": "Deleting Lines",
         "h1": "ALL Lines",
         "add": "ADD Line",
-        "dPlace": "Deprature Place",
-        "aPlace": "Arrival Place",
+        "dPlace": "Point A",
+        "aPlace": "Point B",
         "message": "Are you sure you want to delete the selected Lines?",
         "edit": "Edit Extra",
         "editMessage": "Are you sure you want to edit this Line?",
@@ -173,5 +174,14 @@
         "edit": "Edit Reservation",
         "note": "Note",
         "editMessage": "Are you sure you want to edit this Reservation?"
+    },
+    "static": {
+        "h1": "Static Content",
+        "description_en": "Description in English",
+        "description_ar": "Description in Arabic",
+        "content_en": "Content in English",
+        "content_ar": "Content in Arabic",
+        "edit": "Edit Static Content",
+        "editMessage": "Are you sure you want to edit the Static Content?"
     }
 }

@@ -21,6 +21,9 @@ const EditDailyTrip = () => {
   const [returning_from, setreturning_from] = useState("");
   const [going_time, setgoing_time] = useState("");
   const [returning_time, setreturning_time] = useState("");
+  const [starting_pool, setstarting_pool] = useState("");
+  const [returning_pool, setreturning_pool] = useState("");
+  const [price, setPrice] = useState("");
   const [loading, setLoading] = useState(false);
 
   const [users, setUsers] = useState([]); // State for buses
@@ -72,11 +75,11 @@ const EditDailyTrip = () => {
     const token = localStorage.getItem('token');
     setIsPopuoVisble(false);
     if (!starting_date || !going_from || !ending_date || !bus_id || !line_id 
-        || !status || !returning_from || !going_time || !returning_time) {
+        || !status || !returning_from || !going_time || !returning_time || !price) {
       alert("All fields are required!");
       return;
     }
-    let data = { starting_date, going_from, ending_date, bus_id, line_id, type, status, returning_from, going_time, returning_time };
+    let data = { price, starting_date, starting_pool, returning_pool, going_from, ending_date, bus_id, line_id, type:'public', status, returning_from, going_time, returning_time };
     setLoading(true);
     try {
       const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/${id}`, 
@@ -97,6 +100,7 @@ const EditDailyTrip = () => {
       setreturning_time("");
       setgoing_time("");
       setreturning_from("");
+      setPrice(0);
       alert("Editing Travel is successful");
       navigate('/travels');
     } catch (error) {
@@ -129,7 +133,7 @@ const EditDailyTrip = () => {
             onChange={(event) => setstarting_date(event.target.value)}
             required
           />
-          <label htmlFor="ending_date">{t("travels.eDate")}</label>
+          <label htmlFor="ending_date">{t("travels.aDate")}</label>
           <input
             type="date"
             id="ending_date"
@@ -165,7 +169,7 @@ const EditDailyTrip = () => {
             onChange={(event) => setgoing_time(event.target.value)}
             required
           />
-          <label htmlFor="returning_time">{t("travels.eTime")}</label>
+          <label htmlFor="returning_time">{t("travels.aTime")}</label>
           <input
             type="time"
             id="returning_time"
@@ -219,6 +223,33 @@ const EditDailyTrip = () => {
             placeholder=""
             value={status}
             onChange={(event) => setstatus(event.target.value)}
+            required
+          />
+          <label htmlFor="starting_pool">{t("travels.starting_pool")}</label>
+          <input
+            type="text"
+            id="starting_pool"
+            placeholder=""
+            value={starting_pool}
+            onChange={(event) => setstarting_pool(event.target.value)}
+            required
+          />
+          <label htmlFor="returning_pool">{t("travels.returning_pool")}</label>
+          <input
+            type="text"
+            id="returning_pool"
+            placeholder=""
+            value={returning_pool}
+            onChange={(event) => setreturning_pool(event.target.value)}
+            required
+          />
+          <label htmlFor="price">{t("extra.price")}</label>
+          <input
+            type="number"
+            id="price"
+            placeholder=""
+            value={price}
+            onChange={(event) => setPrice(event.target.value)}
             required
           />
           <input type="submit" value={loading ? t("editusers.editing") : t("travels.edit")} />

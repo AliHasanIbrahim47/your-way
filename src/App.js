@@ -39,6 +39,8 @@ import Extra from './pages/Extra/Extra';
 import ProtectedRoute from './pages/Login/ProtectedRoute';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import Static from './pages/static/Static';
+import EditStatic from './pages/static/EditStatic';
 
 function App() {
 
@@ -90,6 +92,10 @@ function App() {
           <Route path="/extra" element={<ProtectedRoute><Extra/></ProtectedRoute> } />
           <Route path="/extra/add" element={<ProtectedRoute><AddExtra /></ProtectedRoute>} />
           <Route path="/extra/:id/edit" element={<ProtectedRoute><EditExtra/></ProtectedRoute>} />
+
+          {/* Static Content */}
+          <Route path="/static" element={<ProtectedRoute><Static/></ProtectedRoute> } />
+          <Route path="/static/:id/edit" element={<ProtectedRoute><EditStatic/></ProtectedRoute> } />
 
         </Routes>
       </Router>

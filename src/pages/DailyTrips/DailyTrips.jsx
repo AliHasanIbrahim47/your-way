@@ -160,6 +160,7 @@ const DailyTrips = () => {
               <th>{t("travels.aTime")}</th>
               <th>{t("travels.going_to")}</th>
               <th>{t("travels.status")}</th>
+              {/* <th>{t("extra.price")}</th> */}
               <th>{t("usersOnly.actions")}</th>
               <th>
                 <input
@@ -180,8 +181,9 @@ const DailyTrips = () => {
                 <td>{element.returning_time}</td>
                 <td>{element.returning_from}</td>
                 <td>{element.status}</td>
+                {/* <td>{element.price}</td> */}
                 <td className="actions-style">
-                  <button onClick={() => show(element.id)}>{t("usersOnly.show")}</button>
+                  {/* <button onClick={() => show(element.id)}>{t("usersOnly.show")}</button> */}
                   <button onClick={() => update(element)}>
                     <RiEdit2Fill />
                   </button>

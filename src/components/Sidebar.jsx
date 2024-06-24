@@ -7,6 +7,7 @@ import { PiFlagBannerFill } from "react-icons/pi";
 import { IoLogOut } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
+import { MdContentPaste } from "react-icons/md";
 
 import { AuthContext } from '../context/AuthContext';
 import { MdHomeRepairService } from "react-icons/md";
@@ -63,6 +64,12 @@ const Sidebar = () => {
               <Link to="/extra">
                 <MdHomeRepairService  className="icons-margin" />
                 <span className="lll"> {t("users.extra")}</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/static">
+                <MdContentPaste  className="icons-margin" />
+                <span className="lll"> {t("users.static")}</span>
               </Link>
             </li>
             <li>

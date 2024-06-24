@@ -18,6 +18,8 @@
 .adddailytrip form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .adddailytrip label {

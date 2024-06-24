@@ -20,6 +20,7 @@ const AddDailyTrip = () => {
   const [returning_time, setreturning_time] = useState("");
   const [starting_pool, setstarting_pool] = useState("");
   const [returning_pool, setreturning_pool] = useState("");
+  const [price, setPrice] = useState();
   const [loading, setLoading] = useState(false);
 
   const [users, setUsers] = useState([]); // State for buses
@@ -75,7 +76,7 @@ const AddDailyTrip = () => {
       alert("All fields are required!");
       return;
     }
-    let data = { starting_date, starting_pool, returning_pool, going_from, ending_date, bus_id, line_id, type:'public', status, returning_from, going_time, returning_time };
+    let data = { price, starting_date, starting_pool, returning_pool, going_from, ending_date, bus_id, line_id, type:'public', status, returning_from, going_time, returning_time };
     setLoading(true);
     try {
       const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/', 
@@ -98,6 +99,7 @@ const AddDailyTrip = () => {
       setreturning_from("");
       setreturning_pool("");
       setstarting_pool("");
+      setPrice(0);
       alert("Adding Travel is successful");
       navigate('/travels');
     } catch (error) {
@@ -166,7 +168,7 @@ const AddDailyTrip = () => {
             onChange={(event) => setgoing_time(event.target.value)}
             required
           />
-          <label htmlFor="returning_time">{t("travels.eTime")}</label>
+          <label htmlFor="returning_time">{t("travels.aTime")}</label>
           <input
             type="time"
             id="returning_time"
@@ -238,6 +240,15 @@ const AddDailyTrip = () => {
             placeholder=""
             value={status}
             onChange={(event) => setstatus(event.target.value)}
+            required
+          />
+          <label htmlFor="price">{t("extra.price")}</label>
+          <input
+            type="number"
+            id="price"
+            placeholder=""
+            value={price}
+            onChange={(event) => setPrice(event.target.value)}
             required
           />
           <input type="submit" value={loading ? t("addusers.adding") : t("travels.add")} />
