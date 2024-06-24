@@ -177,7 +177,7 @@ const Lines = () => {
         </table>
         {isPopupVisible && (
         <Popup 
-          message="Are you sure you want to delete the selected extra?"
+          message={t("lines.message")}
           onConfirm={confirmDelete}
           onCancel={cancelDelete}
         />
