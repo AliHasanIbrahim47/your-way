@@ -50,11 +50,11 @@ const Login = () => {
                 if (!err?.response) {
                     setErrMsg('No Server Response');
                 } else if (err.response?.status === 400) {
-                    setErrMsg('Missing Phone or Password');
+                    setErrMsg('Missing Email or Password');
                 } else if (err.response?.status === 401) {
                     setErrMsg('Unauthorized');
                 } else {
-                    setErrMsg('Not Correct Phone or Password');
+                    setErrMsg('Not Correct Email or Password');
                 }
                 if (errRef.current) {
                     errRef.current.focus();
