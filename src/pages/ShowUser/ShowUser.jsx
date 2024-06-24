@@ -44,7 +44,7 @@ const ShowUser = () => {
       <div className="showuser">
         <Sidebar />
         <div className="container">
-          <h1>{t("showuser.load")} <Spinner /></h1>
+          <h1 className="loader">{t("showuser.load")} <Spinner /></h1>
         </div>
       </div>
     );

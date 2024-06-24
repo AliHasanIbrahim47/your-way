@@ -51,6 +51,17 @@ const ShowDailyTrips = () => {
     );
   }
 
+  if (!users.line) {
+    return (
+      <div className="showuser">
+        <Sidebar />
+        <div className="container">
+          <h1>{t("travels.found")}</h1>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="users">
       <Sidebar />

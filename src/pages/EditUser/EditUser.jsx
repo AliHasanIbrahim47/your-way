@@ -26,7 +26,6 @@ const EditUser= () => {
       setPhone(userData.phone);
       setPassword(userData.password);
       setIs_activated(userData.is_activated);
-      console.log(userData.is_activated);
     } else {
       // Handle scenario where user data is not passed correctly
       // alert("User data not found in location state");

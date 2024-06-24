@@ -67,7 +67,7 @@
         "isActivated": "Is Activated",
         "editing": "Editing...",
         "edit": "Edit User",
-        "ture": "true",
+        "true": "true",
         "false": "false",
         "message": "Are you sure you want to edit this user?"
     },
@@ -135,7 +135,8 @@
         "line": "Line",
         "sLine": "Select a Line",
         "type": "Type",
-        "travelLineShow": "All Lines for Travel"
+        "travelLineShow": "All Lines for Travel",
+        "found": "There are no Lines for this Travel"
     },
     "private": {
         "accepting": "Accepting",
