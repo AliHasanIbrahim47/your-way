@@ -68,22 +68,23 @@ function App() {
           <Route path="/travels" element={<ProtectedRoute><DailyTrips /></ProtectedRoute>} />
           <Route path="/travels/add" element={<ProtectedRoute><AddDailyTrip /></ProtectedRoute>} />
           <Route path="/travels/:id/edit" element={<ProtectedRoute><EditDailyTrip /></ProtectedRoute>} />
-          <Route path="/travels/:id" element={<ProtectedRoute><ShowDailyTrip /></ProtectedRoute>} />
+          {/* <Route path="/lines/:id" element={<ProtectedRoute><ShowDailyTrip /></ProtectedRoute>} /> */}
 
           {/* Private Travels */}
           <Route path="/travels/private" element={<ProtectedRoute><PrivateTrip /></ProtectedRoute>} />
-          {/* <Route path="/travels/private/add" element={<ProtectedRoute><AddPrivateTrip /></ProtectedRoute>} /> */}
+          <Route path="/travels/private/add" element={<ProtectedRoute><AddPrivateTrip /></ProtectedRoute>} />
           <Route path="/travels/private/:id/edit" element={<ProtectedRoute><EditPrivateTrip /></ProtectedRoute>} />
 
           {/* Reservations */}
           <Route path="/travels/reservations" element={<ProtectedRoute><Reservation /></ProtectedRoute>} />
-          {/* <Route path="/travels/reservations/add" element={<ProtectedRoute><AddReservation /></ProtectedRoute>} /> */}
+          <Route path="/travels/reservations/add" element={<ProtectedRoute><AddReservation /></ProtectedRoute>} />
           <Route path="/travels/reservations/:id/edit" element={<ProtectedRoute><EditReservation /></ProtectedRoute>} />
 
           {/* lines */}
           <Route path="/lines" element={<ProtectedRoute><Lines /></ProtectedRoute>} />
           <Route path="/lines/add" element={<ProtectedRoute><AddLine /></ProtectedRoute>} />
           <Route path="/lines/:id/edit" element={<ProtectedRoute><EditLine /></ProtectedRoute>} />
+          <Route path="/lines/:id" element={<ProtectedRoute><ShowDailyTrip /></ProtectedRoute>} />
 
           {/* Brands */}
           <Route path="/brands" element={<ProtectedRoute><Brands/></ProtectedRoute> } />

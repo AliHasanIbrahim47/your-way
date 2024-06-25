@@ -90,9 +90,9 @@ const Lines = () => {
     setIsPopupVisible(false);
   }
 
-  // const show = (id) => {
-  //   navigate(`/lines/${id}`);
-  // };
+  const show = (id) => {
+    navigate(`/lines/${id}`);
+  };
 
   const update = (element) => {
     navigate(`/lines/${element.id}/edit`, { state: { user: JSON.stringify(element) } });
@@ -157,7 +157,7 @@ const Lines = () => {
                 <td>{element.point_a}</td>
                 <td>{element.point_b}</td>
                 <td className="actions-style">
-                  {/* <button onClick={() => show(element.id)}>show</button> */}
+                  <button onClick={() => show(element.id)}>{t("usersOnly.show")}</button>
                   <button onClick={() => update(element)}>
                     <RiEdit2Fill />
                   </button>

@@ -5,6 +5,7 @@ import "./ShowDailyTrip.css";
 import axios from "axios";
 import Spinner from "../../components/Spinner";
 import { useTranslation } from 'react-i18next';
+import Moment from "react-moment";
 
 const ShowDailyTrips = () => {
   const [t, i18n] = useTranslation("global");
@@ -51,7 +52,7 @@ const ShowDailyTrips = () => {
     );
   }
 
-  if (!users.line) {
+  if (users.length === 0) {
     return (
       <div className="showuser">
         <Sidebar />
@@ -69,23 +70,31 @@ const ShowDailyTrips = () => {
         <div className="header">
           <h1>{t("travels.travelLineShow")}:</h1>
           <div className="links">
-            <Link to="/travels">{t("driversOnly.back")}</Link>
+            <Link to="/lines">{t("driversOnly.back")}</Link>
           </div>
         </div>
         <table>
           <thead>
             <tr>
-              <th>{t("usersOnly.id")}</th>
+              <th>{t("travels.sDate")}</th>
+              <th>{t("travels.sTime")}</th>
               <th>{t("travels.going_from")}</th>
+              <th>{t("travels.aDate")}</th>
+              <th>{t("travels.aTime")}</th>
               <th>{t("travels.going_to")}</th>
+              <th>{t("travels.status")}</th>
             </tr>
           </thead>
           <tbody>
             {users.map((element, index) => (
               <tr key={index}>
-                <td>{element.line.id}</td>       
-                <td>{element.line.point_a}</td>                
-                <td>{element.line.point_b}</td>
+                <td><Moment format="YYYY/MM/DD">{element.starting_date}</Moment></td>
+                <td>{element.going_time}</td>
+                <td>{element.going_from}</td>
+                <td><Moment format="YYYY/MM/DD">{element.ending}</Moment></td>
+                <td>{element.returning_time}</td>
+                <td>{element.returning_from}</td>
+                <td>{element.status}</td>
               </tr>
             ))}
           </tbody>
