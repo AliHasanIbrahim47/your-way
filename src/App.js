@@ -72,12 +72,12 @@ function App() {
 
           {/* Private Travels */}
           <Route path="/travels/private" element={<ProtectedRoute><PrivateTrip /></ProtectedRoute>} />
-          <Route path="/travels/private/add" element={<ProtectedRoute><AddPrivateTrip /></ProtectedRoute>} />
+          {/* <Route path="/travels/private/add" element={<ProtectedRoute><AddPrivateTrip /></ProtectedRoute>} /> */}
           <Route path="/travels/private/:id/edit" element={<ProtectedRoute><EditPrivateTrip /></ProtectedRoute>} />
 
           {/* Reservations */}
           <Route path="/travels/reservations" element={<ProtectedRoute><Reservation /></ProtectedRoute>} />
-          <Route path="/travels/reservations/add" element={<ProtectedRoute><AddReservation /></ProtectedRoute>} />
+          {/* <Route path="/travels/reservations/add" element={<ProtectedRoute><AddReservation /></ProtectedRoute>} /> */}
           <Route path="/travels/reservations/:id/edit" element={<ProtectedRoute><EditReservation /></ProtectedRoute>} />
 
           {/* lines */}

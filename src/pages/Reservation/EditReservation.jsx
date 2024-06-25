@@ -4,7 +4,7 @@ import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const EditReservation = () => {
   const [t, i18n] = useTranslation("global");
@@ -13,6 +13,28 @@ const EditReservation = () => {
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
   const location = useLocation();
   const [loading, setLoading] = useState(false);
+
+  const [users, setUsers] = useState([]);
+  const [bus_id, setbus_id] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState('accepted');
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/type?type=driver', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      setUsers(response.data.data);
+    } catch (error) {
+      console.error('Error fetching users');
+    }
+  };
 
   const { id } = useParams();
 
@@ -36,16 +58,15 @@ const EditReservation = () => {
   const confirmDelete = async () => {
     const token = localStorage.getItem('token');
     setIsPopuoVisble(false);
-    if (!note || !status) {
+    if (!status) {
       alert("All fields are required!");
       return;
     }
-    let data = { status: status, note: note };
+    let data = { status: status, note: note, bus_id : bus_id };
     setLoading(true);
     try {
-      const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations/${id}`, {
-        status: status, note: note
-      }, {
+      const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations/${id}`,
+        data , {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -57,7 +78,7 @@ const EditReservation = () => {
       alert("Editing Reservation is successful");
       navigate('/travels/reservations');
       } catch (error) {
-        alert("Error editing Reservation please try again");
+        alert("Error editing Eeservation please try again");
     } finally {
       setLoading(false);
     }
@@ -67,17 +88,21 @@ const EditReservation = () => {
     setIsPopuoVisble(false);
   }
 
+  const handleStatusChange = (event) => {
+    setSelectedStatus(event.target.value);
+  };
+
   return (
     <div className="editextra">
       <Sidebar />
       <div className="container">
       {/* {loading ? (
-          <div className="loader">Editing Reservation ...</div> 
+          <div className="loader">Editing Private Travel ...</div> 
         ) : ( */}
           <>
         <h1>{t("reservations.edit")}</h1>
         <form onSubmit={sendData}>
-          <label htmlFor="status">{t("travels.status")}</label>
+          {/* <label htmlFor="status">{t("travels.Status")}</label>
           <input
             type="text"
             id="status"
@@ -85,8 +110,14 @@ const EditReservation = () => {
             value={status}
             onChange={(event) => setstatus(event.target.value)}
             required
-          />
-          <label htmlFor="note">{t("reservations.note")}</label>
+          /> */}
+          <label htmlFor="selectedStatus">{t("travels.status")} </label>
+          <select id="selectedStatus" value={selectedStatus} onChange={handleStatusChange}>
+            <option value="accepted">{t("reservations.accepted")}</option>
+            <option value="rejected">{t("reservations.rejected")}</option>
+          </select>
+          {selectedStatus === "rejected" && <>
+            <label htmlFor="note">{t("reservations.note")}</label>
           <input
             type="text"
             id="note"
@@ -94,8 +125,25 @@ const EditReservation = () => {
             value={note}
             onChange={(event) => setnote(event.target.value)}
             required
-          />
-          <input type="submit" value={loading ? t("editusers.editing"): t("reservations.edit")} />
+          /></>}
+          {selectedStatus === "accepted" && <>
+            <label htmlFor="bus_id">{t("travels.car")}</label>
+          <select
+            id="bus_id"
+            value={bus_id}
+            onChange={(event) => setbus_id(event.target.value)}
+            required
+          >
+            <option value="">{t("travels.sCar")}</option>
+            {users.map(user => (
+              user.bus.map(bus => (
+                <option key={bus.id} value={bus.id}>
+                  {`${bus.brand} ${bus.model}`}
+                </option>
+              ))
+            ))}
+          </select></>}
+          <input type="submit" value={loading ? t("editusers.editing") : t("reservations.edit")} />
         </form>
         {isPopupVisible && (
               <Popup 

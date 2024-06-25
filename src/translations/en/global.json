@@ -159,7 +159,9 @@
         "user": "User",
         "userS": "Select a User",
         "extraS": "Extra Services",
-        "addMessage":"Are you sure you want to add this Private Travel?"
+        "addMessage":"Are you sure you want to add this Private Travel?",
+        "edit": "edit Private Travel",
+        "editMessage": "Are you sure you want to edit this line?"
     },
     "reservations": {
         "title": "Reservations",

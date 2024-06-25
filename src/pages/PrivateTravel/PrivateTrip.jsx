@@ -193,9 +193,9 @@ const PrivateTrip = () => {
         <div className="header">
           <h1>{t("private.h1")}</h1>
           <div className="links">
-            <Link to="/travels/reservations/add">{t("reservations.add")}</Link>
+            {/* <Link to="/travels/reservations/add">{t("reservations.add")}</Link> */}
             {/* <button onClick={handleDeleteSelected}>{t("usersOnly.deleteS")}</button> */}
-            <button onClick={handleAcceptedSelected}>{t("private.acceptS")}</button>
+            {/* <button onClick={handleAcceptedSelected}>{t("private.acceptS")}</button> */}
             <div className="filter">
               <label htmlFor="userStatus">{t("reservations.filter")}: </label>
               <select id="userStatus" value={selectedStatus} onChange={handleStatusChange}>
@@ -224,14 +224,14 @@ const PrivateTrip = () => {
                   checked={selectedUsers.length === users.length}
                 />
               </th> */}
-              <th>
+              {/* <th>
                 <label>{t("private.acceptAll")}</label>
                 <input
                   type="checkbox"
                   onChange={handleAcceptAll}
                   checked={acceptedUsers.length === users.length}
                 />
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody>
@@ -244,9 +244,9 @@ const PrivateTrip = () => {
                 <td>{element.seats}</td>
                 <td className="actions-style">
                   {/* <button onClick={() => show(element.id)}>show</button> */}
-                  <button onClick={() => acceptUser(element)}>
+                  {/* <button onClick={() => acceptUser(element)}>
                     <FaCheckCircle />
-                  </button>
+                  </button> */}
                   <button onClick={() => update(element)}>
                     <RiEdit2Fill />
                   </button>
@@ -261,13 +261,13 @@ const PrivateTrip = () => {
                     onChange={() => handleSelectUser(element.id)}
                   /><IoMdCloseCircle  id="c" />
                 </td> */}
-                <td>
+                {/* <td>
                   <input
                     type="checkbox"
                     checked={acceptedUsers.includes(element.id)}
                     onChange={() => handleAcceptedUser(element.id)}
                   /><FaCheckCircle  id="c" />
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>
