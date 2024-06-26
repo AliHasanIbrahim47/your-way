@@ -9,7 +9,7 @@ import { I18nextProvider } from "react-i18next";
 
 i18next.init({
   interploation: {escapeValue: false},
-  lng: "en",
+  lng: "ar",
   resources: {
     en: {
       global: global_en
