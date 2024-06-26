@@ -61,7 +61,7 @@ const Login = () => {
                 }
             }
           setLoading(false);
-          navigate("/dashboard");
+          navigate("/users");
     }
 
     return (

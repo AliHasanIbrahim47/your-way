@@ -39,7 +39,7 @@
   margin-right: 10px;
 }
 
-.sidebar ul li a, .sidebar ul li button {
+.sidebar ul li a {
   color: #1D1C1C;
   text-decoration: none;
   display: block;
@@ -107,4 +107,28 @@
   /* .toggle-button {
     display: none;
   } */
+}
+
+.lang {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.lang button, li > button{
+  display: flex;
+  color: #1D1C1C;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  transition: color 0.3s;
+  background-color: #BA8D38;
+  border: none;
+}
+
+.lang button:hover, li > button:hover{
+  color: white;
+  background-color: #1D1C1C;
 }

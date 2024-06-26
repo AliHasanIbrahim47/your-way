@@ -1,5 +1,9 @@
 {
-    "lng": "language",
+    "lng": {
+        "language": "Language",
+        "ar": "AR",
+        "en": "EN"
+    },
     "popup": {
         "yes": "Yes",
         "no": "No"

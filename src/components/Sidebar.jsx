@@ -27,6 +27,10 @@ const Sidebar = () => {
     navigate('/');
   }
 
+  const handleChangeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  }
+
   return (
     <div>
       {/* <button className="toggle-button" onClick={toggleSidebar}>
@@ -71,6 +75,12 @@ const Sidebar = () => {
                 <MdContentPaste  className="icons-margin" />
                 <span className="lll"> {t("users.static")}</span>
               </Link>
+            </li>
+            <li>
+              <div className="lang">
+                <button onClick={() => handleChangeLanguage("en")}>{t("lng.en")}</button>
+                <button onClick={() => handleChangeLanguage("ar")}>{t("lng.ar")}</button>
+              </div>
             </li>
             <li>
               <button onClick={logutHandle}>

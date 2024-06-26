@@ -5,7 +5,7 @@ export default function Home() {
 
     return (
         <div>
-            <p>{t("lng")}</p>
+            <p>{t("lng.language")}</p>
         </div>
     )
 }

@@ -50,7 +50,7 @@ function App() {
       <Router>
         <Routes>
           {/* Main Routes */}
-          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> 
+          {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />  */}
           <Route path="/" element={<Login/>} />
 
           {/* Users */}

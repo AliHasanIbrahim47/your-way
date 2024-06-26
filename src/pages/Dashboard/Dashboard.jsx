@@ -20,8 +20,8 @@ export default function Dashboard() {
             </div>
             <div className="container">
                 <Home />
-                <button onClick={() => handleChangeLanguage("en")}>EN</button>
-                <button onClick={() => handleChangeLanguage("ar")}>AR</button>
+                <button onClick={() => handleChangeLanguage("en")}>{t("lng.en")}</button>
+                <button onClick={() => handleChangeLanguage("ar")}>{t("lng.ar")}</button>
             </div>
         </div>
     );
