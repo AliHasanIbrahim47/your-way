@@ -15,10 +15,12 @@ const ShowUser = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const baseURL = process.env.REACT_APP_URL;
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users`, {
+        const response = await axios.get(baseURL + `/users`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },

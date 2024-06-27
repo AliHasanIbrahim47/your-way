@@ -31,6 +31,8 @@ const EditDailyTrip = () => {
 
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
 
+  const baseURL = process.env.REACT_APP_URL;
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,7 +43,7 @@ const EditDailyTrip = () => {
   const fetchUsers = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/type?type=driver', {
+      const response = await axios.get(baseURL + '/users/type?type=driver', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -55,7 +57,7 @@ const EditDailyTrip = () => {
   const fetchLines = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/lines', {
+      const response = await axios.get(baseURL + '/lines', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -82,7 +84,7 @@ const EditDailyTrip = () => {
     let data = { price, starting_date, starting_pool, returning_pool, going_from, ending_date, bus_id, line_id, type:'public', status, returning_from, going_time, returning_time };
     setLoading(true);
     try {
-      const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/${id}`, 
+      const response = await axios.put(baseURL + `/travels/${id}`, 
         data, {
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -20,6 +20,8 @@ const EditBrand = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const baseURL = process.env.REACT_APP_URL;
+
   useEffect(() => {
     if (location.state && location.state.user) {
       const userData = JSON.parse(location.state.user);
@@ -54,7 +56,7 @@ const EditBrand = () => {
     formData.append('title_ar', title_ar);
 
     try {
-      await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/banners/${id}`, formData, {
+      await axios.put(baseURL + `/banners/${id}`, formData, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'

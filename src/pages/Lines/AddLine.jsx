@@ -15,6 +15,8 @@ const AddLine = () => {
 
   const navigate = useNavigate();
 
+  const baseURL = process.env.REACT_APP_URL;
+
   const sendData = (event) => {
     event.preventDefault();
     setIsPopuoVisble(true);
@@ -30,7 +32,7 @@ const AddLine = () => {
     let data = { point_a: point_a, point_b: point_b };
     setLoading(true);
     try {
-      const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/lines', {
+      const response = await axios.post(baseURL + '/lines', {
         point_a: point_a, point_b: point_b
       }, {
         headers: {

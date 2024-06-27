@@ -23,10 +23,12 @@ const AddDriver = () => {
 
   const navigate = useNavigate();
 
+  const baseURL = process.env.REACT_APP_URL;
+
   const fetchLines = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/lines', {
+      const response = await axios.get(baseURL + '/lines', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -61,7 +63,7 @@ const AddDriver = () => {
     setError(null); // Reset error state
 
     try {
-      const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/drivers', 
+      const response = await axios.post(baseURL + '/drivers', 
         data, {
         headers: {
           'Authorization': `Bearer ${token}`,

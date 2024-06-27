@@ -16,16 +16,20 @@ const Brands = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState('');
   const [loading, setLoading] = useState(false);
   const [loader, setLoader] = useState(false);
 
   const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
 
+  const baseURL = process.env.REACT_APP_URL;
+
   const fetchUsers = async () => {
     setLoader(true);
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/banners', {
+      const response = await axios.get( baseURL + '/banners', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -70,7 +74,7 @@ const Brands = () => {
     setLoading(true);
     try {
       const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
-      const response = await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/banners/', {
+      const response = await axios.delete(baseURL + '/banners/', {
         data: { ids: idsToDelete },
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -108,6 +112,16 @@ const Brands = () => {
     setSelectedUser(item);
     setIsPopupVisible(true);
   };
+
+  const openModal = (imageURL) => {
+    setModalImage(imageURL);
+    setIsModalOpen(true);
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalImage('');
+  }
 
   if (loader && !loading) {
     return (
@@ -159,7 +173,14 @@ const Brands = () => {
                 <tr key={index}>
                   <td>{element.id}</td>
                   <td>{element.title_en}</td>
-                  <td>{element.image}</td>
+                  <td>
+                    <img 
+                      src={`${baseURL}/${element.image}`}
+                      alt={element.title_en}
+                      className="thumbnail"
+                      onClick={() => openModal(`${baseURL}/${element.image}`)}
+                    />
+                  </td>
                   <td>{element.title_ar}</td>
                   <td className="actions-style">
                     {/* <button onClick={() => show(element.id)}>show</button> */}
@@ -190,6 +211,12 @@ const Brands = () => {
         />
       )}
       </>
+        )}
+        {isModalOpen && (
+          <div className="modal">
+            <span className="close" onClick={closeModal}>&times;</span>
+            <img className="modal-content" src={modalImage} alt="Full Size Image" />
+          </div>
         )}
       </div>
     </div>

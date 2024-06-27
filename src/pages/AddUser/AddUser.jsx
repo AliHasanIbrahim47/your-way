@@ -17,6 +17,8 @@ const AddUser = () => {
 
   const navigate = useNavigate();
 
+  const baseURL = process.env.REACT_APP_URL;
+
   const sendData = (event) => {
     event.preventDefault();
     setIsPopupVisible(true);
@@ -35,7 +37,7 @@ const AddUser = () => {
     setError(null); 
 
     try {
-      const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', 
+      const response = await axios.post(baseURL + '/users', 
         data, {
         headers: {
           'Authorization': `Bearer ${token}`,

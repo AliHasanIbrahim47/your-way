@@ -20,10 +20,12 @@ const Static = () => {
   const [users, setUsers] = useState([]);
   const token = localStorage.getItem('token');
 
+  const baseURL = process.env.REACT_APP_URL;
+
   const fetchUsers = async () => {
     setLoader(true);
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/static-contents/', {
+      const response = await axios.get(baseURL + '/static-contents/', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -63,7 +65,7 @@ const Static = () => {
   //   setLoading(true);
   //   try {
   //     const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
-  //     const response = await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/lines/', {
+  //     const response = await axios.delete(baseURL + '/lines/', {
   //       data: { ids: idsToDelete },
   //       headers: {
   //         'Authorization': `Bearer ${token}`,

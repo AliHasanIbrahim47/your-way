@@ -37,6 +37,8 @@ const EditUser= () => {
     setIsPopupVisible(true);
   };
 
+  const baseURL = process.env.REACT_APP_URL;
+
   const confirmDelete = async () => {
     const token = localStorage.getItem("token");
     setIsPopupVisible(false);
@@ -49,7 +51,7 @@ const EditUser= () => {
     setLoading(true);
     try {
       await axios.put(
-        `https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/${id}`,
+        baseURL + `/users/${id}`,
         data,
         {
           headers: {

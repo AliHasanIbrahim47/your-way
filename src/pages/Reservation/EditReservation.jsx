@@ -18,6 +18,8 @@ const EditReservation = () => {
   const [bus_id, setbus_id] = useState("");
   const [selectedStatus, setSelectedStatus] = useState('accepted');
 
+  const baseURL = process.env.REACT_APP_URL;
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -25,7 +27,7 @@ const EditReservation = () => {
   const fetchUsers = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/type?type=driver', {
+      const response = await axios.get(baseURL + '/users/type?type=driver', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -65,7 +67,7 @@ const EditReservation = () => {
     let data = { status: status, note: note, bus_id : bus_id };
     setLoading(true);
     try {
-      const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations/${id}`,
+      const response = await axios.put(baseURL + `/reservations/${id}`,
         data , {
         headers: {
           'Authorization': `Bearer ${token}`,

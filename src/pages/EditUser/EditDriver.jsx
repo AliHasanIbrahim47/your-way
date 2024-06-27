@@ -19,6 +19,8 @@ const EditDriver = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const baseURL = process.env.REACT_APP_URL;
+  
   useEffect(() => {
     if (location.state && location.state.user) {
       const userData = JSON.parse(location.state.user);
@@ -48,7 +50,7 @@ const EditDriver = () => {
     setLoading(true);
     try {
       await axios.put(
-        `https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/${id}`,
+        baseURL + `/users/${id}`,
         data,
         {
           headers: {

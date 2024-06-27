@@ -16,6 +16,8 @@ const AddExtra = () => {
 
   const navigate = useNavigate();
 
+  const baseURL = process.env.REACT_APP_URL;
+
   const sendData = (event) => {
     event.preventDefault();
     setIsPopuoVisble(true);
@@ -31,7 +33,7 @@ const AddExtra = () => {
     let data = { title_en: title_en, price: price, title_ar: title_ar };
     setLoading(true);
     try {
-      const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/extra', {
+      const response = await axios.post(baseURL + '/extra', {
         title_en: title_en , title_ar: title_ar, price: price
       }, {
         headers: {

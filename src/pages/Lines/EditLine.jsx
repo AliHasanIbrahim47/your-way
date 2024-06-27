@@ -18,6 +18,8 @@ const EditLine = () => {
 
   const navigate = useNavigate();
 
+  const baseURL = process.env.REACT_APP_URL;
+
   useEffect(() => {
     if (location.state && location.state.user) {
       const userData = JSON.parse(location.state.user);
@@ -44,7 +46,7 @@ const EditLine = () => {
     let data = { point_a: point_a, point_b: point_b };
     setLoading(true);
     try {
-      const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/lines/${id}`, {
+      const response = await axios.put(baseURL + `/lines/${id}`, {
         point_a: point_a, point_b: point_b
       }, {
         headers: {

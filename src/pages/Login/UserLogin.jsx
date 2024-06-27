@@ -16,6 +16,8 @@ const UserLogin = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const baseURL = process.env.REACT_APP_URL;
+
   useEffect(() => {
     if (phoneRef.current) {
       phoneRef.current.focus();
@@ -31,7 +33,7 @@ const UserLogin = () => {
 
     try {
       const response = await axios.post(
-        "https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/user/login",
+        baseURL + "/login",
         {
           phone,
           password,

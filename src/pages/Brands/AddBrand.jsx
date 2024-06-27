@@ -16,6 +16,8 @@ const AddBrand = () => {
   const [loading, setLoading] = useState(false);
   const imageInputRef = useRef(null);
 
+  const baseURL = process.env.REACT_APP_URL;
+
   const navigate = useNavigate();
 
   const sendData = (event) => {
@@ -40,7 +42,7 @@ const AddBrand = () => {
     setLoading(true);
 
     try {
-      await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/banners', formData, {
+      await axios.post(baseURL + '/banners', formData, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'

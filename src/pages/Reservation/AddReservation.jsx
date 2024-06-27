@@ -28,7 +28,7 @@ const AddReservation = () => {
   const fetchTravels = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels', {
+      const response = await axios.get(baseURL + '/travels', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -42,7 +42,7 @@ const AddReservation = () => {
   const fetchUsers = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/', {
+      const response = await axios.get(baseURL + '/users/', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -68,7 +68,7 @@ const AddReservation = () => {
     let data = { travel_id: travel_id, user_id: user_id, going_date: going_date, passengers_count : passengers_count };
     setLoading(true);
     try {
-      const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations', 
+      const response = await axios.post(baseURL + '/reservations', 
         data, {
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -24,10 +24,12 @@ const DailyTrips = () => {
 
   const token = localStorage.getItem('token');
 
+  const baseURL = process.env.REACT_APP_URL;
+
   const fetchUsers = async () => {
     setLoader(true);
     try {
-      const response = await axios.get(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels`, {
+      const response = await axios.get(baseURL + `/travels`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -72,7 +74,7 @@ const DailyTrips = () => {
     setLoading(true);
     try {
       const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
-      await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels', {
+      await axios.delete(baseURL + '/travels', {
         data: { ids: idsToDelete },
         headers: {
           'Authorization': `Bearer ${token}`,

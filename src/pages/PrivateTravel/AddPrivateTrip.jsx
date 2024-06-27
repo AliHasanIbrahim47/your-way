@@ -23,6 +23,8 @@ const AddPrivateTrip = () => {
 
   const navigate = useNavigate();
 
+  const baseURL = process.env.REACT_APP_URL;
+
   useEffect(() => {
     fetchDrivers();
     fetchUsers();
@@ -32,7 +34,7 @@ const AddPrivateTrip = () => {
   const fetchDrivers = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/type?type=driver', {
+      const response = await axios.get(baseURL + '/users/type?type=driver', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -46,7 +48,7 @@ const AddPrivateTrip = () => {
   const fetchUsers = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/', {
+      const response = await axios.get(baseURL + '/users/', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -60,7 +62,7 @@ const AddPrivateTrip = () => {
   const fetchExtras = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/extra', {
+      const response = await axios.get(baseURL + '/extra', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -96,7 +98,7 @@ const AddPrivateTrip = () => {
     };
     setLoading(true);
     try {
-      const response = await axios.post('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/private', 
+      const response = await axios.post(baseURL + '/travels/private', 
         data, {
         headers: {
           'Authorization': `Bearer ${token}`,

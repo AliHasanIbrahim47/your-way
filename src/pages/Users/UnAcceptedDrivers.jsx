@@ -22,10 +22,12 @@ const UnAcceptedDrivers = () => {
   const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
 
+  const baseURL = process.env.REACT_APP_URL;
+
   const fetchUsers = async () => {
     setLoader(true);
     try {
-      const response = await axios.get('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/drivers/un-accepted', {
+      const response = await axios.get(baseURL + '/drivers/un-accepted', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -71,7 +73,7 @@ const UnAcceptedDrivers = () => {
     setLoading(true); 
     try {
       const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
-      const response = await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
+      const response = await axios.delete(baseURL + '/users', {
         data: { ids: idsToDelete },
         headers: {
           'Authorization': `Bearer ${token}`,

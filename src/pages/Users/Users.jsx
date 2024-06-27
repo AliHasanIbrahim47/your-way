@@ -25,12 +25,14 @@ const Users = () => {
 
   const token = localStorage.getItem('token');
 
+  const baseURL = process.env.REACT_APP_URL;
+
   const fetchUsers = async () => {
     setLoader(true);
     try {
       const url = selectedType === "all"
-      ? "https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/"
-      : `https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users/type?type=${selectedType}`
+      ? baseURL + "/users/"
+      : baseURL + `/users/type?type=${selectedType}`
       const response = await axios.get(url, {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -76,7 +78,7 @@ const Users = () => {
     setLoading(true);
     try {
       const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
-      await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/users', {
+      await axios.delete(baseURL + '/users', {
         data: { ids: idsToDelete },
         headers: {
           'Authorization': `Bearer ${token}`,

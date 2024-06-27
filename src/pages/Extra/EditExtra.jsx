@@ -19,6 +19,8 @@ const EditExtra = () => {
 
   const navigate = useNavigate();
 
+  const baseURL = process.env.REACT_APP_URL;
+
   useEffect(() => {
     if (location.state && location.state.user) {
       const userData = JSON.parse(location.state.user);
@@ -46,7 +48,7 @@ const EditExtra = () => {
     let data = { title_en: title_en, price: price, title_ar: title_ar };
     setLoading(true);
     try {
-      await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/extra/${id}`, {
+      await axios.put(baseURL + `/extra/${id}`, {
         title_en: title_en , title_ar: title_ar, price: price
       }, {
         headers: {

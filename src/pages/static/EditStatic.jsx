@@ -20,6 +20,8 @@ const EditStatic = () => {
 
   const navigate = useNavigate();
 
+  const baseURL = process.env.REACT_APP_URL;
+
   useEffect(() => {
     if (location.state && location.state.user) {
       const userData = JSON.parse(location.state.user);
@@ -48,7 +50,7 @@ const EditStatic = () => {
     let data = { description_en: description_en, description_ar: description_ar, content_ar: content_ar, content_en: content_en, is_show: false };
     setLoading(true);
     try {
-      const response = await axios.put(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/static-contents/1`,
+      const response = await axios.put(baseURL + `/static-contents/1`,
         data, {
         headers: {
           'Authorization': `Bearer ${token}`,

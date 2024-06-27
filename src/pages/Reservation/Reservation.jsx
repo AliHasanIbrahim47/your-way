@@ -26,10 +26,12 @@ const Reservation = () => {
   const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
 
+  const baseURL = process.env.REACT_APP_URL;
+
   const fetchUsers = async () => {
     setLoader(true);
     try {
-      const response = await axios.get(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations?status=${selectedStatus}`, {
+      const response = await axios.get(baseURL + `/reservations?status=${selectedStatus}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -99,7 +101,7 @@ const Reservation = () => {
     if(!deleteORaccept) {
       try {
         const idsToDelete = selectedUser ? [selectedUser.id] : selectedUsers;
-        const response = await axios.delete('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations', {
+        const response = await axios.delete(baseURL + '/reservations', {
           data: { ids: idsToDelete },
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -118,7 +120,7 @@ const Reservation = () => {
     if(deleteORaccept) {
       try {
         const idsToAccept = selectedUser ? [selectedUser.id] : acceptedUsers;
-        const response = await axios.put('https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/reservations/update-many', {
+        const response = await axios.put(baseURL + '/reservations/update-many', {
           ids: idsToAccept,
           status: 'accepted'
         }, {
@@ -214,7 +216,7 @@ const Reservation = () => {
               <th>{t("private.going_to")}</th>
               <th>{t("private.user")}</th>
               <th>{t("travels.status")}</th>
-              <th>{t("usersOnly.actions")}</th>
+              {/* <th>{t("usersOnly.actions")}</th> */}
               {/* <th>
                 <label>{t("private.deleteAll")}</label>
                 <input
@@ -241,18 +243,18 @@ const Reservation = () => {
                 <td>{element.travel.returning_from}</td>
                 <td>{element.user.full_name}</td>
                 <td>{element.status}</td>
-                <td className="actions-style">
-                  {/* <button onClick={() => show(element.id)}>show</button> */}
-                  {/* <button onClick={() => acceptUser(element)}>
+                {/* <td className="actions-style">
+                  <button onClick={() => show(element.id)}>show</button>
+                  <button onClick={() => acceptUser(element)}>
                     <FaCheckCircle />
-                  </button> */}
+                  </button>
                   <button onClick={() => update(element)}>
                     <RiEdit2Fill />
                   </button>
-                  {/* <button onClick={() => deleteUser(element)}>
+                  <button onClick={() => deleteUser(element)}>
                     <RiDeleteBin5Fill />
-                  </button> */}
-                </td>
+                  </button>
+                </td> */}
                 {/* <td>
                   <input
                     type="checkbox"

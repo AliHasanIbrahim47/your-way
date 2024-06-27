@@ -12,6 +12,8 @@ const ShowDailyTrips = () => {
 
   const { id } = useParams();
 
+  const baseURL = process.env.REACT_APP_URL;
+
   const [users, setUsers] = useState([]); 
   const token = localStorage.getItem('token');
 
@@ -19,7 +21,7 @@ const ShowDailyTrips = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/manager/travels/${id}`, {
+      const response = await axios.get(baseURL + `/travels/${id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
