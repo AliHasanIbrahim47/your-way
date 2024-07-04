@@ -63,53 +63,74 @@ const ShowUser = () => {
     );
   }
 
-  return (
-    <div className="showuser">
-      <Sidebar />
-      <div className="container">
-        <h1>{t("showuser.h1")}</h1>
-        <div className="user-details">
-          <p><strong>{t("showuser.name")}:</strong> {user.full_name}</p>
-          <p><strong>{t("showuser.phone")}:</strong> {user.phone}</p>
+  if(user.type === "user") {
+    return (
+      <div className="showuser">
+        <Sidebar />
+        <div className="container">
+          <h1>{t("showuser.h1")}</h1>
+          <div className="user-details">
+            <p><strong>{t("showuser.name")}:</strong> {user.full_name}</p>
+            <p><strong>{t("showuser.phone")}:</strong> {user.phone}</p>
+          </div>
+          {/* <div className="trips-section">
+            <h2>Previous Trips</h2>
+            {previousTrips.length > 0 ? (
+              <ul>
+                {previousTrips.map(trip => (
+                  <li key={trip.id}>
+                    <p><strong>Departure:</strong> {trip.departure}</p>
+                    <p><strong>Arrival:</strong> {trip.arrival}</p>
+                    <p><strong>Date:</strong> {trip.date}</p>
+                    <p><strong>Time:</strong> {trip.time}</p>
+                    <p><strong>Services:</strong> {trip.services.join(', ') || 'None'}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No previous trips</p>
+            )}
+            <h2>Pending Trips</h2>
+            {pendingTrips.length > 0 ? (
+              <ul>
+                {pendingTrips.map(trip => (
+                  <li key={trip.id}>
+                    <p><strong>Departure:</strong> {trip.departure}</p>
+                    <p><strong>Arrival:</strong> {trip.arrival}</p>
+                    <p><strong>Date:</strong> {trip.date}</p>
+                    <p><strong>Time:</strong> {trip.time}</p>
+                    <p><strong>Services:</strong> {trip.services.join(', ') || 'None'}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No pending trips</p>
+            )}
+            <button className="add-trip-btn" onClick={handleAddTrip}>Add Trip</button>
+          </div> */}
         </div>
-        {/* <div className="trips-section">
-          <h2>Previous Trips</h2>
-          {previousTrips.length > 0 ? (
-            <ul>
-              {previousTrips.map(trip => (
-                <li key={trip.id}>
-                  <p><strong>Departure:</strong> {trip.departure}</p>
-                  <p><strong>Arrival:</strong> {trip.arrival}</p>
-                  <p><strong>Date:</strong> {trip.date}</p>
-                  <p><strong>Time:</strong> {trip.time}</p>
-                  <p><strong>Services:</strong> {trip.services.join(', ') || 'None'}</p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No previous trips</p>
-          )}
-          <h2>Pending Trips</h2>
-          {pendingTrips.length > 0 ? (
-            <ul>
-              {pendingTrips.map(trip => (
-                <li key={trip.id}>
-                  <p><strong>Departure:</strong> {trip.departure}</p>
-                  <p><strong>Arrival:</strong> {trip.arrival}</p>
-                  <p><strong>Date:</strong> {trip.date}</p>
-                  <p><strong>Time:</strong> {trip.time}</p>
-                  <p><strong>Services:</strong> {trip.services.join(', ') || 'None'}</p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No pending trips</p>
-          )}
-          <button className="add-trip-btn" onClick={handleAddTrip}>Add Trip</button>
-        </div> */}
       </div>
-    </div>
-  );
+    );
+  }
+
+  if(user.type === "driver") {
+    return (
+      <div className="showuser">
+        <Sidebar />
+        <div className="container">
+          <h1>{t("users.driver")}</h1>
+          <div className="user-details">
+            {console.log(user)}
+            <p><strong>{t("showuser.name")}:</strong> {user.full_name}</p>
+            <p><strong>{t("showuser.phone")}:</strong> {user.phone}</p>
+            <p><strong>{t("addusers.brand")}:</strong> {user.brand}</p>
+            <p><strong>{t("addusers.model")}:</strong> {user.model}</p>
+            <p><strong>{t("addusers.capacity")}:</strong> {user.capacity}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 };
 
 export default ShowUser;

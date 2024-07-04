@@ -175,10 +175,10 @@ const Brands = () => {
                   <td>{element.title_en}</td>
                   <td>
                     <img 
-                      src={`${baseURL}/${element.image}`}
+                      src={`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/${element.image}`}
                       alt={element.title_en}
                       className="thumbnail"
-                      onClick={() => openModal(`${baseURL}/${element.image}`)}
+                      onClick={() => openModal(`https://jawak-wa-tareekak.onrender.com/jawak-wa-tareekak/${element.image}`)}
                     />
                   </td>
                   <td>{element.title_ar}</td>
