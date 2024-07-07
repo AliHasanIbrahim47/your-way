@@ -67,7 +67,7 @@ const EditPrivateTrip = () => {
     let data = { status: status, note: note, bus_id : bus_id };
     setLoading(true);
     try {
-      const response = await axios.put(bsaeURL + `/travels/private/${id}`,
+      const response = await axios.put(baseURL + `/travels/private/${id}`,
         data , {
         headers: {
           'Authorization': `Bearer ${token}`,

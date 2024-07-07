@@ -13,10 +13,12 @@ const AddReservation = () => {
   const [going_date, setgoing_date] = useState("");
   const [passengers_count, setpassengers_count] = useState();
   const [loading, setLoading] = useState(false);
-  const [travels, setTravels] = useState([]); // State for travels
-  const [users, setUsers] = useState([]); // State for users
+  const [travels, setTravels] = useState([]); 
+  const [users, setUsers] = useState([]); 
 
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
+
+  const baseURL = process.env.REACT_APP_URL;
 
   const navigate = useNavigate();
 
