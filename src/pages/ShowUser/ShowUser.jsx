@@ -128,6 +128,7 @@ const ShowUser = () => {
             {userData.travel.bus.model && <p><strong>{t("addusers.model")}:</strong> {userData.travel.bus.model}</p>}
             {userData.travel.bus.capacity && <p><strong>{t("addusers.capacity")}:</strong> {userData.travel.bus.capacity}</p>} */}
           </div>
+          <div className="private-table">
           <div className="table-container">
             <h2>{t("travels.publicTravels")}</h2>
             <table>
@@ -160,6 +161,7 @@ const ShowUser = () => {
                 ))}
               </tbody>
             </table>
+          </div>
           </div>
           <div className="private-table">
           <div className="table-container">
