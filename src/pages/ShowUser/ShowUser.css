@@ -17,6 +17,14 @@
   overflow-x: auto; /* Enable horizontal scrolling */
 }
 
+.table-container {
+  margin-top: 3%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .showuser .user-details {
   width: 100%;
   margin-top: 20px;
@@ -138,6 +146,15 @@
   background-color: #1D1C1C;
 } */
 
+.private-table {
+  width: 82%;
+  margin-left: 250px;
+}
+
+.private-table h2{
+  margin-left: -250px;
+}
+
 @media (max-width: 768px) {
   .showuser {
     flex-direction: column;
@@ -174,5 +191,14 @@
     height: 35px;
     padding: 20px;
     font-size: 0.9rem;
+  }
+
+  .private-table {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .private-table h2{
+    margin-left: 0;
   }
 }
