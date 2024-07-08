@@ -5,11 +5,15 @@ import './ShowUser.css';
 import axios from 'axios';
 import Spinner from "../../components/Spinner";
 import { useTranslation } from 'react-i18next';
+import Moment from 'react-moment';
 
 const ShowUser = () => {
   const [t, i18n] = useTranslation("global");
   const [loader, setLoader] = useState(true);
   const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState([]);
+  const [selectedType, setSelectedType] = useState('future');
+
   const token = localStorage.getItem('token');
 
   const { id } = useParams();
@@ -20,7 +24,7 @@ const ShowUser = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(baseURL + `/users`, {
+        const response = await axios.get(`${baseURL}/users`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -35,11 +39,35 @@ const ShowUser = () => {
       }
     };
     fetchUser();
-  }, [token, id]);
+  }, [token, id, baseURL]);
 
-  // const handleAddTrip = () => {
-  //   navigate(`/travels/add`);
-  // };
+  useEffect(() => {
+    const fetchUsersData = async () => {
+      try {
+        const url = selectedType === 'old'
+          ? `https://jawakb.jawaktarekak.top/jawak-wa-tareekak/manager/travels/old/driver/${id}`
+          : `https://jawakb.jawaktarekak.top/jawak-wa-tareekak/manager/travels/future/driver/${id}`;
+        const response = await axios.get(url, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        const data1 = response.data.data;
+        setUserData(data1);
+      } catch (error) {
+        console.error('Error fetching user data', error);
+      }
+    };
+    fetchUsersData();
+  }, [selectedType, token, id]);
+
+  useEffect(() => {
+    console.log('Updated userData:', userData);
+  }, [userData]);
+
+  const handleTypeChange = (event) => {
+    setSelectedType(event.target.value);
+  };
 
   if (loader) {
     return (
@@ -63,7 +91,7 @@ const ShowUser = () => {
     );
   }
 
-  if(user.type === "user") {
+  if (user.type === "user") {
     return (
       <div className="showuser">
         <Sidebar />
@@ -73,64 +101,67 @@ const ShowUser = () => {
             <p><strong>{t("showuser.name")}:</strong> {user.full_name}</p>
             <p><strong>{t("showuser.phone")}:</strong> {user.phone}</p>
           </div>
-          {/* <div className="trips-section">
-            <h2>Previous Trips</h2>
-            {previousTrips.length > 0 ? (
-              <ul>
-                {previousTrips.map(trip => (
-                  <li key={trip.id}>
-                    <p><strong>Departure:</strong> {trip.departure}</p>
-                    <p><strong>Arrival:</strong> {trip.arrival}</p>
-                    <p><strong>Date:</strong> {trip.date}</p>
-                    <p><strong>Time:</strong> {trip.time}</p>
-                    <p><strong>Services:</strong> {trip.services.join(', ') || 'None'}</p>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No previous trips</p>
-            )}
-            <h2>Pending Trips</h2>
-            {pendingTrips.length > 0 ? (
-              <ul>
-                {pendingTrips.map(trip => (
-                  <li key={trip.id}>
-                    <p><strong>Departure:</strong> {trip.departure}</p>
-                    <p><strong>Arrival:</strong> {trip.arrival}</p>
-                    <p><strong>Date:</strong> {trip.date}</p>
-                    <p><strong>Time:</strong> {trip.time}</p>
-                    <p><strong>Services:</strong> {trip.services.join(', ') || 'None'}</p>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No pending trips</p>
-            )}
-            <button className="add-trip-btn" onClick={handleAddTrip}>Add Trip</button>
-          </div> */}
         </div>
       </div>
     );
   }
 
-  if(user.type === "driver") {
+  if (user.type === "driver") {
     return (
       <div className="showuser">
         <Sidebar />
         <div className="container">
-          <h1>{t("users.driver")}</h1>
+          <div className="head-driver">
+            <h1>{t("users.driver")}</h1>
+            <div className="filter">
+              <label htmlFor="userType">{t("users.filter")}: </label>
+              <select id="userType" value={selectedType} onChange={handleTypeChange}>
+                <option value="future">{t("users.all")}</option>
+                <option value="old">{t("users.user")}</option>
+              </select>
+            </div>
+          </div>
           <div className="user-details">
-            {console.log(user)}
             <p><strong>{t("showuser.name")}:</strong> {user.full_name}</p>
             <p><strong>{t("showuser.phone")}:</strong> {user.phone}</p>
-            <p><strong>{t("addusers.brand")}:</strong> {user.brand}</p>
-            <p><strong>{t("addusers.model")}:</strong> {user.model}</p>
-            <p><strong>{t("addusers.capacity")}:</strong> {user.capacity}</p>
+            {userData.brand && <p><strong>{t("addusers.brand")}:</strong> {userData.brand}</p>}
+            {userData.model && <p><strong>{t("addusers.model")}:</strong> {userData.model}</p>}
+            {userData.capacity && <p><strong>{t("addusers.capacity")}:</strong> {userData.capacity}</p>}
+          </div>
+          <div className="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>{t("travels.sDate")}</th>
+                  <th>{t("travels.sTime")}</th>
+                  <th>{t("travels.going_from")}</th>
+                  <th>{t("travels.aDate")}</th>
+                  <th>{t("travels.aTime")}</th>
+                  <th>{t("travels.going_to")}</th>
+                  <th>{t("extra.price")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {userData.map((element, index) => (
+                  <tr key={index}>
+                    <td><Moment format="YYYY/MM/DD">{element.travel.starting_date}</Moment></td>
+                    <td>{element.travel.going_time}</td>
+                    <td>{element.travel.going_from}</td>
+                    <td><Moment format="YYYY/MM/DD">{element.travel.ending}</Moment></td>
+                    <td>{element.travel.returning_time}</td>
+                    <td>{element.travel.returning_from}</td>
+                    <td>{element.travel.price}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     );
   }
+
+  return null;
 };
 
 export default ShowUser;
