@@ -82,6 +82,7 @@ const Brands = () => {
         }
       });
       alert("Deleting Banners is successful");
+      console.log(idsToDelete);
       fetchUsers();
     } catch (error) {
       alert("Error deleting Banners please try again");
@@ -187,7 +188,7 @@ const Brands = () => {
                     <button onClick={() => update(element)}>
                       <RiEdit2Fill />
                     </button>
-                    <button onClick={() => deleteUser(element.id)}>
+                    <button onClick={() => deleteUser(element)}>
                       <RiDeleteBin5Fill />
                     </button>
                   </td>
