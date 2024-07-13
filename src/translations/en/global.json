@@ -148,7 +148,9 @@
         "travelLineShow": "All Lines for Travel",
         "found": "There are no Travels for this Line",
         "starting_pool": "Starting Pool",
-        "returning_pool": "Returning Pool"
+        "returning_pool": "Returning Pool",
+        "permanent": "permanent",
+        "temporary": "temporary"
     },
     "private": {
         "accepting": "Accepting",

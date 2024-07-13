@@ -25,6 +25,7 @@ const PrivateTrip = () => {
   const [loader, setLoader] = useState(false);
 
   const [users, setUsers] = useState([]); 
+  const [driver, setDriver] = useState();
   const token = localStorage.getItem('token');
 
   const baseURL = process.env.REACT_APP_URL;
@@ -217,6 +218,7 @@ const PrivateTrip = () => {
               <th>{t("private.going_to")}</th>
               <th>{t("private.user")}</th>
               <th>{t("private.seats")}</th>
+              {selectedStatus === "accepted" && <th>{t("users.driver")}</th>}
               {/* <th>{t("usersOnly.actions")}</th> */}
               {/* <th>
                 <label>{t("private.deleteAll")}</label>
@@ -237,6 +239,7 @@ const PrivateTrip = () => {
             </tr>
           </thead>
           <tbody>
+            {console.log(selectedStatus, users)}
             {users.map((element, index) => (
               <tr key={index}>
                 <td><Moment format="YYYY/MM/DD">{element.going_date}</Moment></td>       
@@ -244,6 +247,11 @@ const PrivateTrip = () => {
                 <td>{element.going_to}</td>
                 <td>{element.user.full_name}</td>
                 <td>{element.seats}</td>
+                {}
+                {selectedStatus === "accepted" && 
+                <td>
+                  {element.bus_id}
+                </td>}
                 {/* <td className="actions-style">
                   <button onClick={() => show(element.id)}>show</button>
                   <button onClick={() => acceptUser(element)}>

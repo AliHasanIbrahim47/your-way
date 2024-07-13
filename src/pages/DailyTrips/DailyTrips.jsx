@@ -183,7 +183,7 @@ const DailyTrips = () => {
                 <td><Moment format="YYYY/MM/DD">{element.ending}</Moment></td>
                 <td>{element.returning_time}</td>
                 <td>{element.returning_from}</td>
-                <td>{element.status}</td>
+                <td>{element.status === "temporary" ? t("travels.temporary") : t("travels.permanent")}</td>
                 {/* <td>{element.price}</td> */}
                 <td className="actions-style">
                   {/* <button onClick={() => show(element.id)}>{t("usersOnly.show")}</button> */}

@@ -3,11 +3,12 @@ import "./EditDailyTrip.css";
 import Sidebar from "../../components/Sidebar";
 import Popup from '../../components/Popup';
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const EditDailyTrip = () => {
   const [t, i18n] = useTranslation("global");
+  const location = useLocation();
 
   const { id } = useParams();
 
@@ -26,14 +27,35 @@ const EditDailyTrip = () => {
   const [price, setPrice] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const [users, setUsers] = useState([]); // State for buses
-  const [lines, setLines] = useState([]); // State for lines
+  const [users, setUsers] = useState([]); 
+  const [lines, setLines] = useState([]); 
 
   const [isPopupVisible, setIsPopuoVisble] = useState(false);
 
   const baseURL = process.env.REACT_APP_URL;
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.state && location.state.user) {
+      const userData = JSON.parse(location.state.user);
+      setstarting_date(userData.starting_date);
+      setgoing_from(userData.going_from);
+      setending_date(userData.ending_date);
+      setbus_id(userData.bus_id);
+      setline_id(userData.line_id);
+      settype(userData.type);
+      setstatus(userData.status);
+      setreturning_from(userData.returning_from);
+      setgoing_time(userData.going_time);
+      setreturning_time(userData.returning_time);
+      setstarting_pool(userData.starting_pool);
+      setreturning_pool(userData.returning_pool);
+      setPrice(userData.price);
+    } else {
+      alert("User data not found in location state");
+    }
+  }, [location.state]);
 
   useEffect(() => {
     fetchUsers();

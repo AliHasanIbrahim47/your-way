@@ -148,7 +148,9 @@
         "travelLineShow": "كل الخطوط لهذه الرحلة",
         "found": "لا يوجد رحل لهذا الخط",
         "starting_pool": "تجمع انطلاق",
-        "returning_pool": "تجمع عودة"
+        "returning_pool": "تجمع عودة",
+        "permanent": "دائمة",
+        "temporary": "مؤقتة"
     },
     "private": {
         "accepting": "يتم قبول الرحل الخاصة",
