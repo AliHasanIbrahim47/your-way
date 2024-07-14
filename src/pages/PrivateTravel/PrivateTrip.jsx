@@ -239,7 +239,6 @@ const PrivateTrip = () => {
             </tr>
           </thead>
           <tbody>
-            {console.log(selectedStatus, users)}
             {users.map((element, index) => (
               <tr key={index}>
                 <td><Moment format="YYYY/MM/DD">{element.going_date}</Moment></td>       
@@ -247,10 +246,9 @@ const PrivateTrip = () => {
                 <td>{element.going_to}</td>
                 <td>{element.user.full_name}</td>
                 <td>{element.seats}</td>
-                {}
                 {selectedStatus === "accepted" && 
                 <td>
-                  {element.bus_id}
+                  {element.bus.driver.full_name}
                 </td>}
                 {/* <td className="actions-style">
                   <button onClick={() => show(element.id)}>show</button>
