@@ -202,3 +202,95 @@
     margin-left: 0;
   }
 }
+
+/* Reservation days and holidays styling */
+.reservation-days, .holidays, .payment {
+  margin-top: 20px;
+  margin-left: 50px;
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.reservation-days h2, .holidays h2, .payment h2 {
+  margin-bottom: 10px;
+}
+
+.reservation-days ul, .holidays ul, .payment ul {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.reservation-days li, .holidays li, .payment li {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.reservation-days li label, .holidays li label, .payment li label {
+  display: flex;
+  align-items: center;
+}
+
+.reservation-days li input[type="checkbox"], .holidays li input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.reservation-days input[type="date"], .holidays input[type="date"] {
+  width: 50%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.reservation-days button, .holidays button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #BA8D38;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.reservation-days button:hover, .holidays button:hover {
+  background-color: #A37A30;
+}
+
+.payment input[type="number"] {
+  width: 60px;
+  margin-right: 10px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.payment button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  width: 100px;
+  background-color: #BA8D38;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.payment button:hover {
+  background-color: #A37A30;
+}

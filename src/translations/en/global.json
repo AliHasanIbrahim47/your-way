@@ -202,5 +202,25 @@
         "content_ar": "Content in Arabic",
         "edit": "Edit Static Content",
         "editMessage": "Are you sure you want to edit the Static Content?"
+    },
+    "holidays": {
+        "resDays": "Reservation Days",
+        "selectDays": "Select Days",
+        "addDays": "Add Days",
+        "title": "Holidays",
+        "addHoliday": "Add Holiday",
+        "deleteSelected": "Delete Selected",
+        "title1": "Payments",
+        "update": "Edit",
+        "addPayment": "Add Payment"
+    },
+    "week": {
+        "Monday": "Monday",
+        "Thursday": "Thursday",
+        "Wednesday": "Wednesday",
+        "Tuesday": "Tuesday",
+        "Friday": "Friday",
+        "Saturday": "Saturday",
+        "Sunday": "Sunday"
     }
 }

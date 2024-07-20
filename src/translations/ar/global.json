@@ -202,5 +202,25 @@
         "content_ar": "المحتوى بالعربي",
         "edit": "تعديل المحتوى الثابت",
         "editMessage": "هل أنت متأكد من تعديل المحتوى الثابت؟"
+    },
+    "holidays": {
+        "resDays": "ايام العطل",
+        "selectDays": "اختر الايام",
+        "addDays": "إضافة الايام",
+        "title": "العطل",
+        "addHoliday": "إضافة عطلة",
+        "deleteSelected": "حذف المحدد",
+        "title1": "المدفوعات",
+        "update": "تعديل",
+        "addPayment": "إضافة دفع"
+    },
+    "week": {
+        "Monday": "الاثنين",
+        "Thursday": "الخميس",
+        "Wednesday": "الاربعاء",
+        "Tuesday": "الثلاثاء",
+        "Friday": "الجمعة",
+        "Saturday": "السبت",
+        "Sunday": "الاحد"
     }
 }
