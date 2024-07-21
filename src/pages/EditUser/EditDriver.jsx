@@ -15,7 +15,7 @@ const EditDriver = () => {
   const [full_name, setFull_name] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [is_activated, setIs_activated] = useState("");
+  const [is_activated, setIs_activated] = useState(1);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -47,6 +47,7 @@ const EditDriver = () => {
       return;
     }
     const data = { full_name, phone, password, is_activated };
+    console.log(data.is_activated);
     setLoading(true);
     try {
       await axios.put(
@@ -60,7 +61,7 @@ const EditDriver = () => {
         }
       );
       alert("Editing User is successful");
-      navigate("/users");
+      navigate("/users/drivers-unactive");
     } catch (error) {
       console.error("Error updating user", error.response?.data || error.message);
       // alert(`Error: ${error.response?.data.message || error.message}`);
@@ -127,8 +128,9 @@ const EditDriver = () => {
             onChange={(event) => setIs_activated(event.target.value)}
             required
           >
-            <option value="true">{t("editusers.true")}</option>
-            <option value="false">{t("editusers.false")}</option>
+            <option value="">{t("editusers.activate")}</option>
+            <option value="1">{t("editusers.true")}</option>
+            <option value="0">{t("editusers.false")}</option>
           </select>
           <input type="submit" value={loading ? t("editusers.editing") : t("editusers.edit")}  />
         </form>

@@ -74,7 +74,8 @@
         "edit": "Edit User",
         "true": "true",
         "false": "false",
-        "message": "Are you sure you want to edit this user?"
+        "message": "Are you sure you want to edit this user?",
+        "activate": "Chose One"
     },
     "showuser": {
         "load": "Loading",
