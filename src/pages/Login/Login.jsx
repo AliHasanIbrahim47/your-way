@@ -43,6 +43,7 @@ const Login = () => {
             if (token) {
               login(token);
               setSuccess(true);
+              navigate("/users");
             } else {
               alert('Login failed. Token not found in the response.');
             }
@@ -59,9 +60,9 @@ const Login = () => {
                 if (errRef.current) {
                     errRef.current.focus();
                 }
+            } finally {
+                setLoading(false);
             }
-          setLoading(false);
-          navigate("/users");
     }
 
     return (

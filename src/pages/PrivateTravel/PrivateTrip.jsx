@@ -48,6 +48,7 @@ const PrivateTrip = () => {
     } finally {
       setLoader(false);
       setLoading(false);
+      console.log(users);
     }
   };
 
@@ -218,7 +219,8 @@ const PrivateTrip = () => {
               <th>{t("private.going_to")}</th>
               <th>{t("private.user")}</th>
               <th>{t("private.seats")}</th>
-              {selectedStatus === "accepted" && <th>{t("users.driver")}</th>}
+              {/* {selectedStatus === "accepted" && <th>{t("users.driver")}</th>} */}
+              <th>{t("users.driver")}</th>
               {/* <th>{t("usersOnly.actions")}</th> */}
               {/* <th>
                 <label>{t("private.deleteAll")}</label>
@@ -246,10 +248,11 @@ const PrivateTrip = () => {
                 <td>{element.going_to}</td>
                 <td>{element.user.full_name}</td>
                 <td>{element.seats}</td>
-                {selectedStatus === "accepted" && 
+                {/* {selectedStatus === "accepted" && 
                 <td>
                   {element.bus.driver.full_name}
-                </td>}
+                </td>} */}
+                <td>{element.bus ? element.bus.driver.full_name : '-'}</td>
                 {/* <td className="actions-style">
                   <button onClick={() => show(element.id)}>show</button>
                   <button onClick={() => acceptUser(element)}>
