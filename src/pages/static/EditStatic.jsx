@@ -50,7 +50,7 @@ const EditStatic = () => {
     let data = { description_en: description_en, description_ar: description_ar, content_ar: content_ar, content_en: content_en, is_show: false };
     setLoading(true);
     try {
-      const response = await axios.put(baseURL + `/static-contents/1`,
+      const response = await axios.put(baseURL + `/static-contents/${id}`,
         data, {
         headers: {
           'Authorization': `Bearer ${token}`,
