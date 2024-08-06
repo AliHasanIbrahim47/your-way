@@ -100,7 +100,7 @@ const EditStatic = () => {
           />
           <label htmlFor="content_en">{t("static.content_en")}</label>
           <input
-            type="text"
+            type="number"
             id="content_en"
             placeholder=""
             value={content_en}
@@ -109,7 +109,7 @@ const EditStatic = () => {
           />
           <label htmlFor="content_ar">{t("static.content_ar")}</label>
           <input
-            type="text"
+            type="number"
             id="content_ar"
             placeholder=""
             value={content_ar}
