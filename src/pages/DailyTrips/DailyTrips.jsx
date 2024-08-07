@@ -156,13 +156,14 @@ const DailyTrips = () => {
         <table>
           <thead>
             <tr>
-              <th>{t("travels.sDate")}</th>
+              {/* <th>{t("travels.sDate")}</th> */}
               <th>{t("travels.sTime")}</th>
               <th>{t("travels.going_from")}</th>
-              <th>{t("travels.aDate")}</th>
+              {/* <th>{t("travels.aDate")}</th> */}
               <th>{t("travels.aTime")}</th>
               <th>{t("travels.going_to")}</th>
-              <th>{t("travels.status")}</th>
+              <th>{t("extra.price")}</th>
+              {/* <th>{t("travels.status")}</th> */}
               {/* <th>{t("extra.price")}</th> */}
               <th>{t("usersOnly.actions")}</th>
               <th>
@@ -177,13 +178,14 @@ const DailyTrips = () => {
           <tbody>
             {users.map((element, index) => (
               <tr key={index}>
-                <td><Moment format="YYYY/MM/DD">{element.starting_date}</Moment></td>
+                {/* <td><Moment format="YYYY/MM/DD">{element.starting_date}</Moment></td> */}
                 <td>{element.going_time}</td>
                 <td>{element.going_from}</td>
-                <td><Moment format="YYYY/MM/DD">{element.ending}</Moment></td>
+                {/* <td><Moment format="YYYY/MM/DD">{element.ending}</Moment></td> */}
                 <td>{element.returning_time}</td>
                 <td>{element.returning_from}</td>
-                <td>{element.status === "temporary" ? t("travels.temporary") : t("travels.permanent")}</td>
+                <td>{element.price}</td>
+                {/* <td>{element.status === "temporary" ? t("travels.temporary") : t("travels.permanent")}</td> */}
                 {/* <td>{element.price}</td> */}
                 <td className="actions-style">
                   {/* <button onClick={() => show(element.id)}>{t("usersOnly.show")}</button> */}

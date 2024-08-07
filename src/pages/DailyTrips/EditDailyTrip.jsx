@@ -98,12 +98,13 @@ const EditDailyTrip = () => {
   const confirmDelete = async () => {
     const token = localStorage.getItem('token');
     setIsPopuoVisble(false);
-    if (!starting_date || !going_from || !ending_date || !bus_id || !line_id 
-        || !status || !returning_from || !going_time || !returning_time || !price) {
-      alert("All fields are required!");
-      return;
-    }
-    let data = { price, starting_date, starting_pool, returning_pool, going_from, ending_date, bus_id, line_id, type:'public', status, returning_from, going_time, returning_time };
+    // if (!starting_date || !going_from || !ending_date || !bus_id || !line_id 
+    //     || !status || !returning_from || !going_time || !returning_time || !price) {
+    //   alert("All fields are required!");
+    //   return;
+    // }
+    // let data = { price, starting_date, starting_pool, returning_pool, going_from, ending_date, bus_id, line_id, type:'public', status, returning_from, going_time, returning_time };
+    let data = { price, starting_pool, returning_pool, going_from, line_id, returning_from, going_time, returning_time };
     setLoading(true);
     try {
       const response = await axios.put(baseURL + `/travels/${id}`, 
@@ -113,7 +114,7 @@ const EditDailyTrip = () => {
           'Content-Type': 'application/json'
         }
       });
-      
+      console.log(data);
       setstarting_date("");
       setgoing_from("");
       setending_date("");
@@ -148,7 +149,7 @@ const EditDailyTrip = () => {
           <>
         <h1>{t("travels.edit")}</h1>
         <form onSubmit={sendData}>
-          <label htmlFor="starting_date">{t("travels.sDate")}</label>
+          {/* <label htmlFor="starting_date">{t("travels.sDate")}</label>
           <input
             type="date"
             id="starting_date"
@@ -165,7 +166,7 @@ const EditDailyTrip = () => {
             value={ending_date}
             onChange={(event) => setending_date(event.target.value)}
             required
-          />
+          /> */}
           <label htmlFor="going_from">{t("travels.going_from")}</label>
           <input
             type="text"
@@ -202,7 +203,7 @@ const EditDailyTrip = () => {
             onChange={(event) => setreturning_time(event.target.value)}
             required
           />
-          <label htmlFor="bus_id">{t("travels.car")}</label>
+          {/* <label htmlFor="bus_id">{t("travels.car")}</label>
           <select
             id="bus_id"
             value={bus_id}
@@ -217,7 +218,7 @@ const EditDailyTrip = () => {
                 </option>
               ))
             ))}
-          </select>
+          </select> */}
           <label htmlFor="line_id">{t("travels.line")}</label>
           <select
             id="line_id"
@@ -232,15 +233,15 @@ const EditDailyTrip = () => {
               </option>
             ))}
           </select>
-          <label htmlFor="type">{t("travels.type")}</label>
+          {/* <label htmlFor="type">{t("travels.type")}</label>
           <input
             type="text"
             id="type"
             placeholder=""
             value={type}
             onChange={(event) => settype(event.target.value)}
-          />
-          <label htmlFor="status">{t("travels.status")}</label>
+          /> */}
+          {/* <label htmlFor="status">{t("travels.status")}</label>
           <input
             type="text"
             id="status"
@@ -248,7 +249,7 @@ const EditDailyTrip = () => {
             value={status}
             onChange={(event) => setstatus(event.target.value)}
             required
-          />
+          /> */}
           <label htmlFor="starting_pool">{t("travels.starting_pool")}</label>
           <input
             type="text"
