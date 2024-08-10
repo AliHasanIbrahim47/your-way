@@ -300,7 +300,7 @@ const PrivateTrip = () => {
                 <td><Moment format="YYYY/MM/DD">{element.going_date}</Moment></td>       
                 <td>{element.going_from}</td>                
                 <td>{element.going_to}</td>
-                <td>{element.user.full_name}</td>
+                <td>{element.user ? element.user.full_name : '-'}</td>
                 <td>{element.seats}</td>
               </tr>
             ))}

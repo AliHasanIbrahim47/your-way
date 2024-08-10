@@ -241,7 +241,7 @@ const Reservation = () => {
                 <td>{element.id}</td>
                 <td>{element.travel.going_from}</td> 
                 <td>{element.travel.returning_from}</td>
-                <td>{element.user.full_name}</td>
+                <td>{element.user ? element.user.full_name : '-'}</td>
                 <td>{element.status}</td>
                 {/* <td className="actions-style">
                   <button onClick={() => show(element.id)}>show</button>
@@ -290,7 +290,7 @@ const Reservation = () => {
                 <td>{element.id}</td>
                 <td>{element.travel.going_from}</td> 
                 <td>{element.travel.returning_from}</td>
-                <td>{element.user.full_name}</td>
+                <td>{element.user ? element.user.full_name : '-'}</td>
                 <td>{element.status}</td>
               </tr>
             ))}
