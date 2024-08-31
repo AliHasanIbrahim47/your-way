@@ -176,10 +176,10 @@ const Brands = () => {
                   <td>{element.title_en}</td>
                   <td>
                     <img 
-                      src={`https://jawakb.jawaktarekak.top/jawak-wa-tareekak/${element.image}`}
+                      src={`https://jawak.jawaktarekak.top/jawak-wa-tareekak/${element.image}`}
                       alt={element.title_en}
                       className="thumbnail"
-                      onClick={() => openModal(`https://jawakb.jawaktarekak.top/jawak-wa-tareekak/${element.image}`)}
+                      onClick={() => openModal(`https://jawak.jawaktarekak.top/jawak-wa-tareekak/${element.image}`)}
                     />
                   </td>
                   <td>{element.title_ar}</td>

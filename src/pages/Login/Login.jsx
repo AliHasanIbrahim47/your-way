@@ -33,7 +33,7 @@ const Login = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post('https://jawakb.jawaktarekak.top/jawak-wa-tareekak/manager/login', {
+            const response = await axios.post('https://jawak.jawaktarekak.top/jawak-wa-tareekak/manager/login', {
               phone,
               password,
             });
