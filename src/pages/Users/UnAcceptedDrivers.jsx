@@ -100,7 +100,7 @@ const UnAcceptedDrivers = () => {
   };
 
   const update = (element) => {
-    navigate(`/drivers/${element.id}/edit`, { state: { user: JSON.stringify(element) } });
+    navigate(`/users/drivers-unactive/${element.id}/edit`, { state: { user: JSON.stringify(element) } });
   };
 
   useEffect(() => {

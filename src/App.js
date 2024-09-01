@@ -42,6 +42,7 @@ import { AuthProvider } from './context/AuthContext';
 import Static from './pages/static/Static';
 import EditStatic from './pages/static/EditStatic';
 import EditDriver from './pages/EditUser/EditDriver';
+import EditInactiveDriver from './pages/EditUser/EditInactiveDriver';
 
 function App() {
 
@@ -63,6 +64,7 @@ function App() {
           <Route path="/users/users-only" element={<ProtectedRoute><UsersOnly /></ProtectedRoute>} />
           <Route path="/users/drivers-only" element={<ProtectedRoute><DriversOnly /></ProtectedRoute>} />
           <Route path="/users/drivers-unactive" element={<ProtectedRoute><UnAcceptedDrivers /></ProtectedRoute>} />
+          <Route path="/users/drivers-unactive/:id/edit" element={<ProtectedRoute><EditInactiveDriver /></ProtectedRoute>} />
 
           {/* Travels */}
           <Route path="/travels" element={<ProtectedRoute><DailyTrips /></ProtectedRoute>} />
