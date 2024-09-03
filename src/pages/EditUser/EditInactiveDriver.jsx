@@ -75,6 +75,15 @@ const EditInactiveDriver = () => {
     setIsPopupVisible(false);
   };
 
+  const handlePhoneChange = (event) => {
+    const { value } = event.target;
+    const regex =/^[\d+]*$/;
+
+    if(regex.test(value)) {
+      setPhone(value);
+    }
+  }
+
   return (
     <div className="edituser">
       <Sidebar />
@@ -96,11 +105,11 @@ const EditInactiveDriver = () => {
           />
           <label htmlFor="phone">{t("editusers.phone")}</label>
           <input
-            type="number"
+            type="text"
             id="phone"
             placeholder=""
             value={phone}
-            onChange={(event) => setPhone(event.target.value)}
+            onChange={handlePhoneChange}
             required
           />
           <label htmlFor="password">{t("editusers.password")}</label>

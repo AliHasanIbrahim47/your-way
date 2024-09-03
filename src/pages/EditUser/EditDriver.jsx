@@ -61,7 +61,7 @@ const EditDriver = () => {
         }
       );
       alert("Editing User is successful");
-      navigate("/users/drivers-unactive");
+      navigate("/users/drivers-only");
     } catch (error) {
       console.error("Error updating user", error.response?.data || error.message);
       // alert(`Error: ${error.response?.data.message || error.message}`);
@@ -74,6 +74,15 @@ const EditDriver = () => {
   const cancelDelete = () => {
     setIsPopupVisible(false);
   };
+
+  const handlePhoneChange = (event) => {
+    const { value } = event.target;
+    const regex =/^[\d+]*$/;
+
+    if(regex.test(value)) {
+      setPhone(value);
+    }
+  }
 
   return (
     <div className="edituser">
@@ -96,11 +105,11 @@ const EditDriver = () => {
           />
           <label htmlFor="phone">{t("editusers.phone")}</label>
           <input
-            type="number"
+            type="text"
             id="phone"
             placeholder=""
             value={phone}
-            onChange={(event) => setPhone(event.target.value)}
+            onChange={handlePhoneChange}
             required
           />
           <label htmlFor="password">{t("editusers.password")}</label>
