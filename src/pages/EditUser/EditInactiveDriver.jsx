@@ -25,7 +25,7 @@ const EditInactiveDriver = () => {
     if (location.state && location.state.user) {
       const userData = JSON.parse(location.state.user);
       setFull_name(userData.full_name);
-      // setPhone(userData.phone);
+      setPhone(userData.phone);
       setPassword(userData.password);
       setIs_activated(userData.is_activated);
     } else {
