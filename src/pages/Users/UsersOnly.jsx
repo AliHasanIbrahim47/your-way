@@ -40,7 +40,6 @@ const UsersOnly = () => {
     } catch (error) {
       console.error('Error fetching private travels', error);
     } finally {
-      console.log(users);
       setLoader(false);
       setLoading(false);
     }
