@@ -34,7 +34,9 @@
         "phone": "Phone Number",
         "actions": "Actions",
         "show": "show",
-        "message": "Are you sure you want to delete the selected users?"
+        "message": "Are you sure you want to delete the selected users?",
+        "payement": "Payement",
+        "commision_limit": "Commision Limit"
     },
     "driversOnly": {
         "noDrivers": "There are no Drivers",

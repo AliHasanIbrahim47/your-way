@@ -40,6 +40,7 @@ const UsersOnly = () => {
     } catch (error) {
       console.error('Error fetching private travels', error);
     } finally {
+      console.log(users);
       setLoader(false);
       setLoading(false);
     }
@@ -131,6 +132,7 @@ const UsersOnly = () => {
           <div className="loader">{t("usersOnly.deleting")} <Spinner /></div> 
         ) : (
           <>
+          {console.log(users)}
         <div className="header">
           <h1>{t("usersOnly.h1")}</h1>
           <div className="links">
@@ -145,6 +147,8 @@ const UsersOnly = () => {
               <th>{t("usersOnly.id")}</th>
               <th>{t("usersOnly.name")}</th>
               <th>{t("usersOnly.phone")}</th>
+              <th>{t("usersOnly.commision_limit")}</th>
+              <th>{t("usersOnly.payement")}</th>
               <th>{t("usersOnly.actions")}</th>
               <th>
                 <input
@@ -162,6 +166,8 @@ const UsersOnly = () => {
                   <td>{element.id}</td>
                   <td>{element.full_name}</td>
                   <td>{element.phone}</td>
+                  {element.commision_limit ? <td>{element.commision_limit}</td> : <td>-</td>}
+                  {element.payement ? <td>{element.payement}</td> : <td>-</td>}
                   <td className="actions-style">
                     <button onClick={() => show(element.id)}>{t("usersOnly.show")}</button>
                     <button onClick={() => update(element)}>
